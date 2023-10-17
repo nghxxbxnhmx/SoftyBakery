@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" lang="vi">
+
 <head>
-<meta charset="utf-8">
-<title>Products - Softy Bakery</title>
-<th:block th:insert="~{layout :: css-link}"></th:block>
-<style>
+	<meta charset="utf-8">
+	<title>Products - Softy Bakery</title>
+	<th:block th:insert="~{layout :: css-link}"></th:block>
+	<style>
 
 
 
-</style>
+	</style>
 </head>
+
 <body ng-app="app" ng-controller="OrderController">
 	<div th:insert="~{layout :: spinner}"></div>
 	<div th:insert="~{layout :: topbar}"></div>
 	<div th:insert="~{layout :: navbar}"></div>
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn"
-		data-wow-delay="0.1s">
+	<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container text-center pt-5 pb-3">
 			<h1 class="display-4 text-white animated slideInDown mb-3">Order</h1>
 			<nav aria-label="breadcrumb animated slideInDown">
@@ -35,65 +35,110 @@
 
 	<!-- Order Start -->
 
-		<div class="container">
-			<h1 style="width: 100%; text-align: center; padding:10px;" class="bg-success text-white bg-suc">Đặt
-				hàng thành công</h1>
-			<br/>
-			<div class="order-success-background">
-			
-			
-			</div>
-			<br/>
-			<div class="row">
-				<div class="col">
-					<h4 class="mb-3">Thông tin khách hàng</h4>
-					<br />
-					<div class="row">
-						<div class="col">
-							<strong style="text-align: right;">
-								<p>Tên người nhận:</p>
-								<p>Số điện thoại:</p>
-								<p>Địa chỉ:</p>
-								<p>Phương thức thanh toán:</p>
-							</strong>
-						</div>
-						<div class="col">
-							<p th:text="${user.fullName}"></p>
-							<p th:text="${user.phoneNumber}"></p>
-							<p th:text="${user.addressDetail}+' ,'+${user.address}"></p>
-							<p>Thanh toán khi nhận hàng</p>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<h4 class="mb-3">Thông tin đơn hàng</h4>
-					<br />
-					<div class="row">
-						<div class="col">
-							<strong style="text-align: right;">
-								<p>Mã đơn hàng:</p>
-								<p>Tổng đơn giá:</p>
-								<p>Địa chỉ giao hàng:</p>
-								<p>Trạng thái:</p>
-							</strong>
-						</div>
-						<div class="col">
-							<p th:text="${o.orderId}"></p>
-							<p th:text="${#numbers.formatDecimal(o.totalAmount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></p>
-							<p th:text="${o.address}"></p>
-							<p th:text="${o.status}"></p>
-						</div>
-					</div>
-				</div>
+	<div class="container">
+		<h1 style="width: 100%; text-align: center; padding:10px;" class="bg-success text-white bg-suc">Đặt
+			hàng thành công</h1>
+		<br />
+		<div class="order-success-background">
 
-			</div>
-			<div class="row" style="margin-top:20px;">
-				<p>Đơn hàng sẽ được giao đến trong vòng 1 - 3 giờ tới, vui lòng chú ý điện thoại. Theo dõi tình trạng đơn hàng của bạn
-					 <a href="/condition">Tại đây</a>.</p>
-			</div>
-			<a class="btn btn-secondary fw-bold btn-lg btn-block my-5 w-100" type="submit" href="/home">
-				Tiếp tục mua sắm</a>
+
 		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<h4 class="mb-3">Thông tin khách hàng</h4>
+				<br />
+				<div class="row">
+					<div class="col">
+						<strong style="text-align: right;">
+							<p>Tên người nhận:</p>
+							<p>Số điện thoại:</p>
+							<p>Địa chỉ:</p>
+							<p>Phương thức thanh toán:</p>
+						</strong>
+					</div>
+					<div class="col">
+						<p th:text="${user.fullName}"></p>
+						<p th:text="${user.phoneNumber}"></p>
+						<p th:text="${user.addressDetail}+' ,'+${user.address}"></p>
+						<p>Thanh toán khi nhận hàng</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<h4 class="mb-3">Thông tin đơn hàng</h4>
+				<br />
+				<div class="row">
+					<div class="col">
+						<strong style="text-align: right;">
+							<p>Mã đơn hàng:</p>
+							<p>Tổng đơn giá:</p>
+							<p>Địa chỉ giao hàng:</p>
+							<p>Trạng thái:</p>
+						</strong>
+					</div>
+					<div class="col">
+						<p th:text="${o.orderId}"></p>
+						<p th:text="${#numbers.formatDecimal(o.totalAmount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></p>
+						<p th:text="${o.address}"></p>
+						<p th:text="${o.status}"></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row" style="margin-top:20px;">
+			<p>Đơn hàng sẽ được giao đến trong vòng 1 - 3 giờ tới, vui lòng chú ý điện thoại. Theo dõi tình trạng đơn
+				hàng của bạn
+				<a href="condition">Tại đây</a>.
+			</p>
+		</div>
+		<button class="btn btn-primary my-5 w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+			aria-controls="offcanvasRight">Xem nhanh tại đây</button>
+
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasTopLabel">Tình trạng đơn hàng</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="d-flex align-items-center">
+					<ol class="list-group list-group-numbered">
+						<li class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">Chờ lấy hàng</div>
+								Đợi tí Quán đang Cook.
+							</div>
+							<div class="spinner-border spinner-border-sm  ms-auto" aria-hidden="true"></div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">Đang giao hàng</div>
+								Shiper tới rồi chờ tí đem qua liền ó.
+							</div>
+							<div class="spinner-border spinner-border-sm  ms-auto" aria-hidden="true"></div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">Đang giao hàng</div>
+								Gần tới nhà cậu rồi nè, chuẩn bị tiền để nhận hàng nào.
+							</div>
+							<div class="spinner-border spinner-border-sm  ms-auto" aria-hidden="true"></div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">Đã giao hàng</div>
+								Xuống nhận hàng đi cha nội.
+							</div>
+							<div class="spinner-border spinner-border-sm  ms-auto" aria-hidden="true"></div>
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<a class="btn btn-outline-primary fw-bold btn-lg btn-block my-5 w-100" type="submit" href="/home">
+			Tiếp tục mua sắm</a>
+	</div>
 
 	<!-- Order End -->
 
@@ -103,4 +148,5 @@
 	<div th:insert="~{layout :: js-link}"></div>
 
 </body>
+
 </html>
