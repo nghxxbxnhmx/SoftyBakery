@@ -46,6 +46,7 @@ public class Test {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	// fix tạm thời lỗi đăng nhập
 	@GetMapping("/test")
 	public String test(Model model) throws ParseException {
 		Account a = aDAO.getByUserName("user");
