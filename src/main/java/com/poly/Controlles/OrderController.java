@@ -70,7 +70,8 @@ public class OrderController {
 	    model.addAttribute("user", user);
 	    
 		
-	    return "order";
+	    return "order-success";
+		
 	}
 	public Account getAccountAuth() {
 		return aDAO.getByUserName(UserUtils.getUser().getUsername());
