@@ -1,69 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" lang="vi">
 <meta charset="utf-8">
+
 <head>
-    <meta charset="utf-8">
-    <title>Error Page</title>
-    <th:block th:insert="~{layout :: css-link}"></th:block>
-    <style type="text/css">
-.page_404 {
-	padding-top: 40px;
-	background: #fff;
-	font-family: 'Arvo', serif;
-}
+	<meta charset="utf-8">
+	<title>Error Page</title>
+	<th:block th:insert="~{layout :: css-link}"></th:block>
+	<style type="text/css">
+		.page_404 {
+			padding-top: 40px;
+			background: #fff;
+			font-family: 'Arvo', serif;
+		}
 
-.page_404  img {
-	width: 100%;
-}
+		.page_404 img {
+			width: 100%;
+		}
 
-.four_zero_four_bg {
-	background-image:
-		url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-	height: 400px;
-	background-position: center;
-	background-repeat: no-repeat;
-}
+		.four_zero_four_bg {
+			background-image:
+				url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+			height: 400px;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
 
-.four_zero_four_bg h1 {
-	font-size: 80px;
-}
+		.four_zero_four_bg h1 {
+			font-size: 80px;
+		}
 
-.four_zero_four_bg h3 {
-	font-size: 80px;
-}
+		.four_zero_four_bg h3 {
+			font-size: 80px;
+		}
 
-.link_404 {
-	color: #fff !important;
-	padding: 10px 20px;
-	background: #39ac31;
-	margin: 20px 0;
-	display: inline-block;
-}
+		.link_404 {
+			color: #fff !important;
+			padding: 10px 20px;
+			background: #39ac31;
+			margin: 20px 0;
+			display: inline-block;
+		}
 
-.contant_box_404 {
-	margin-top: -50px;
-}
-</style>
+		.contant_box_404 {
+			margin-top: -50px;
+		}
+	</style>
 </head>
+
 <body class="d-flex flex-column min-vh-100">
 	<div th:insert="~{layout :: spinner}"></div>
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container text-center pt-5 pb-3">
-            <h1 class="display-4 text-white animated slideInDown mb-3">404 Page</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">404 Page</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- Page Header End -->
+	<!-- Page Header Start -->
+	<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
+		<div class="container text-center pt-5 pb-3">
+			<h1 class="display-4 text-white animated slideInDown mb-3">404 Page</h1>
+			<nav aria-label="breadcrumb animated slideInDown">
+				<ol class="breadcrumb justify-content-center mb-0">
+					<li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+					<li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+					<li class="breadcrumb-item text-primary active" aria-current="page">404 Page</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!-- Page Header End -->
 
-    	<section class="page_404">
+	<section class="page_404">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="col-sm-12 col-sm-offset-1  text-center">
@@ -82,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-	</section>    
+	</section>
 
 	<div th:insert="~{layout :: footer}"></div>
 	<div th:insert="~{layout :: copyright}"></div>

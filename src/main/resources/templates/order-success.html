@@ -93,8 +93,8 @@
 				<a href="condition">Tại đây</a>.
 			</p>
 		</div>
-		<button class="btn btn-primary my-5 w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-			aria-controls="offcanvasRight">Xem nhanh tại đây</button>
+		<button class="btn btn-primary my-5 w-100" type="button" data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Xem nhanh tại đây</button>
 
 		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 			<div class="offcanvas-header">
@@ -134,7 +134,15 @@
 						</li>
 					</ol>
 				</div>
+
+				<div><Strong>Mã đơn hàng:</Strong>
+					<p th:text="${o.orderId}"></p>
+				</div>
+				<div> <strong>Tổng: </strong>
+					<p th:text="${#numbers.formatDecimal(o.totalAmount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></p>
+				</div>
 			</div>
+
 		</div>
 		<a class="btn btn-outline-primary fw-bold btn-lg btn-block my-5 w-100" type="submit" href="/home">
 			Tiếp tục mua sắm</a>
