@@ -30,29 +30,25 @@
 	<div class="container my-5">
 	    <div class="row">
 	        <!-- Left Sidebar -->
-	        <div class="col-lg-3">
+	        <div class="col-lg-3 p-4"  style="background-color: antiquewhite; ">
 				<img th:src="${'/images/accountPhoto/'+user.photo}" class="square-image">
 				<h4 th:text="${user.fullName}"></h4>
 				<p>Email: <span th:text="${user.email}"></span></p>
 				<p>Location: <span th:text="${user.addressDetail}+', '+ ${user.address}"></span></p>
-				
 	        </div>
 	
 	        <!-- Main Content -->
-	        <div class="col-lg-9">
+	        <div class="col-lg-9 p-4"style="background-color: burlywood; ">
 	            <div class="card">
 	                <div class="card-body">
 	                    <h2>My profile</h2>
 	                    <hr>
-	
 	                    <!-- Profile Information -->
 	                    <div class="mb-4">
 	                        <h4>Profile Information</h4>
 	                        <p>Username: <span th:text="${user.username}"></span></p>
 	                        <p>Phone: <span th:text="${user.phoneNumber}"></span></p>
-	                        
 	                    </div>
-	
 	                    <!-- Edit Profile Button -->
 	                    <a href="/profile/edit" class="btn btn-primary">Edit Profile</a>
 	                </div>

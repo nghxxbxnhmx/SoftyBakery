@@ -70,8 +70,15 @@ public class OrderController {
 	    model.addAttribute("user", user);
 	    
 		
-	    return "order";
+	    return "order-success";
+		
 	}
+	@GetMapping("/condition")
+	public String condition() {
+
+		return "condition";
+	}
+
 	public Account getAccountAuth() {
 		return aDAO.getByUserName(UserUtils.getUser().getUsername());
 	}

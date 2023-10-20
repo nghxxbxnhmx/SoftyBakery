@@ -1,85 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title>Login - Softy Bakery</title>
-	<th:block th:insert="~{layout :: css-link}"></th:block>
-  </head>
-  <body>
-    <!-- Contact Start -->
-	
-    <div th:insert="~{layout :: spinner}"></div>
-    <div th:insert="~{layout :: topbar}"></div>
-    
-    <div class="row page-header ">
-    
-    	<!-- Page Header Start -->
-			<div class="container py-6 wow fadeIn col-4"
-				data-wow-delay="0.1s">
-				<div class="container text-center pt-5 pb-3">
-					<h1 class="display-4 text-white animated slideInDown mb-3">Login</h1>
-					<nav aria-label="breadcrumb animated slideInDown">
-						<ol class="breadcrumb justify-content-center mb-0">
-							<li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
-							</li>
-							<li class="breadcrumb-item text-primary active" aria-current="page">Login</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-			<!-- Page Header End -->
-			<form class="container py-6 wow fadeIn col-8" action="/login" method="POST">
+
+<head>
+  <meta charset="utf-8">
+  <title>Login - Softy Bakery</title>
+  <th:block th:insert="~{layout :: css-link}"></th:block>
+</head>
+
+<body>
+  <!-- Contact Start -->
+
+  <div th:insert="~{layout :: spinner}"></div>
+  <div th:insert="~{layout :: topbar}"></div>
+
+  <div class="row page-header ">
+
+    <!-- Page Header Start -->
+    <div class="container py-6 wow fadeIn col-4" data-wow-delay="0.1s">
+      <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">Login</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item text-primary active" aria-current="page">Login</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- Page Header End -->
+    <form class="container py-6 wow fadeIn col-8" action="/login" method="POST">
       <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
         </div>
         <div class="row g-0 justify-content-center">
           <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
             <!-- start form login -->
-              <div class="row g-3">
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="username" placeholder="Username" name="username"required>
-                    <label for="">Username</label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="password" class="form-control" id="subject" placeholder="Password" name="password" required>
-                    <label for="">Password</label>
-                  </div>
-                </div>
-                <div class="row" th:if="${message}">
-                	<p style="color:red;"><i class="fas fa-exclamation-circle"></i> <span th:text="${message}"></span></p>
-                </div>
-                <div class="row">
-	                <div class="col">
-	                	<p class="mb-4 text-light">Forgot your password? <a href="/home">Click here</a>. </p>
-	                </div>
-	                <div class="col" style="text-align: right;">
-	                	<p class="mb-4"><a href="/register">Sign up</a></p>
-	                </div>
-	                
-                </div>
-                
-                
-                <div class="col-12 text-center">
-                  <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Login</button>
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
+                  <label for="">Username</label>
                 </div>
               </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="subject" placeholder="Password" name="password"
+                    required>
+                  <label for="">Password</label>
+                </div>
+              </div>
+              <div class="row" th:if="${message}">
+                <p style="color:red;"><i class="fas fa-exclamation-circle"></i> <span th:text="${message}"></span></p>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p class="mb-4 text-light">Forgot your password? <a href="/home">Click here</a>. </p>
+                </div>
+                <div class="col" style="text-align: right;">
+                  <p class="mb-4"><a href="/register">Sign up</a></p>
+                </div>
+
+              </div>
+
+
+              <div class="col-12 text-center">
+                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Login</button>
+              </div>
+            </div>
             <!-- end form login -->
           </div>
         </div>
       </div>
     </form>
-    </div>
-    
-    <script>
-	    window.addEventListener('load', function () {
-	        document.getElementById('username').focus();
-	    });
-	</script>
-    <div th:insert="~{layout :: footer}"></div>
-    <div th:insert="~{layout :: copyright}"></div>
-	<div th:insert="~{layout :: js-link}"></div>
-  </body>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      document.getElementById('username').focus();
+    });
+  </script>
+  <div th:insert="~{layout :: footer}"></div>
+  <div th:insert="~{layout :: copyright}"></div>
+  <div th:insert="~{layout :: js-link}"></div>
+</body>
+
 </html>

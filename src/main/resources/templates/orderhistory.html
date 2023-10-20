@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>condition - Softy Bakery</title>
+    <th:block th:insert="~{layout :: css-link}"></th:block>
+    <style>
+
+
+
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="OrderController">
+    <div th:insert="~{layout :: spinner}"></div>
+    <div th:insert="~{layout :: topbar}"></div>
+    <div th:insert="~{layout :: navbar}"></div>
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center pt-5 pb-3">
+            <nav aria-label="breadcrumb animated slideInDown">
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Order Start -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-3 p-4" style="background-color: antiquewhite; ">
+                <div class="card p-4">
+                    <img th:src="${'/images/accountPhoto/'+user.photo}" class="card-img-top "
+                        style="width: 80px; height: 80px;" alt="...">
+                    <div class="card-body">
+                        <p class="card-text"><a href="/profile"><strong th:text="${user.fullName}"
+                                    class="card-text"></strong></a></p>
+                        <a href="/profile/edit">Edit Profile</a>
+                        <hr>
+                        <p class="card-text"><Strong>Phone: </Strong><span th:text=" ${user.phoneNumber} "></span></p>
+                        <p class="card-text"><strong>Addrest: </strong><span th:text=" ${user.address} "></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 p-4" style="background-color: burlywood; ">
+                <div class="card">
+                    <div class="card">
+                        <h5 class="card-header">Tên loại bánh</h5>
+                        <a href="#">
+                            <div class="card-body">
+                                <div class="float-start m-2 "><img th:src="${'/images/accountPhoto/'+user.photo}"
+                                        class="card-text" style width="80px" height="80px" alt="..."></div>
+                                <div class="m-2">
+                                    <p class="card-texr">Tên loại bánh:...</p>
+                                    <p class="card-text">Số lượng:...</p>
+                                    <p class="card-text float-end">giá tiền:...</p>
+                                </div>
+                            </div>
+                        </a>
+                        <hr class="m-2">
+                        <div class="card-text">
+                            <button type="button" class="btn btn-outline-primary float-end m-2">Mua lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Order End -->
+
+        <div th:insert="~{layout :: footer}"></div>
+        <div th:insert="~{layout :: copyright}"></div>
+        <div th:insert="~{layout :: backtotop}"></div>
+        <div th:insert="~{layout :: js-link}"></div>
+
+</body>
+
+</html>

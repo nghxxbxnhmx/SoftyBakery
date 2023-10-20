@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.poly.dao.AccountDAO;
 import com.poly.model.Account;
 import com.poly.services.FileStorageService;
@@ -30,6 +31,13 @@ public class AccountController {
 	@Autowired AccountDAO aDAO;
 	@Autowired FileStorageService fileService;
 		
+	@GetMapping("/orderhistory")
+	public String orderhistory(Model model){
+		Account a = getAccountAuth();
+		
+		model.addAttribute("user", a);
+		return "orderhistory";
+	}
 	@GetMapping("/register")
 	public String register(Model model) {
 		Account a = new Account();
