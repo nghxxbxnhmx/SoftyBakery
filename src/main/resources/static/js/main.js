@@ -636,6 +636,104 @@ app.controller('CouponController', function ($http, $scope, $filter) {
 	//khởi tạo dữ liệu ban đầu
 	$scope.loadAll();
 });
+app.controller('AdminAccountController', function ($scope, $http) {
+	$scope.accounts = [];
+	$scope.form = {};
+	$scope.temporarySearchText = '';
+	$scope.modalMessage = '';
+	
+	$scope.loadAll = function () {
+	  const url = `${host}/account`;
+	  $http.get(url).then(resp => {
+		$scope.accounts = resp.data;
+		console.log(resp.data);
+	  });
+	}
+  
+	$scope.search = function () {
+	  $scope.searchText = $scope.temporarySearchText;
+	};
+  
+	$scope.filterOptions = 'all';
+  
+	$scope.filterCondition = function (account) {
+	  if ($scope.filterOptions === 'activity') {
+		return !account.account.banned;
+	  } else if ($scope.filterOptions === 'blocker') {
+		return account.account.banned;
+	  } else {
+		return true;
+	  }
+	};
+  
+	$scope.editAccount = function (account) {
+	  $scope.form = angular.copy(account.account);
+	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+	};
+  
+	$scope.reset = function () {
+	  $scope.form = {
+		username: '',
+		email: '',
+		address: '',
+		phoneNumber: '',
+		condition: 'activity',
+		reasonBlocker: '',
+		role: 'USER'
+	  };
+	};
+  
+	$scope.update = function () {
+	  var formAccount = $scope.form;
+	  formAccount.banned = formAccount.condition === 'activity' ? false : true;
+	  const url = `${host}/account/${formAccount.username}`;
+	  if (formAccount != null) {
+		$http.put(url, formAccount).then(() => {
+		  console.log("Lưu tài khoản thành công!");
+		  $scope.loadAll();
+		  $scope.showModal('Lưu tài khoản thành công!');
+		}).catch(function (error) {
+		  console.error("Lỗi khi lưu tài khoản:", error);
+		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
+		});
+	  }
+	}
+  
+	$scope.delete = function (username) {
+	  const url = `${host}/account/${username}`;
+	  $http.delete(url).then(function () {
+		console.log("Xóa tài khoản thành công! " + username);
+		$scope.loadAll();
+		$scope.reset();
+		$scope.showModal('Xóa tài khoản thành công!');
+	  }).catch(function (error) {
+		console.error("Lỗi khi xóa tài khoản:", error);
+		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
+	  });
+	}
+  
+	$scope.handleFileSelect = function (element) {
+	  var fileName = element.files[0].name;
+	  console.log('Selected file name:', fileName);
+	  $scope.form.photo = fileName;
+	};
+  
+	$scope.getRelativeImagePath = function (imageName) {
+	  return "/images/accountPhoto/" + imageName;
+	};
+  
+	$scope.showModal = function (message) {
+	  $scope.modalMessage = message;
+	  $('#messageModal').modal('show');
+	};
+  
+	$scope.hideModal = function () {
+	  $('#messageModal').modal('hide');
+	};
+  
+	$scope.reset();
+	$scope.loadAll();
+  });
 
 app.controller('RegisterController', function ($http, $scope) {
 	var url = `${host}/user/randomname`;

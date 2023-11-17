@@ -11,4 +11,7 @@ import com.poly.models.Account;
 public interface AccountService extends UserDetailsService {
     Account getAccountAuth();
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+     Account add(Account account);
+    Account update(Account account);
+    void delete(String username);
 }
