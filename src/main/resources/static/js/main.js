@@ -389,7 +389,7 @@ app.controller('UserController', function ($scope, $http) {
 
 
 	const url = `${host}/address/`;
-	const urlUser = `${host}/user`;
+	const urlUser = `${host}/account`;
 
 	function getUser() {
 		var url = urlUser;
