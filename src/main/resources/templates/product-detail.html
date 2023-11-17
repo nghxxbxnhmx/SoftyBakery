@@ -6,23 +6,32 @@
   <title>Product Detail - Softy Bakery</title>
   <th:block th:insert="~{layout :: css-link}"></th:block>
   <style>
-    .product-description > ul {
-        list-style-type: none;
-        padding: 0;
-        background-color: pink;
+    .product-description>ul {
+      list-style-type: none;
+      padding: 0;
+      background-color: pink;
     }
 
-    .product-description >li {
-        margin-left: 20px;
+    .product-description>li {
+      margin-left: 20px;
     }
-    .des > li::before {
-    content: "meo meo meo meo";
-  }
 
-</style>
+    .des>li::before {
+      content: "meo meo meo meo";
+    }
+
+    .circle-sub-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center center;
+      margin: 5px;
+    }
+  </style>
 </head>
 
-<body style="background-color: #FDF5EB;" ng-app="app" ng-controller="ProductController">
+<body style="background-color: #FDF5EB;" ng-app="app" ng-controller="ProductController" th:attr="data-product-id=${product.productId}"  id="productContainer">
   <!-- <div th:insert="~{layout :: spinner}"></div> -->
   <div th:insert="~{layout :: topbar}"></div>
   <div th:insert="~{layout :: navbarProduct}"></div>
@@ -49,19 +58,19 @@
     <div class="row">
       <div class="col-md-1" style="margin-top: 45px;">
         <div class="images">
-            <img th:each="productImage : ${product.productImages}" class="img-thumbnail" th:src="@{'/images/'+${productImage.imageUrl}}"
-            ng-click="setImgData($event)">
+          <img th:each="productImage : ${product.productImages}" class="img-thumbnail"
+            th:src="@{'/images/'+${productImage.imageUrl}}" ng-click="setImgData($event)">
         </div>
       </div>
       <div class="col-md-6">
         <div style="display: flex; justify-content: center; align-items: center;">
-          <img ng-src="{{imageClick ? imageClick : ''}}" th:src="@{/images/{imageUrl} (imageUrl = ${product.productImages[0].imageUrl})}"
-              style="border-radius: 20px; border:5px solid white; max-height: 600px; max-width: 100%;"
-          >
-      </div>
-      
+          <img ng-src="{{imageClick ? imageClick : ''}}"
+            th:src="@{/images/{imageUrl} (imageUrl = ${product.productImages[0].imageUrl})}"
+            style="border-radius: 20px; border:5px solid white; max-height: 600px; max-width: 100%;">
+        </div>
 
-      <ul class="nav nav-tabs border-0">
+
+        <ul class="nav nav-tabs border-0">
           <li class="nav-item nav-info mt-2 ms-2">
             <a class="nav-link active" data-bs-toggle="tab" href="#mota"> Mô Tả Sản Phẩm </a>
           </li>
@@ -90,7 +99,7 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -129,7 +138,7 @@
           <span class="fw-bold">
             <i class="bi bi-cart-check pe-2"></i>Giao hàng miễn phí
           </span>
-          <span >(Đơn hàng trên 500k hoặc khoảng cách dưới 3km)</span>
+          <span>(Đơn hàng trên 500k hoặc khoảng cách dưới 3km)</span>
           <br />
           <span class="fw-bold">
             <i class="bi bi-clock-history pe-2"></i>Miễn đổi trả
@@ -149,20 +158,27 @@
             <table>
               <tr>
                 <td>
-                  <button class="btn btn-success rounded-pill py-3 px-5" ng-click="modifyCart(selectedProductId,'add')">Add to
+                  <button class="btn btn-success rounded-pill py-3 px-5"
+                    ng-click="modifyCart(selectedProductId,'add')">Add to
                     Cart</button>
                 </td>
                 <td>
                   <a class="btn btn-primary rounded-pill py-3 px-5" href="">Order Now</a>
                 </td>
               </tr>
-            </table>            
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Comment Start -->
+
+  <br>
+  <hr />
+  <br>
+  <h2 style="display: grid; margin-left:40px;">Reviews</h2>
+
+  <!-- Review Start -->
   <div class="container-xxl py-3" style="background-color: #FFFFFF; border-radius: 20px;">
     <form class="comment-container" ng-if="userInfo">
       <div class="comment-avatar">
@@ -171,24 +187,20 @@
       <div class="comment-content">
         <div class="comment-name" ng-bind="userInfo.fullName"></div>
         <div class="comment-rating">
-          <span ng-repeat="star in stars track by $index"
-            class="fa fa-star"
-            ng-class="{ 'text-primary': isHovered[$index] || $index < rating }"
-            ng-mouseenter="setHovered($index, true)"
-            ng-mouseleave="setHovered($index, false)"
-            ng-click="setRating($index + 1)"></span>
+          <span ng-repeat="star in stars track by $index" class="fa fa-star"
+            ng-class="{ 'text-primary': isHovered[$index] || $index < rating }" ng-mouseenter="setHovered($index, true)"
+            ng-mouseleave="setHovered($index, false)" ng-click="setRating($index + 1)"></span>
 
-        </div>        
+        </div>
         <div class="comment-input-container">
           <input class="comment-input" placeholder="Viết đánh giá..." ng-model="formReview.comment"></input>
           <div class="btn-group">
             <button class="comment-button" ng-click="postReview()"><i class="fas fa-arrow-right"></i></button>
-            <button class="comment-button" ng-click="loadReviews()"><i class="fas fa-sync-alt"></i></button>            
           </div>
         </div>
       </div>
     </form>
-    
+
     <div class="comment-container" ng-repeat="r in reviewList">
       <a class="comment-avatar" href="/images/accountPhoto/{{r.account.photo}}">
         <img ng-src="/images/accountPhoto/{{r.account.photo}}" class="circle-avatar">
@@ -197,10 +209,11 @@
         <div>
           <span class="comment-name" ng-bind="r.account.fullName"></span>
           <span class="comment-separator">·</span>
-          <small><i class="far fa-clock"></i> <span ng-bind="r.reviewDate | dateFilter" style="font-size:12px; align-items: center;"></span></small>
+          <small><i class="far fa-clock"></i> <span ng-bind="r.reviewDate | dateFilter"
+              style="font-size:12px; align-items: center;"></span></small>
         </div>
-      
-        
+
+
         <div class="comment-rating">
           <span ng-repeat="star in [].constructor(r.rating) track by $index" class="fa fa-star text-primary"></span>
           <span ng-repeat="star in [].constructor(5 - r.rating) track by $index" class="fa fa-star"></span>
@@ -209,6 +222,89 @@
       </div>
     </div>
   </div>
+  <!-- Review End -->
+  <br>
+  <hr />
+  <br>
+  <h2 style="display: grid; margin-left:40px;">Hỏi và đáp</h2>
+
+
+  <!-- Comment Start -->
+  <div class="container-xxl py-3" style="background-color: #FFFFFF; border-radius: 20px;" ng-app="app"
+    ng-controller="CommentController">
+    <!-- Form comment -->
+    <form class="comment-container">
+      <div class="comment-avatar">
+        <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar">
+      </div>
+      <div class="comment-content">
+        <div class="comment-name" ng-bind="userInfo.fullName"></div>
+        <div class="comment-input-container">
+          <input class="comment-input" placeholder="Viết bình luận..." ng-model="commentForm.commentContent"></input>
+          <div class="btn-group">
+            <button class="comment-button" ng-click="postComment()"><i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Display parent comments and their sub-comments -->
+    <div class="comment-container" ng-repeat="commentDTO in commentDTOs">
+      <a class="comment-avatar" href="/images/accountPhoto/{{commentDTO.parentComment.account.photo}}">
+        <img ng-src="/images/accountPhoto/{{commentDTO.parentComment.account.photo}}" class="circle-avatar">
+      </a>
+      <div class="comment-content">
+        <!-- Display parent comment information -->
+        <div>
+          <span class="comment-name" ng-bind="commentDTO.parentComment.account.fullName"></span>
+          <span class="comment-separator">·</span>
+          <small><i class="far fa-clock"></i> <span ng-bind="commentDTO.parentComment.commentDate | dateFilter"
+              style="font-size:12px; align-items: center;"></span></small>
+        </div>
+        <!-- Display parent comment text -->
+        <p class="comment-text" ng-bind="commentDTO.parentComment.commentContent"></p>
+        <button ng-click="delete(commentDTO.parentComment.commentId)" style="margin:0;padding:0;" class="btn btn-link text-dark">Delete</button>
+
+        <!-- Display sub-comments -->
+        <div class="comment-container" ng-repeat="subComment in commentDTO.subComment"
+          style="background-color: #F0F2F5;">
+          <a class="comment-avatar" href="/images/accountPhoto/{{subComment.account.photo}}">
+            <img ng-src="/images/accountPhoto/{{subComment.account.photo}}" class="circle-sub-avatar">
+          </a>
+          <div class="comment-content">
+            <!-- Display sub-comment information -->
+            <div>
+              <span class="comment-name" ng-bind="subComment.account.fullName"></span>
+              <span class="comment-separator">·</span>
+              <small><i class="far fa-clock"></i> <span ng-bind="subComment.commentDate | dateFilter"
+                  style="font-size:12px; align-items: center;"></span></small>
+            </div>
+            <!-- Display sub-comment text -->
+            <p class="comment-text" ng-bind="subComment.commentContent"></p>
+          </div>
+        </div>
+        <div>
+          <!-- Form sub comment -->
+          <form class="comment-container">
+            <div class="comment-avatar">
+              <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-sub-avatar">
+            </div>
+            <div class="comment-content">
+              <div class="comment-name" ng-bind="userInfo.fullName"></div>
+              <div class="comment-input-container">
+                <input class="comment-input" placeholder="Viết bình luận..." ng-model="commentForm.commentContent"></input>
+                <div class="btn-group">
+                  <button class="comment-button" ng-click="postSubComment(commentDTO.parentComment.commentId)"><i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comment End -->
   <!-- Product End -->
   <div th:insert="~{layout :: footer}"></div>
   <div th:insert="~{layout :: copyright}"></div>

@@ -35,25 +35,19 @@ public class OrderRestController {
     AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<List<OrderDTO>> findAll() {
-        List<OrderDTO> orders = new ArrayList<>();
-        for (Order o : oDAO.findAll()) {
-            OrderDTO oDTO = new OrderDTO(o);
-            oDTO.setAccount(o.getAccount());
-            orders.add(oDTO);
-        }
-        return ResponseEntity.ok(orders);
+    public ResponseEntity<List<Order>> findAll() {
+        // List<OrderDTO> orders = new ArrayList<>();
+        // for (Order o : oDAO.findAll()) {
+        //     OrderDTO oDTO = new OrderDTO(o);
+        //     oDTO.setAccount(o.getAccount());
+        //     orders.add(oDTO);
+        // }
+        return ResponseEntity.ok(oDAO.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
-        Optional<Order> optionalOrder = oDAO.findById(id);
-        if (optionalOrder.isPresent()) {
-            Order order = optionalOrder.get();
-            return ResponseEntity.ok(order);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+            return ResponseEntity.ok(oDAO.findById(id).get());
     }
 
     @PostMapping
@@ -85,27 +79,7 @@ public class OrderRestController {
         oDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/detail/{orderId}")
-    public ResponseEntity<List<OrderItem>> getOrderItemByOrderId(@PathVariable("orderId") int orderId) {
-        List<OrderItem> oiList = new ArrayList<>();
-        for (OrderItem oi : oiDAO.getOrderItemByOrderId(orderId)) {
-            ProductDTO pDTO = new ProductDTO();
-            pDTO.setProduct(oi.getProduct());
-
-            try {
-                List<String> imageUrlList = pDAO.getImageUrlByProductId(oi.getProduct().getProductId());
-                if (!imageUrlList.isEmpty()) {
-                    oi.setProduct(pDTO.getProduct());
-                }
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
-            oiList.add(oi);
-        }
-        return ResponseEntity.ok(oiList);
-    }
-
+    
     @GetMapping("/delete/{orderId}")
     public ResponseEntity<List<OrderItem>> removeOrderById(@PathVariable("orderId") int orderId) {
         List<OrderItem> oiList = new ArrayList<>();

@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.poly.dao.CategoryDAO;
 import com.poly.dao.ProductDAO;
 import com.poly.dao.ProductImageDAO;
+import com.poly.models.Product;
 import com.poly.models.ProductImage;
+import com.poly.utils.DiacriticsUtil;
 
 @Controller
 public class ProductController {
@@ -32,9 +35,10 @@ public class ProductController {
 		this.restTemplate = restTemplate;
 	}
 
-	@GetMapping("/product/")
+	@GetMapping("/products/")
 	public String product(Model model) {
-		// model.addAttribute("message", "Cart is empty, let's take a look at some products!");
+		// model.addAttribute("message", "Cart is empty, let's take a look at some
+		// products!");
 		return "product";
 	}
 
@@ -44,4 +48,9 @@ public class ProductController {
 		return "product-detail";
 	}
 
+	@GetMapping("/product/")
+	public String productDetailByName(@RequestParam("n") String productUrl, Model model) {
+		model.addAttribute("product", pDAO.findByProductUrl(productUrl));
+		return "product-detail";
+	}
 }

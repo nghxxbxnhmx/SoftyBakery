@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -26,6 +27,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -47,8 +50,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.poly.dao.*;
 import com.poly.dto.DiscountType;
+import com.poly.dto.ObjectHehe;
+import com.poly.dto.ProductHehe;
 import com.poly.dto.RoleEnum;
 import com.poly.models.*;
 import com.poly.services.*;
@@ -56,7 +62,6 @@ import com.poly.utils.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-// @RequestMapping("/rest")
 public class Test {
 	@Autowired
 	CategoryDAO cDAO;
@@ -80,12 +85,29 @@ public class Test {
 	JsonReaderUtil jsonReaderUtil;
 	@Autowired
 	CouponDAO couponDAO;
+	@Autowired
+	CommentDAO cmtDAO;
+
 	ObjectMapper objectMapper = new ObjectMapper();
 
 	@GetMapping("/test")
-	public Order test(Model model) throws JsonProcessingException {
-		return oDAO.findById(9).get();
-	}
+    public String test(Model model) throws IOException {
+		List<ProductHehe> hehe = JsonReaderUtil.read("src\\main\\resources\\static\\data\\softybakery_product.json", ProductHehe.class);
+		for(ProductHehe he : hehe) {
+			Product product = new Product();
+			product.setProductName(he.getProductName());
+			product.setPrice(he.getPrice());
+			product.setQuantityInStorage(50);
+			product.setSubDescription(he.getProductName()+" hấp dẫn quá chừng");
+			product.setDescription(he.getDescription());
+			product.setCategory(cDAO.findById(he.getCategoryId()).get());
+			product.setAvailable(true);
+			String productUrl = DiacriticsUtil.removeDiacritics(he.getProductName().toLowerCase().replace(" ", "-").replace("đ","d"));
+			product.setProductUrl(productUrl);
+			pDAO.save(product);
+		}
+		return "meo meo";
+    }
 
 	public static Date generateRandomDate() {
 		Random random = new Random();

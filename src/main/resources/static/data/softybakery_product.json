@@ -1,0 +1,128 @@
+[
+    {
+        "productName": "Bánh mì heo quay",
+        "description": "Bánh mì du nhập vào cuộc sống thường nhật của chúng ta với nhiều hình hài và hương vị khác nhau. Trong đó phải kể đến bánh mì heo quay giòn rôm rốp, thơm nức mũi – Được yêu thích bởi mọi độ tuổi. Điều làm nên sức hút của món ăn này nằm ở chỗ phần thịt heo mềm ngọt, da heo vàng óng và giòn tan – sự tương phản giữa mềm và cứng tạo nên nét thú vị khi nhâm nhi thưởng thức.\n\nBên cạnh đó, món bánh này sở hữu công thức nước sốt riêng biệt, không phải chan nước mắm thông thường, mà là loại sốt màu nâu cô đặc, thơm mùi thịt nướng, mặn ngọt đủ vị.\n\nSốt ngon quyện cùng ổ bánh đặc ruột thoang thoảng mùi bơ, cắn vào miếng thịt heo quay mềm tươm mỡ, thêm chút giòn sựt của các món đồ chua.",
+        "price": 15000,
+        "categoryId": 3
+    },
+    {
+        "productName": "Bánh mì xíu mại",
+        "description": "Bánh mì xíu mại: là loại bánh mì có nhân xíu mại (thịt heo với sốt cà). Bánh mì xíu mại Sài Gòn thường có vị ngọt khác với loại bánh ở Đà Lạt, có vị cay. Tại Đà Lạt có vỏ bánh dày hơn một chút. Người ta sẽ dọn kèm một chén xíu  còn bốc khói, nước sốt sền sệt phủ lên những viên xíu mại và chả cây, da heo.",
+        "price": 15000,
+        "categoryId": 3
+    },
+    {
+        "productName": "Bánh mì thịt truyền thống",
+        "description": "Bánh mì phải được làm giòn rồi xẻ một đường dọc theo thân bánh, sau đó phết pate, lần lượt cho nhân vào trong, cuối cùng rưới nước xốt lên trên \nlà hoàn thành. Tuy cách chế biến đơn giản là thế nhưng khi nhìn đôi bàn tay thoăn thoắt của đầu bếp cho hết thịt, thêm rau rồi lại rưới xốt\nbạn sẽ khó có thể kìm lòng với món bánh thân thuộc này. Từng thành phần được cho vào ổ bánh mì đều góp phần tạo nên hương vị thơm ngon của \nmón ăn bình dị, thân thương.",
+        "price": 17000,
+        "categoryId": 3
+    },
+    {
+        "productName": "Bánh mì bông cúc",
+        "description": "Bánh mì hoa cúc ngoài mùi bơ thơm lừng thì còn có mùi tinh dầu hoa cam đặc biệt kết hợp với vani. Bánh sau khi nướng xong nở bung thành từng thớ vàng ươm như màu bông cúc bắt mắt. \nBánh mì hoa cúc rất mềm, xốp, độ dai nhất định\n",
+        "price": 20000,
+        "categoryId": 2
+    },
+    {
+        "productName": "bánh tiramisu socola",
+        "description": "Tiramisu là sự kết hợp hài hòa của rượu Rhum, café và cacao, pha thêm vị béo của kem, phô mai cùng trứng. Vì thế khi ăn, Tiramisu có vị thanh ngọt nhẹ nhàng, hơi hơi nồng hương rượu\n rất hấp dẫn. Với vị ngọt thanh nhẹ nhàng, thêm một chút nồng nàn của hương rượu vang được ủ cẩn thận và vị béo ngậy của kem, phô mai, Tiramisu nhanh chóng trở thành món tráng miệng\n khiến thực khách “phải lòng” ngay khi ăn thử lần đầu.\n",
+        "price": 25000,
+        "categoryId": 4
+    },
+    {
+        "productName": "bánh tiramisu dau",
+        "description": "Một màu đỏ bao phủ trên bề mặt bánh làm cho chiếc bánh lộng lẫy hơn bao giờ hết. Lớp kem béo ngậy quyện cùng lớp dâu ngọt ngào tan trong miệng.\nTiramisu dâu làm say đắm bao con tim của những người “đạo bánh Tiramisu”.",
+        "price": 25000,
+        "categoryId": 4
+    },
+    {
+        "productName": "Bánh tiramisu chanh dây",
+        "description": "Nếu chán ngán với lối ăn Tiramisu truyền thống thì chanh dây là sự lựa chọn hoàn hảo. Bánh Tiramisu chanh dây ăn vào có vị chua và bắt đầu tan dần vị ngọt ra bên ngoài, \nbạn sợ ăn ngọt quá nhiều thì bánh Tiramisu chanh dây là kết hợp hài hoà giữa chua và ngọt đấy nhé!",
+        "price": 25000,
+        "categoryId": 4
+    },
+    {
+        "productName": "Bánh mousse dâu",
+        "description": "Bánh Mousse là dòng bánh có nhiều kem ít bánh, gồm lớp bánh gato mỏng phía bên dưới được trộn cùng với những nguyên liệu như: Chocolate, caramel, dâu…\nBánh thường được dùng để tráng miệng hoặc ăn vặt. Với sự mềm mại, mát lạnh bánh Mousse khi thưởng thức bạn sẽ cảm nhận ngay được kem đang tan chảy trong miệng \ncùng với vị thơm của kem bơ và kem tươi. Đây cũng được xem là loại bánh kén người ăn hơn những dòng bánh khác, tuy nhiên đối với ai đã từng thưởng thức qua đều \nnhớ mãi món bánh này",
+        "price": 25000,
+        "categoryId": 4
+    },
+    {
+        "productName": "Bánh mousse Chocolate",
+        "description": "Nhờ sự kết hợp của lòng trắng trứng, gelatin và kem tươi, lớp mousse đắt giá ấy có được độ bông xốp vô cùng hoàn hảo. Hơn nữa, khi được kết hợp với các loại sốt trái cây hay socola, mousse lại mang càng ngon và đặc biệt hơn nữa.\nChiếc bánh mousse socola núng nính, béo ngậy không chỉ đáng yêu mà còn rất ngon miệng. Vị socola vừa phải, không quá đắng, kết hợp với kem sữa tươi béo thơm, vị ngọt lại vừa phải tạo nên một chiếc bánh mousse xinh xắn đến mức chẳng nỡ ăn.",
+        "price": 15000,
+        "categoryId": 4
+    },
+    {
+        "productName": "Bánh bông lan trứng ",
+        "description": "Nếu ai đã từng thưởng thức qua những chiếc bánh bông lan trứng muối chà bông phô mai thì chắc hẳn sẽ không bao giờ quên được cái hương vị của nó. \nMột chiếc bánh bông lan trứng muối ngon là sự kết tinh của vị mằn mặn bùi bùi của trứng muối cùng chà bông thêm vào đó là miếng phô mai béo béo hòa cùng \nvị ngọt thanh của chiếc bánh khiến ai cũng say mê.",
+        "price": 25000,
+        "categoryId": 2
+    },
+    {
+        "productName": "Sữa chua chanh giây",
+        "description": "Sữa Chua Chanh Dây Sài Gòn là một sản phẩm được lên men tự nhiên từ sữa với vị chanh dây đặc trưng, không chỉ đem đến cho bạn một hương vị hấp dẫn và khó quên, mà còn cung cấp rất nhiều chất dinh dưỡng cho cơ thể như vitamin C, chất đạm, hydrat cacbon,… giúp tăng cường hệ tiêu hóa, hệ miễn dịch cho cho cả gia đình",
+        "price": 18000,
+        "categoryId": 14
+    },
+    {
+        "productName": "Sữa chua dâu",
+        "description": "Dâu tây là loại trái cây quen thuộc, hấp dẫn trẻ nhỏ với màu sắc vô cùng  bắt mắt. Ngoài việc ăn trực tiếp, nhiều mẹ lựa chọn dâu tây để chế biến các món ăn vặt cho gia đình như sinh tố, bánh, sữa chua…\nSữa chua dâu tây lạ miệng mang đến giá trị dinh dưỡng cao, giúp cơ thể khoẻ mạnh.",
+        "price": 18000,
+        "categoryId": 14
+    },
+    {
+        "productName": "Sữa chua việt quất",
+        "description": "Sự kết hợp giữa quả Việt Quất và Sữa Chua tạo nên hương vị thơm ngon, cùng với sắc tím lãng mạn, lôi cuốn ngay từ lần trải nghiệm đầu tiên. Đặc biệt, trong quả Việt Quất có chứa axit salicylic và hàm lượng vitamin A, vitamin E, vitamin C giúp làm đẹp da, ngăn ngừa quá trình lão hóa.",
+        "price": 18000,
+        "categoryId": 14
+    },
+    {
+        "productName": "Sữa chua hạt đác chanh ",
+        "description": "Sữa chua hạt đác chanh dây là sự kết hợp hoàn hảo giữa các \"mảnh ghép\" nguyên liệu với nhau để cho ra lò 1 ly thức uống vừa mát lạnh, lại còn bổ dưỡng thế này! Sữa chua quyện cùng hạt đác giòn ngon, đã thế còn có cả chanh dây với hương vị chua chua quá là khó cưỡng. Thêm 1 ít đá viên nữa thì đúng là \"hết sẩy\" luôn!",
+        "price": 25000,
+        "categoryId": 14
+    },
+    {
+        "productName": "Sinh tố dưa hấu",
+        "description": "Sinh tố dưa hấu là một thức uống tuyệt vời, được nhiều người dùng để bổ sung năng lượng cho cơ thể trong những ngày hè nóng bức. Không chỉ giúp giải khát, sinh tố dưa hấu còn là một nguồn cung cấp vitamin và khoáng chất quan trọng cho sức khỏe của cơ thể.\nHương vị thơm ngon mát lành của sinh tố dưa hấu, đã giúp thức uống này dành được sự ưa chuộng từ nhiều người. Với hàm nước cao từ chất xơ tự nhiên, sinh tố dưa hấu còn có khả năng giúp bạn duy trì voc dáng, hỗ trợ giảm cân, cải thiện sức khỏe da.",
+        "price": 20000,
+        "categoryId": 15
+    },
+    {
+        "productName": "Sinh tố bơ",
+        "description": "Bơ là loại trái cây thơm ngon, bổ dưỡng được nhiều người yêu thích. Thế nhưng, nếu kết hợp bơ với chút đường, chút sữa \nthì hương vị lại hoàn toàn khác biệt. Vị thơm béo, đặc dẻo của bơ hòa quyện với vị ngọt đậm đà của đường, vị thơm ngậy của sữa \nsẽ khiến bạn nhớ mãi không quên. Chính vì vậy, bơ thường được kết hợp với đường, sữa để làm sinh tố bơ mát lạnh.",
+        "price": 20000,
+        "categoryId": 15
+    },
+    {
+        "productName": "Sinh tố đu đủ",
+        "description": "Sinh tố đu đủ là thức uống mà bạn nên thêm vào thực đơn dinh dưỡng hằng ngày. Bên cạnh hương vị \nthơm ngon,hấp dẫn dễ chiều lòng thực khách thì món sinh tố này còn có hàm lượng dưỡng chất dồi dào. \nĐặc biệt, đu đủ chứa nhiều vitamin tốt cho các hoạt động của trẻ em và có tác dụng hỗ trợ làm đẹp \ncho chị em phụ nữ.",
+        "price": 20000,
+        "categoryId": 15
+    },
+    {
+        "productName": "Nước ép cam",
+        "description": "Nước cam và quả cam là những lựa chọn ăn vặt tuyệt vời vì ít calo và tăng cường năng lượng tức thì. Nước cam còn được gọi là nước ép của ánh nắng mặt trời vì một ly nước cam có thể làm nên điều kỳ diệu cho cơ thể. Nó giúp hỗ trợ làm giảm lượng cholesterol xấu, điều hòa huyết áp và chống lại cảm lạnh thông thường và cúm, thường xảy ra mỗi khi chuyển mùa.",
+        "price": 20000,
+        "categoryId": 16
+    },
+    {
+        "productName": "Nước ép cà chua",
+        "description": "Nước ép cà chua tươi có mùi thơm nhe, vị thanh mát và ngọt dịu tự nhiên. Đây là món thức uống vô cùng tốt, giúp bạn có một làn da đẹp và hỗ trợ thanh lọc cơ thể nữa đấy! Với thời tiết nắng nóng mà có ngay ly nước ép cà chua thì thật sự là hoàn hảo.",
+        "price": 20000,
+        "categoryId": 16
+    },
+    {
+        "productName": "Nước ép táo",
+        "description": "Nước ép táo xanh có vị chua ngọt đặc trưng của táo xanh, mùi hương thơm dịu tự nhiên ngọt dịu, thơm mát từ những trái táo \ntươi ngon. Ngon hơn khi uống lạnh. Nước ép táo xanh tươi nguyên chất chứa nhiều khoáng chất, dinh dưỡng, chất chống oxy hóa, \nlượng vitamin C cao tốt cho hệ miễn dịch và cơ thể, giúp phòng ngừa ung thư một cách hiệu quả..",
+        "price": 25000,
+        "categoryId": 16
+    },
+    {
+        "productName": "Nước ép cà rốt",
+        "description": "Nước ép cà rốt được chiết xuất từ cà rốt nguyên hạt và rất bổ dưỡng. Nó không chỉ cung cấp kali và vitamin C mà còn vô cùng giàu \nvitamin A. Uống nước ép cà rốt được cho là giúp tăng cường hệ miễn dịch và cải thiện tình trạng sức khỏe của mắt và da.\nNước ép cà rốt cung cấp một sự khởi đầu đầy màu sắc và bổ dưỡng cho ngày mới của mỗi chúng ta. Một ly nước ép cà rốt cung cấp\n nhiều chất dinh dưỡng quý giá và hương vị thơm ngon rất đáng để thử.",
+        "price": 20000,
+        "categoryId": 16
+    }
+]

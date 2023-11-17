@@ -396,16 +396,16 @@ app.controller('UserController', function ($scope, $http) {
 		$http.get(url).then(resp => {
 			if (resp.data != null) {
 				$scope.userInfo = resp.data;
-				// $scope.form.accountId = $scope.userInfo.accountId;
-				// $scope.form.username = $scope.userInfo.username;
-				// $scope.form.password = $scope.userInfo.password;
-				// $scope.form.email = $scope.userInfo.email;
-				// $scope.form.fullName = resp.data.fullName;
-				// $scope.form.address = $scope.userInfo.address;
-				// $scope.form.addressDetail = $scope.userInfo.addressDetail;
-				// $scope.form.phoneNumber = $scope.userInfo.phoneNumber;
-				// $scope.form.photo = $scope.userInfo.photo;
-				// $scope.form.admin = $scope.userInfo.admin;
+				$scope.form.accountId = $scope.userInfo.accountId;
+				$scope.form.username = $scope.userInfo.username;
+				$scope.form.password = $scope.userInfo.password;
+				$scope.form.email = $scope.userInfo.email;
+				$scope.form.fullName = resp.data.fullName;
+				$scope.form.address = $scope.userInfo.address;
+				$scope.form.addressDetail = $scope.userInfo.addressDetail;
+				$scope.form.phoneNumber = $scope.userInfo.phoneNumber;
+				$scope.form.photo = $scope.userInfo.photo;
+				$scope.form.admin = $scope.userInfo.admin;
 				$scope.form = resp.data;
 			}
 		})
@@ -413,13 +413,7 @@ app.controller('UserController', function ($scope, $http) {
 	$scope.putUser = function () {
 		$http.put(urlUser, $scope.form)
 			.then(function (resp) {
-				// Xử lý phản hồi thành công từ máy chủ
 				$scope.form = resp.data;
-			})
-			.catch(function (error) {
-				// Xử lý lỗi
-				console.error("Error:", error);
-				// Hiển thị thông báo lỗi cho người dùng (tùy bạn)
 			});
 	}
 	$scope.loadCities = function () {
@@ -511,24 +505,24 @@ app.controller('AdminProductController', function ($scope, $http) {
 
 	$scope.save = function (method) {
 		var url = `${host}/product`;
-		if(method==="Add") {
-			$http.post(url, $scope.form).then( () => {
+		if (method === "Add") {
+			$http.post(url, $scope.form).then(() => {
 				$scope.loadAll();
 				$scope.reset();
 			});
 		}
-		if(method==="Update") {
-			$http.put(url, $scope.form).then( () => {
+		if (method === "Update") {
+			$http.put(url, $scope.form).then(() => {
 				$scope.loadAll();
 				$scope.reset();
 			});
 		}
-		
+
 	}
 
 	$scope.delete = function (productId) {
 		const url = `${host}/product/${productId}`;
-		$http.delete(url).then( () => {
+		$http.delete(url).then(() => {
 			$scope.loadAll();
 			$scope.reset();
 		});
@@ -564,51 +558,41 @@ app.controller('AdminProductController', function ($scope, $http) {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 app.controller('AdminOrderController', function ($scope, $http) {
 	$scope.orders = [];
-	$scope.oiList = [];
-
+	$scope.orderitems = [];
+	const url = `${host}/order`;
 	$scope.loadAll = function () {
 		const url = `${host}/order`;
 		$http.get(url).then(resp => {
 			$scope.orders = resp.data;
-			console.log(resp.data);
 		});
 	}
+	// $scope.getStatusClass = function (status) {
+	// 	switch (status) {
+	// 		case 'Đang chờ':
+	// 			return 'btn btn-primary';
+	// 		case 'Đã giao':
+	// 			return 'btn btn-success';
+	// 		case 'Đã hủy':
+	// 			return 'btn btn-secondary';
+	// 		default:
+	// 			return 'btn';
+	// 	}
+	// };
 
-	$scope.updateStatus = function (id) {
-		const url = `${host}/order/${id}/updateStatus`;
-		$http.put(url)
-			.then(function (response) {
-				console.log('Trạng thái của đơn hàng đã được cập nhật.');
-				$scope.loadAll();
-			})
-			.catch(function (error) {
-				console.error('Lỗi khi cập nhật trạng thái của đơn hàng:', error);
-			});
-	};
-
-	$scope.getStatusClass = function (status) {
-		switch (status) {
-			case 'Đang chờ':
-				return 'btn btn-primary';
-			case 'Đã giao':
-				return 'btn btn-success';
-			case 'Đã hủy':
-				return 'btn btn-secondary';
-			default:
-				return 'btn';
-		}
-	};
-
-	$scope.getOrderItemByOrderId = function (orderId) {
-		const url = `${host}/order/detail/${orderId}`;
-		$http.get(url).then(resp => {
-			$scope.oiList = resp.data;
-			console.log(resp.data);
-		});
+	$scope.getOrderItems = function (order) {
+		$scope.orderitems = [];
+		console.log(order)
+		$scope.orderitems = order.orderItems;
 	}
+
+	$scope.delete = function (orderId) {
+		var urlDelete = url + '/' + orderId;
+		$http.delete(urlDelete).then(resp => $scope.loadAll());
+	}
+
+
 	$scope.loadAll();
 });
-
 
 app.controller('TopBarController', function ($interval, $scope) {
 	$scope.date = new Date();
@@ -653,3 +637,115 @@ app.controller('CouponController', function ($http, $scope, $filter) {
 	$scope.loadAll();
 });
 
+app.controller('RegisterController', function ($http, $scope) {
+	var url = `${host}/user/randomname`;
+	$scope.randomName = {};
+	$scope.get = function () {
+		$http.get(url).then(resp => {
+			$scope.randomName = resp.data;
+		});
+	}
+});
+
+app.controller('AdminCategoryController', function ($scope, $http) {
+	$scope.categories = [];
+	$scope.form = {};
+	var url = `${host}/category`;
+
+	$scope.reset = function () {
+		$scope.form = {};
+	}
+
+	$scope.loadAll = function () {
+		$http.get(url).then(resp => {
+			$scope.categories = resp.data;
+		});
+	}
+
+	$scope.edit = function (id) {
+		$http.get(url + "/" + id).then(resp => {
+			$scope.form = resp.data;
+		});
+	}
+
+	$scope.create = function () {
+		$http.post(url, $scope.form).then(() => {
+			$scope.reset();
+			$scope.loadAll();
+		});
+	}
+	$scope.update = function () {
+		$http.put(url, $scope.form).then(() => {
+			$scope.reset();
+			$scope.loadAll();
+		});
+	}
+
+	$scope.delete = function (id) {
+		var url = `${host}/category/${id}`;
+		$http.delete(url).then(() => $scope.findAll());
+	}
+	$scope.loadAll();
+});
+
+app.controller('CommentController', function ($scope, $http) {
+	$scope.commentDTOs = [];
+	$scope.commentForm = {};
+
+	$scope.productId = angular.element(document.getElementById('productContainer')).attr('data-product-id');
+
+	const url = `${host}/comment`;
+
+	$scope.loadAll = function () {
+		$http.get(url).then(resp => {
+			$scope.commentDTOs = resp.data;
+		})
+	}
+
+    $scope.toggleReplyForm = function (comment) {
+        comment.showReplyForm = !comment.showReplyForm;
+    };
+
+	$scope.postComment = function () {
+		var product = {};
+		product.productId = $scope.productId;
+		$scope.commentForm.product = product;
+		$scope.commentForm.parentCommentId = 0;
+		$scope.commentForm.commentDate = new Date();
+
+		$http.post(url, $scope.commentForm).then(() => {
+			$scope.findByProductId($scope.productId);
+			$scope.resetForm();
+		});
+	}
+
+	$scope.postSubComment = function (parentCommentId) {
+		var product = {};
+		product.productId = $scope.productId;
+		$scope.commentForm.product = product;
+		$scope.commentForm.parentCommentId = parentCommentId;
+		$scope.commentForm.commentDate = new Date();
+
+		$http.post(url, $scope.commentForm).then(() => {
+			$scope.findByProductId($scope.productId)
+			$scope.resetForm();
+		});
+	}
+	
+	$scope.findByProductId = function (productId) {
+		$http.get(url + '/' + productId).then(resp => {
+			$scope.commentDTOs = resp.data;
+		})
+	}
+	$scope.delete = function (commentId) {
+		console.log(url+'/'+commentId);
+		$http.delete(url+'/'+commentId).then(() => {
+			$scope.findByProductId($scope.productId);
+		});
+	}
+	$scope.resetForm = function () {
+		$scope.commentForm = {};
+	}
+	// Khởi tạo dữ liệu ban đầu
+	$scope.findByProductId($scope.productId);
+});

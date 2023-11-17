@@ -37,8 +37,12 @@ public class AdminController {
 		
 		return "admin/admin-order";
 	}
+	@GetMapping("/admin/category")
+	public String adminCategory(Model model) {
 
-	
+		return "admin/admin-category";
+	}
+
 	
 	
 	@GetMapping("/admin/pi/{id}")

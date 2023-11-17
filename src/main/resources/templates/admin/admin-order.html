@@ -7,7 +7,7 @@
 <th:block th:insert="~{layout :: css-link}"></th:block>
 </head>
 <body ng-app="app" ng-controller="AdminOrderController">
-	<div th:insert="~{layout :: spinner}"></div>
+	<!-- <div th:insert="~{layout :: spinner}"></div> -->
 	<div th:insert="~{layout :: topbar}"></div>
 	<div th:insert="~{layout :: navbar}"></div>
 	<!-- Page Header Start -->
@@ -28,14 +28,14 @@
 	</div>
 	<!-- Page Header End -->
 	<!-- Admin Product Start -->
-	<div class="container">
+	<div class="container bg-light">
             <table class="table table-hover">
                 <thead>
                     <tr class="bg-primary text-white">
                         <th>Order Id</th>
-                        <th>Customer</th>
+                        <th>fullName - Email</th>
                         <th>Order Date</th>
-                        <th>Total Amount</th>
+                        <!-- <th>Total Amount</th> -->
                         <th>Address</th>
                         <th>Detail</th>
                         <th>Status</th>
@@ -44,13 +44,13 @@
                 <tbody>
                     <tr ng-repeat="o in orders">
                         <td>{{o.orderId}}</td>
-                        <td>{{o.account.fullName}}</td>
+                        <td>{{o.account.fullName + ' - ' + o.account.email}}</td>
                         <td>{{o.orderDate | dateFilter}}</td>
-                        <td>{{o.totalAmount | vndCurrency}}</td>
+                        <!-- <td>{{o.totalAmount | vndCurrency}}</td> -->
                         <td>{{o.address}}</td>
                         <td>
 							<button type="button" class="btn btn-lg-square btn-outline-light rounded-circle"
-							data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click="getOrderItemByOrderId(o.orderId)">
+							data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click="getOrderItems(o)">
 								<i class="fa fa-eye text-primary"></i>
 							</button>
 							
@@ -67,16 +67,16 @@
 							      		<p>Địa chỉ nhận hàng:</p>
 							      		<p>
 							      	</span>
-							        <table class="table table-hover">
+							        <table class="table table-hover bg-light">
 								        <tr class="bg-primary text-white">
 					                        <th>Product Name</th>
 					                        <th>Image</th>
 					                        <th>Price</th>
 					                        <th>Quantity</th>
 					                    </tr>
-							        	<tr ng-repeat="oi in oiList">
+							        	<tr ng-repeat="oi in orderitems">
 							        		<td>{{oi.product.productName}}</td>
-							        		<td><img  style="height:60px;" src="/images/{{oi.product.imageUrl}}"></td>
+							        		<td><img  style="height:60px; border: 4px solid white; border-radius: 5px;" ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
 							        		<td>{{oi.product.price | vndCurrency}}</td>
 							        		<td>{{oi.quantity}}</td>
 							        		
@@ -92,8 +92,10 @@
 							</div>
                         </td>
                         <td class="btn-group">
-                        	<button ng-class="getStatusClass(o.status)" ng-click="updateStatus(o.orderId)" style="width: 120px;">{{o.status}}</button>							
-							<button class="btn btn-danger">Xóa</button>
+                        	<!-- <button ng-class="getStatusClass(o.status)" ng-click="updateStatus(o.orderId)" style="width: 120px;">{{o.status}}</button>							 -->
+							<button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button>							
+							
+							<button class="btn btn-danger" ng-click="delete(o.orderId)">Xóa</button>
                        	</td>
                     </tr>
                 </tbody>
@@ -108,12 +110,3 @@
 	
 </body>
 </html>
-
-
-
-<form th:action="@{/edit/{id}(id=${id})}" method="post" th:object="${product}">
-    <!-- Các trường dữ liệu khác trong form -->
-    <input type="text" th:field="*{propertyName}" />
-    <!-- ... -->
-    <a th:href="@{/product/delete/{id} (id=${id})}">Xóa</a>
-</form>

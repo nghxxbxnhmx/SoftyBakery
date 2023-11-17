@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Comments")
@@ -23,18 +26,12 @@ public class Comment {
     @JoinColumn(name = "productid")
     private Product product;
 
-    
-
-    @Column(name = "rating")
-    private int rating;
-
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "commentcontent")
+    private String commentContent;
 
     @Column(name = "commentdate")
     private Date commentDate;
 
-    @ManyToOne
-    @JoinColumn(name = "parentcommentid")
-    private Comment parentComment;
+    @Column(name = "parentcommentid")
+    private int parentCommentId;
 }

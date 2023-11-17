@@ -38,9 +38,6 @@ public class AddressRestController {
     @GetMapping("/{cityCode}/districts")
     public ResponseEntity<List<District>> districtIndex(@PathVariable("cityCode") String cityCode) {
         List<District> districtList = jsonReader.read(districtFilePath, District.class);
-
-        districtList.forEach((d) -> System.out.println(d.getName()));
-        
         if (districtList != null) {
             List<District> filteredDistricts = new ArrayList<>();
             for (District district : districtList) {

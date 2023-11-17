@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.poly.dto.enums.OrderStatusEnum;
 
 @Entity
@@ -36,7 +37,6 @@ public class Order {
     @JoinColumn(name = "discount")
     private Discount discount;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "couponid")
     private Coupon coupon;
@@ -48,7 +48,8 @@ public class Order {
     @Column(name = "status")
     private OrderStatusEnum status;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 }
 

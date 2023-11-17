@@ -5,7 +5,7 @@
     <title>Register - Softy Bakery</title>
 	<th:block th:insert="~{layout :: css-link}"></th:block>
   </head>
-  <body>
+  <body ng-app="app" ng-controller="RegisterController">
     <!-- Contact Start -->
     <div th:insert="~{layout :: spinner}"></div>
     <div th:insert="~{layout :: topbar}"></div>
@@ -31,21 +31,14 @@
 	            <form action="/register" method="POST" th:object="${user}">
 	              <div class="row g-3">
 	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{accountId}" class="form-control" id="fullname" placeholder="name" required min="12" max="200" disabled="true">
-	                    <label for="name">Your Id</label>
-	                  </div>
+						<div class="form-floating">
+							<input th:field="*{username}" class="form-control" id="username" placeholder="username" ng-model="randomName.username" required min="8" max="200">
+							<label for="username">Your Username</label>
+						  </div>
 	                </div>
 	                <div class="col-6">
 	                  <div class="form-floating">
-	                    <input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNum" placeholder="phoneNumber" required max="200">
-	                    <label for="subject">Your Phone Number</label>
-	                  </div>
-	                </div>
-	                
-	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{fullName}" class="form-control" id="fullname" required min="12" max="200">
+	                    <input th:field="*{fullName}" class="form-control" id="fullname" placeholder="fullname" ng-model="randomName.full_name" min="12" max="200">
 	                    <label for="fullname">Your Fullname</label>
 	                  </div>
 	                </div>
@@ -56,33 +49,37 @@
 	                  </div>
 	                </div>
 	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{username}" class="form-control" id="username" placeholder="username" required min="8" max="200">
-	                    <label for="username">Your Username</label>
+					  <div class="form-floating">
+	                    <input th:field="*{addressDetail}" class="form-control" placeholder="addressdetail" required min="8" max="200">
+	                    <label for="username">Address Detail</label>
 	                  </div>
 	                </div>
 	                <div class="col-6">
 	                  <div class="form-floating">
-	                    <input th:field="*{address}" class="form-control" id="address" placeholder="address" required min="8" max="200">
-	                    <label for="username">Your Address</label>
+	                    <input th:field="*{address}" class="form-control" placeholder="address" min="8" max="200">
+	                    <label>Your Address</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating">
-	                    <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="password" required min="8" max="200">
+	                    <input th:field="*{password}" type="password" class="form-control" placeholder="password" required min="8" max="200">
 	                    <label for="password">Your Password</label>
 	                  </div>
 	                </div>
 	                <div class="col-md-6">
 	                  <div class="form-floating">
-	                    <input type="password" th:text="${repeatPassword}" class="form-control" id="" placeholder="password" required min="8" max="200">
+	                    <input type="password" th:text="${repeatPassword}" class="form-control" placeholder="repeatpassword" required min="8" max="200" disabled>
 	                    <label for="">Repeat Your Password</label>
 	                  </div>
 	                </div>
-	                <input type="hidden" id="admin" name="admin" value="false" th:field="*{admin}">
-	                <p class="mb-4 text-light">You have an account? <a href="/login">Login</a>. </p>
+					
+					<!-- <input th:field="*{accountId}" class="form-control" id="fullname" placeholder="name" required min="12" max="200" disabled="true"> -->
+	                <!-- <input type="hidden" id="admin" name="admin" value="false" th:field="*{admin}"> -->
+					
+	                <span class="mb-4 text-light">You have an account? <a href="/login">Login</a>.</span>
 	                <div class="col-12 text-center">
-	                  <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Register</button>
+						<button class="btn btn-outline-secondary" ng-click="get()" style="border-radius: 50px;" placeholder="Random Name"><i class="fas fa-undo"></i></button>
+	                  	<button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Register</button>
 	                </div>
 	              </div>
 	            </form>

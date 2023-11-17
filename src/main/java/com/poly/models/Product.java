@@ -38,6 +38,9 @@ public class Product {
     @Column(name = "ingredient")
     private String ingredient;
 
+    @Column(name = "producturl")
+    private String productUrl;
+
     @ManyToOne
     @JoinColumn(name = "categoryid")
     private Category category;
@@ -45,6 +48,10 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @OneToMany(mappedBy = "product")
     private List<SpecialOption> specialOptions;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @OneToMany(mappedBy = "product")
+    private List<SpecialOption> comments;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @OneToMany(mappedBy = "product")

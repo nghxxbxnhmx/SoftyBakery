@@ -39,8 +39,9 @@ public class HomeController {
 		cDAO.findAll().stream().forEach((c) -> {
 			if(pDAO.getProductByCategory(c.getCategoryId()).size()!=0) {
 				c.setImageUrl(pDAO.getProductByCategory(c.getCategoryId()).get(0).getProductImages().get(0).getImageUrl());	
+				categories.add(c);
 			}
-			categories.add(c);
+			
 		});
     	model.addAttribute("c", categories);
     	model.addAttribute("count", pDAO.count());
