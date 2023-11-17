@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.poly.dao.AccountDAO;
@@ -34,5 +33,25 @@ public class AccountServiceImpl implements AccountService{
     }
     public Account getByUsername(String username) {
         return aDAO.findById(username).orElse(null);
+    }
+     @Override
+    public Account update(Account account) {
+        if (aDAO.findById(account.getUsername()) != null) {
+            aDAO.save(account);
+            return account;
+        }
+        return null;
+    }
+
+    @Override
+    public Account add(Account account) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
+    }
+
+    @Override
+    public void delete(String username) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

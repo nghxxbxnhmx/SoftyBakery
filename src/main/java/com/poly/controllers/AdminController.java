@@ -37,10 +37,9 @@ public class AdminController {
 		
 		return "admin/admin-order";
 	}
-
-	
-	
-	
+	@GetMapping("/admin/account")
+		public String admin_bandAccount(Model model) {	
+			return "admin/admin-account";}
 	@GetMapping("/admin/pi/{id}")
 	public String index(@PathVariable(name = "id", required = false) int id, Model model) {
 		Product product = pDAO.findById(id).orElse(null);
