@@ -20,15 +20,15 @@ public class SecurityConfig {
 		http
 				.csrf(csrf -> csrf.disable())
 				.authorizeRequests((authorizeRequests) -> authorizeRequests
-						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile",
-						"/profile/edit")
-						.authenticated()
-						.requestMatchers("/home", "/about", "/service", "/contact",
-						"/rest/**").permitAll()
-						.requestMatchers("/admin/**").hasRole("ADMIN"))
-						// .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**", "/admin/**", "/cart",
-						// 		"/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-						// .permitAll())
+//						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile",
+//						"/profile/edit")
+//						.authenticated()
+//						.requestMatchers("/home", "/about", "/service", "/contact",
+//						"/rest/**").permitAll()
+//						.requestMatchers("/admin/**").hasRole("ADMIN"))
+						 .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**", "/admin/**", "/cart",
+						 		"/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+						 .permitAll())
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")

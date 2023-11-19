@@ -130,6 +130,144 @@ app.filter('toTimeStamp', function () {
 	};
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+app.controller('CommentController', function ($scope, $http) {
+	$scope.form = {};
+    $scope.items = [];
+    $scope.key = null;
+    	
+    $scope.load_all = function () {
+        var url = `${host}/comments`;
+        $http.get(url).then(resp => {
+            $scope.items = resp.data;
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+   
+  
+    $scope.delete = function (commentId) {
+        var url = `${host}/comments/${commentId}`;
+        $http.delete(url).then(resp => {
+            var index = $scope.items.findIndex(item => item.commentId == commentId);
+            $scope.items.splice(index, 1);
+            $scope.reset();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    // Thực hiện tải toàn bộ students
+    $scope.load_all();
+   
+});
+app.controller('comment', function ($scope, $http) {
+    $scope.form = {};
+    $scope.items = [];
+    $scope.key = null;
+    	
+    $scope.load_all = function () {
+        var url = `${host}/comments`;
+        $http.get(url).then(resp => {
+            $scope.items = resp.data;
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+   
+  
+    $scope.delete = function (id) {
+        var url = `${host}/comments/${commentId}`;
+        $http.delete(url).then(resp => {
+            var index = $scope.items.findIndex(item => item.commentId == commentId);
+            $scope.items.splice(index, 1);
+            $scope.reset();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    // Thực hiện tải toàn bộ students
+    $scope.load_all();
+    $scope.reset();
+});
+app.controller('review', function ($scope, $http) {
+    $scope.form = {};
+    $scope.items = [];
+    $scope.key = null;
+
+    $scope.reset = function () {
+        $scope.form = { gender: true, country: 'VN' };
+        $scope.key = null;
+    }
+
+	
+    $scope.load_all = function () {
+        var url = `${host}/review`;
+       
+        $http.get(url).then(resp => {
+            $scope.items = resp.data;
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.update = function () {
+        var key = $scope.key;
+        var url = `${host}/review/${$scope.form.reviewId}`;
+        $http.put(url, $scope.form).then(resp => {
+            var index = $scope.items.findIndex(item => item.reviewId == $scope.form.reviewId);
+            $scope.items[index] = resp.data;
+            $scope.reset();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.edit = function (reviewId) {
+        var url = `${host}/review/${reviewId}`;
+        $http.get(url).then(resp => {
+            $scope.form = resp.data;
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.create = function () {
+        var url = `${host}/review`;
+        $http.post(url, $scope.form).then(resp => {
+            $scope.reset();
+            $scope.load_all();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    $scope.delete = function (reviewId) {
+        var url = `${host}/review/${reviewId}`;
+        $http.delete(url).then(resp => {
+            var index = $scope.items.findIndex(item => item.reviewId == reviewId);
+            $scope.items.splice(index, 1);
+            $scope.reset();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    }
+
+    // Thực hiện tải toàn bộ students
+    $scope.load_all();
+    $scope.reset();
+});
 app.controller('ProductController', function ($scope, $http, $filter, $location, $routeParams) {
 	// product
 	$scope.listAllProducts = [];

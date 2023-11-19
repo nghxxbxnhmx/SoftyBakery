@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Products - Softy Bakery</title>
+<th:block th:insert="~{layout :: css-link}"></th:block>
+</head>
+<body ng-app="app" ng-controller="CommentController">
+	<div th:insert="~{layout :: spinner}"></div>
+	<div th:insert="~{layout :: topbar}"></div>
+	<div th:insert="~{layout :: navbar}"></div>
+	<div class="container-fluid page-header py-6 wow fadeIn"
+		data-wow-delay="0.1s">
+		<div class="container text-center pt-5 pb-3">
+			<h1 class="display-4 text-white animated slideInDown mb-3">Comment</h1>
+			<nav aria-label="breadcrumb animated slideInDown">
+				<ol class="breadcrumb justify-content-center mb-0">
+					<li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
+					</li>
+					<li class="breadcrumb-item"><a class="text-white" href="#">Pages</a>
+					</li>
+					<li class="breadcrumb-item text-primary active" aria-current="page">Products</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!-- Page Header Start -->
+	<div class="container">
+	<div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+              <h1 class="mb-5">
+                COMMENT-ADMIN
+              </h1>
+            </div>
+            
+          </div>
+     <!--   <div class="form"> 
+             <div class="form-group mb-2">
+                <label for="reviewId">Username:</label>
+                <input type="account" class="form-control" id="account" ng-model="form.account">
+            </div>
+            <div class="form-group mb-2">
+                <label for="rating" >Rating</label>
+                <input type="text" class="form-control" id="rating" ng-model="form.rating">
+            </div>
+            <div class="form-group mb-2">
+                <label for="orderid">Orderid</label>
+                <input type="text" class="form-control" id="reviewDate" ng-model="form.orderid">
+            </div>
+            <div class="form-group mb-2">
+                <label for="comment">Comment</label>
+                <input type="text" class="form-control" id="comment" ng-model="form.comment">
+            </div>
+              <div class="form-group mb-2">
+                <label for="reviewDate">ReviewDate</label>
+                <input type="text" class="form-control" id="reviewDate" ng-model="form.reviewDate">
+            </div>
+            <button ng-click="delete(form.reviewId)" type="submit" class="btn btn-danger">Xóa</button>        
+        </div>  -->
+        <table class="table table-hover">
+            <thead>
+                <tr class="bg-primary text-white">
+                      <th>CommentId</th>
+                      <th>CommentContent</th>
+                       <th>CommentDate</th>
+                      <th>ParentComment</th> 
+                    
+                      <th>Delete</th>       
+                </tr>
+            </thead>
+            <tbody>
+                
+               <tr ng-repeat="cm in items"  >
+                  <td>{{cm.subComment.commentId}}</td>
+                  <!-- <td>  <span ng-if="cm.parentComment == 0">{{cm.commentContent}}</span></td> -->
+                     <td>{{cm.subComment.commentContent}}</td>
+                       <td>{{cm.subComment.commentDate}}</td>
+                     
+                      
+                     
+                        <td>
+                            <span>{{cm.parentComment.commentContent}}</span>
+                            </td>
+                       
+                         <!-- <td>
+                             <span ng-if="cm.parentComment == 0"></span>
+                        <span ng-if="cm.parentComment != 0">{{cm.commentContent}}</span>
+                   
+                         </td> -->
+                    <td>
+                <!--   <button ng-click="edit(rv.reviewId)" class="btn btn-info">Chỉnh sửa</button> --> 
+                        <button ng-click="delete(cm.commentId)" class="btn btn-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+	<!-- Admin Product End -->
+	<div th:insert="~{layout :: footer}"></div>
+	<div th:insert="~{layout :: copyright}"></div>
+	<div th:insert="~{layout :: backtotop}"></div>
+	<div th:insert="~{layout :: js-link}"></div>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+

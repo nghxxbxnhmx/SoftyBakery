@@ -37,9 +37,14 @@ public class AdminController {
 		
 		return "admin/admin-order";
 	}
-
-	
-	
+	@GetMapping("/rest/admin/review")
+	public String admin_review(Model model) {	
+		return "admin/admin-review";
+	}
+	@GetMapping("/rest/admin/comment")
+	public String admin_comment(Model model) {	
+		return "admin/admin-commentt";
+	}
 	
 	@GetMapping("/admin/pi/{id}")
 	public String index(@PathVariable(name = "id", required = false) int id, Model model) {

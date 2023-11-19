@@ -14,5 +14,8 @@ public interface OrderDAO extends JpaRepository<Order, Integer> {
 
 	@Query("SELECT o FROM Order o WHERE account.username = ?1")
 	List<Order> findOrderByUsername(String username);
+	
+	//String insertQuery = "INSERT INTO reviews (username, comment, productid, rating, reviewdate, OrderID) VALUES (?, ?, ?, ?, ?, ?)";
+
 }
   

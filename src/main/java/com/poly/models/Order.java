@@ -16,6 +16,8 @@ import com.poly.dto.enums.OrderStatusEnum;
 @Table(name = "Orders")
 @Data
 public class Order {
+  
+ //  private static final int serialVersionUID = 1;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderid")
