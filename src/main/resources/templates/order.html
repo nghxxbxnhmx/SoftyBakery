@@ -30,7 +30,7 @@
 
 	<!-- Order Start -->
 
-		<form class="needs-validation" action="/order" method="POST" th:object="${user}">
+		<form class="needs-validation" id="orderForm" action="" method="POST" th:object="${user}"><!-- Đang bị lỗi controller order nên bỏ trống action-->
 			<div class="container" data-wow-delay="0.1s">
 				<div class="text-center mx-auto mb-5 wow fadeInUp"
 					style="max-width: 500px;">
@@ -49,15 +49,15 @@
 								<div>
 									<h6 class="my-0" th:text="${c.product.productName}"></h6>
 									<small class="text-muted"><span
-										th:text="${#numbers.formatDecimal(c.product.price, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
-										x <span th:text="${c.quantity}"></span></small>
+										th:text="${#numbers.formatDecimal(c.product.price, 0, 'COMMA', 0, 'POINT')+' ₫'}">
+									</span>x <span th:text="${c.quantity}"></span></small>
 								</div>
 								<span th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
 							</li>
 							<li class="list-group-item d-flex justify-content-between">
 								<span>Tổng thành tiền</span> 
 								<strong>
-									<span th:text="${#numbers.formatDecimal(amount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
+									<span  th:text="${#numbers.formatDecimal(amount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
 								</strong>
 							</li>
 						</ul>
@@ -78,7 +78,7 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<label>Họ tên</label> <input type="text" class="form-control" th:field="*{fullName}">
+								<label>Họ tên</label> <input type="text"  class="form-control" th:field="*{fullName}">
 							</div>
 							<div class="col-md-12">
 								<label>Địa chỉ chi tiết</label>
@@ -115,7 +115,46 @@
 				<input type="hidden" th:field="*{username}">
 				<input type="hidden" th:field="*{photo}">												
 		</form>
+		<script>
+			document.getElementById('orderForm').addEventListener('submit', function (event) {
+				event.preventDefault(); // Ngăn chặn gửi form mặc định
+				// Lấy dữ liệu từ form
+				var formData = new FormData(this);
+				// Gửi dữ liệu đến controller "/order"
+				// $.ajax({
+				// 	url: '/order',
+				// 	method: 'POST',
+				// 	data: formData,
+				// 	processData: false,
+				// 	contentType: false,
+				// });
+				// Gửi dữ liệu đến controller "/OderMail"
+				var cartItems = document.querySelectorAll('[th:each="c : ${cart}"]');
+    cartItems.forEach(function(item, index) {
+        var productName = item.querySelector('[th:text="${c.product.productName}"]').textContent;
+        var quantity = item.querySelector('[th:text="${c.quantity}"]').textContent;
+        var price = item.querySelector('[th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, \'COMMA\', 0, \'POINT\') + \' ₫\'}"]').textContent;
 
+        formData.append('productNameList', productName);
+        formData.append('quantityList', quantity);
+        formData.append('priceList', price);
+    });
+
+				$.ajax({
+					url: '/OrderMail',
+					method: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function (data) {
+						console.log('OderMail controller success:', data);
+					},
+					error: function (error) {
+						console.error('OderMail controller error:', error);
+					}
+				});
+			});
+		</script>
 	<!-- Order End -->
 
 	<div th:insert="~{layout :: footer}"></div>

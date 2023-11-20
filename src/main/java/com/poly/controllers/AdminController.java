@@ -42,6 +42,11 @@ public class AdminController {
 
 		return "admin/admin-category";
 	}
+	@GetMapping("/admin/account")
+	public String adminAccount(Model model) {
+
+		return "admin/admin-account";
+	}
 
 	
 	
