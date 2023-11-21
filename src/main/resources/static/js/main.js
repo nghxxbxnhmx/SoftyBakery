@@ -649,13 +649,27 @@ app.controller('AdminAccountController', function ($scope, $http) {
 		console.log(resp.data);
 	  });
 	}
-  
+	$scope.getRoleStyle = function(role) {
+		switch(role) {
+			case 'USER':
+				return {'color': 'black'};
+			case 'MANAGER':
+				return {'color': 'blue'};
+			case 'ADMIN':
+				return {'color': 'red'};
+			case 'SUPERADMIN':
+				return {'color': 'green'};
+			default:
+				return {};
+		}},
 	$scope.search = function () {
 	  $scope.searchText = $scope.temporarySearchText;
 	};
-  
+	$scope.showReasonBlockerModal = function(reason) {
+		$scope.modalMessage = reason;
+		$('#messageModal').modal('show');
+	};
 	$scope.filterOptions = 'all';
-  
 	$scope.filterCondition = function (account) {
 	  if ($scope.filterOptions === 'activity') {
 		return !account.account.banned;
@@ -664,6 +678,16 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  } else {
 		return true;
 	  }
+	};
+	$scope.filterByRole = function() {
+		if ($scope.form.role === 'RoleAll') {
+			$scope.roleFilter = $scope.filterAllRoles;
+		} else {
+			var roleFilter = function(account) {
+				return account.account.role === $scope.form.role;
+			};
+			$scope.roleFilter = roleFilter;
+		}
 	};
   
 	$scope.editAccount = function (account) {
@@ -730,6 +754,7 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.hideModal = function () {
 	  $('#messageModal').modal('hide');
 	};
+	
   
 	$scope.reset();
 	$scope.loadAll();

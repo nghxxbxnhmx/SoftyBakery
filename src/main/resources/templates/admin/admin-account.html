@@ -30,18 +30,28 @@
 	<!-- Admin Product Start -->
 	<div class="mx-5">
 		<div class="mb-3 d-flex">
-			<div class="me-5" style="width: 250px;">
+			<div class="me-3" style="width: 200px;">
 				<select class="form-select" id="filterOptions" ng-model="filterOptions">
-					<option value="all">Find all</option>
+					<option value="all">Condition all</option>
 					<option value="activity">Activity</option>
 					<option value="blocker">Blocker</option>
 				</select>
 			</div>
-			<form class="d-flex" role="search" style="width: 700px;">
+			<div class="me-3" style="width: 200px;" >
+				<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'RoleAll'" ng-change="filterByRole()">
+					<option value="RoleAll">Roles all</option>
+					<option value="USER">User</option>
+					<option value="MANAGER">Manager</option>
+					<option value="ADMIN">Admin</option>
+					<option value="SUPERADMIN">Super Admin</option>
+				</select>
+			</div>
+			<form class="d-flex" role="search" style="width: 600px;">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="temporarySearchText">
 				<button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
 			</form>
 		</div>
+		
 <div class="row">
 	<div class="col-md-8">
             <table class="table table-hover table-bordered">
@@ -54,24 +64,25 @@
 						<th>Address</th>
 						<th>PhoneNumber</th>
                         <th>Condition</th>
-						<th>Role</th>
 						<th>Manipulate</th>
 						
 						  
                     </tr>
                 </thead>
                 <tbody>	
-					<tr ng-repeat="a in filteredAccounts = (accounts | filter:searchText) | filter:filterCondition">
-                        <td>{{a.account.username}}</td>
+					<tr ng-repeat="a in filteredAccounts = (accounts | filter:searchText) | filter:filterCondition| filter:roleFilter | limitTo: itemsPerPage : getStartIndex()">
+                        <td ng-style="getRoleStyle(a.account.role)">{{a.account.username}}</td>
 						<td><img src="../images/accountPhoto/{{a.account.photo}}" width="50px"></td>
 						<td>{{a.account.email}}</td>
                         <td>{{a.account.fullName}}</td>
                         <td>{{a.account.addressDetail}} {{a.account.address}}</td>
                         <td>{{a.account.phoneNumber}}</td>
-                        <td class="text-center " ng-class="{'text-danger': a.account.banned, 'text-success': !a.account.banned}">
-							{{a.account.banned ? 'Locked' : 'Unlocked'}}
+                        <td class="text-center" ng-class="{'text-danger': a.account.banned, 'text-success': !a.account.banned}">
+							<span ng-if="!a.account.banned">{{'Unlocked'}}</span>
+							<button ng-if="a.account.banned" type="button" class="btn btn-sm btn-outline-danger" ng-click="showReasonBlockerModal(a.account.reasonBanned)">
+								{{'Locked'}}
+							</button>
 						</td>
-						<td class="text-center ">{{a.account.role}}</td>
                         <td class="text-center ">
 							<button type="button" class="btn btn-lg-square btn-outline-light rounded-circle m-auto" ng-click="editAccount(a)">
 								<i class="bi bi-pencil-square text-primary"></i>
@@ -80,6 +91,7 @@
 					</tr>	   
                 </tbody>
             </table>
+			
 		</div>
 		<div class="col-md-4">
 			<form id="editUserForm">
@@ -116,7 +128,7 @@
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="editRole">Role:</label>
-					<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'USER'" style="width: 300px;"  required>
+					<select class="form-select" id="editRole" name="editRole" ng-model="form.role" style="width: 300px;"  required>
 						<option value="USER">User</option>
 						<option value="MANAGER">Manager</option>
 						<option value="ADMIN">Admin</option>
@@ -178,6 +190,27 @@
 	<div th:insert="~{layout :: copyright}"></div>
 	<div th:insert="~{layout :: backtotop}"></div>
 	<div th:insert="~{layout :: js-link}"></div>
+	<script>
+		$(document).ready(function () {
+			// Initialize Bootstrap tooltips
+			$('[data-toggle="tooltip"]').tooltip();
+	
+			// Handle hover event for the 'Condition' cell
+			$('.condition-cell').hover(
+				function () {
+					// Show the tooltip when hovering over a locked account
+					if ($(this).hasClass('text-danger')) {
+						var reasonBlocker = $(this).data('reason-blocker');
+						$(this).attr('data-original-title', 'Reason Blocker: ' + reasonBlocker).tooltip('show');
+					}
+				},
+				function () {
+					// Hide the tooltip when not hovering
+					$(this).tooltip('hide');
+				}
+			);
+		});
+	</script>
 	<script>
 		// JavaScript to toggle Reason Blocker input based on Condition selection
 		document.getElementById('userForm').addEventListener('change', function(event) {
