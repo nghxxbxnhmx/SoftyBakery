@@ -36,12 +36,6 @@ public class OrderRestController {
 
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {
-        // List<OrderDTO> orders = new ArrayList<>();
-        // for (Order o : oDAO.findAll()) {
-        //     OrderDTO oDTO = new OrderDTO(o);
-        //     oDTO.setAccount(o.getAccount());
-        //     orders.add(oDTO);
-        // }
         return ResponseEntity.ok(oDAO.findAll());
     }
 
@@ -75,7 +69,9 @@ public class OrderRestController {
         if (!oDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-
+        for(OrderItem orderItem : oiDAO.getByOrderId(id)) {
+            oiDAO.delete(orderItem);
+        }
         oDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
@@ -83,7 +79,7 @@ public class OrderRestController {
     @GetMapping("/delete/{orderId}")
     public ResponseEntity<List<OrderItem>> removeOrderById(@PathVariable("orderId") int orderId) {
         List<OrderItem> oiList = new ArrayList<>();
-        for (OrderItem oi : oiDAO.getOrderItemByOrderId(orderId)) {
+        for (OrderItem oi : oiDAO.getByOrderId(orderId)) {
             ProductDTO pDTO = new ProductDTO();
             pDTO.setProduct(oi.getProduct());
 

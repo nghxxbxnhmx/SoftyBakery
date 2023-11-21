@@ -86,5 +86,8 @@ public class AdminController {
 		return "manage/coupon";
 	}
 	
-	
+	@GetMapping("/admin/account")
+	public String adminAccount() {
+		return "admin/admin-account";
+	}
 }

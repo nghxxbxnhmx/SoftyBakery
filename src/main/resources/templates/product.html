@@ -33,7 +33,7 @@
     </style>
   </head>
 
-  <body ng-app="app" ng-controller="ProductController">
+  <body ng-app="app" ng-controller="ProductController" class="bg-light">
     <div th:insert="~{layout :: spinner}"></div>
     <div th:insert="~{layout :: topbar}"></div>
     <div th:insert="~{layout :: navbarProduct}"></div>
@@ -62,7 +62,7 @@
     <!-- Page Header End -->
     <!-- Product Start -->
     <div
-      class="container-fluid bg-light my-6 py-6 pt-0"
+      class="container-fluid my-6 py-6 pt-0"
       style="margin: 12rem 0"
     >
       <div class="container-fluid">
@@ -154,7 +154,7 @@
                     <a class="dropdown-item" ng-repeat="p in listAllProducts | filter : searchKey" ng-href="/product/detail/{{p.product.productId}}" >
                       <span>
                         <img ng-src="/images/{{p.product.productImages[0].imageUrl}}" style="width: 60px; border-radius: 8%; border:2px solid white;">
-                      </span>  
+                      </span>
                       {{p.product.productName}}
                     </a>
                 </div>
