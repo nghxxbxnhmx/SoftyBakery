@@ -16,6 +16,8 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 	
 	@Query("SELECT p FROM Product p WHERE p.productUrl = ?1")
     Product findByProductUrl(String productUrl);   
-	
+	// New method to find a product by its name
+    @Query("SELECT p FROM Product p WHERE p.productName = ?1")
+    Product findByProductName(String productName);
 }
 
