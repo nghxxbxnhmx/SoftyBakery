@@ -270,7 +270,7 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 
 
 	function getUser() {
-		var url = `${host}/user`;
+		var url = `${host}/account/getAuth`;
 		$http.get(url).then(resp => {
 			$scope.userInfo.accountId = resp.data.accountId;
 			$scope.userInfo.username = resp.data.username;
@@ -281,7 +281,7 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 			$scope.userInfo.addressDetail = resp.data.addressDetail;
 			$scope.userInfo.phoneNumber = resp.data.phoneNumber;
 			$scope.userInfo.photo = resp.data.photo;
-			$scope.userInfo.admin = resp.data.admin;
+			$scope.userInfo.role = resp.data.role;
 		})
 	}
 	$scope.postReview = function () {
@@ -370,9 +370,24 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 app.controller('OrderController', function ($scope, $http) {
-	$scope.products = [];
-	$scope.category = [];
-	$scope.form = {};
+	var couponCodeCheckInput = document.getElementById("couponCodeCheckInput");
+	var couponCodeInput = document.getElementById("couponCodeInput");
+	var urlCheck = `${host}/coupon/check`;
+	$scope.submitForm = function () {
+		event.preventDefault();
+		$scope.checkCouponCode();
+	};
+	$scope.checkCouponCode = function () {
+		$http.get(urlCheck + couponCodeCheckInput.value).then(resp => {
+			if (resp.data.couponCode) {
+				couponCodeInput.value = resp.data.couponCode;
+				console.log("oke roai")
+			} else {
+				console.log("ngu")
+			}
+		});
+
+	}
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 app.controller('UserController', function ($scope, $http) {
@@ -392,20 +407,20 @@ app.controller('UserController', function ($scope, $http) {
 	const urlUser = `${host}/account`;
 
 	function getUser() {
-		var url = urlUser;
+		var url = urlUser + '/getAuth';
 		$http.get(url).then(resp => {
 			if (resp.data != null) {
 				$scope.userInfo = resp.data;
-				$scope.form.accountId = $scope.userInfo.accountId;
-				$scope.form.username = $scope.userInfo.username;
-				$scope.form.password = $scope.userInfo.password;
-				$scope.form.email = $scope.userInfo.email;
-				$scope.form.fullName = resp.data.fullName;
-				$scope.form.address = $scope.userInfo.address;
-				$scope.form.addressDetail = $scope.userInfo.addressDetail;
-				$scope.form.phoneNumber = $scope.userInfo.phoneNumber;
-				$scope.form.photo = $scope.userInfo.photo;
-				$scope.form.admin = $scope.userInfo.admin;
+				// $scope.form.accountId = $scope.userInfo.accountId;
+				// $scope.form.username = $scope.userInfo.username;
+				// $scope.form.password = $scope.userInfo.password;
+				// $scope.form.email = $scope.userInfo.email;
+				// $scope.form.fullName = resp.data.fullName;
+				// $scope.form.address = $scope.userInfo.address;
+				// $scope.form.addressDetail = $scope.userInfo.addressDetail;
+				// $scope.form.phoneNumber = $scope.userInfo.phoneNumber;
+				// $scope.form.photo = $scope.userInfo.photo;
+				// $scope.form.admin = $scope.userInfo.admin;
 				$scope.form = resp.data;
 			}
 		})
@@ -417,7 +432,7 @@ app.controller('UserController', function ($scope, $http) {
 			});
 	}
 	$scope.loadCities = function () {
-		$http.get(url + "cities").then(function (response) {
+		$http.get(url + "cities").then(response => {
 			$scope.cities = response.data;
 		});
 	};
@@ -475,8 +490,67 @@ app.controller('UserController', function ($scope, $http) {
 	getUser();
 	$scope.loadCities();
 });
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+app.controller('AddressController', function ($scope, $http) {
+	$scope.form = {};
+
+	$scope.cities = [];
+	$scope.districts = [];
+	$scope.wards = [];
+
+	$scope.city = null;
+	$scope.district = null;
+	$scope.ward = null;
 
 
+	const url = `${host}/address/`;
+
+	$scope.loadCities = function () {
+		$http.get(url + "cities").then(response => {
+			$scope.cities = response.data;
+			console.log(response.data)
+		});
+	};
+
+	$scope.loadDistricts = function () {
+		if ($scope.city !== null && $scope.city === '') {
+			$scope.address = $scope.city.name;
+			$scope.districts = [];
+			$scope.wards = [];
+			return;
+		}
+
+		$http.get(url + $scope.city.code + "/districts").then(function (response) {
+			$scope.districts = response.data;
+			$scope.district = null;
+			$scope.wards = [];
+			$scope.setAddress();
+		});
+
+	};
+
+	$scope.loadWards = function () {
+		if (!$scope.district) {
+			$scope.wards = [];
+			return;
+		}
+		$http.get(url + $scope.district.code + "/wards").then(function (response) {
+			$scope.wards = response.data;
+			$scope.setAddress();
+		});
+	};
+
+	$scope.setAddress = function () {
+		if ($scope.ward != null) {
+			$scope.form.address = '';
+			$scope.form.address = $scope.ward.path_with_type;
+		}
+	}
+
+	$scope.loadCities();
+});
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 app.controller('AdminProductController', function ($scope, $http) {
 	$scope.products = [];
@@ -559,7 +633,9 @@ app.controller('AdminProductController', function ($scope, $http) {
 app.controller('AdminOrderController', function ($scope, $http) {
 	$scope.orders = [];
 	$scope.orderitems = [];
+
 	const url = `${host}/order`;
+
 	$scope.loadAll = function () {
 		const url = `${host}/order`;
 		$http.get(url).then(resp => {
@@ -581,8 +657,14 @@ app.controller('AdminOrderController', function ($scope, $http) {
 
 	$scope.getOrderItems = function (order) {
 		$scope.orderitems = [];
-		console.log(order)
 		$scope.orderitems = order.orderItems;
+	}
+
+
+	$scope.getAmount = function (orderItems) {
+		return orderItems.reduce(function (total, product) {
+			return total + product.product.price * product.quantity;
+		}, 0);
 	}
 
 	$scope.delete = function (orderId) {
@@ -618,6 +700,9 @@ app.controller('CouponController', function ($http, $scope, $filter) {
 		$http.post(url, $scope.form).then(() => $scope.loadAll());
 	}
 	$scope.update = function () {
+		$scope.form.startDate = $filter('date')($scope.form.startDate, 'HH:mm:ss yyyy-MM-dd');
+		$scope.form.endDate = $filter('date')($scope.form.endDate, 'HH:mm:ss yyyy-MM-dd');
+		console.log($scope.form)
 		$http.put(url, $scope.form).then(() => $scope.loadAll());
 	}
 
@@ -625,8 +710,8 @@ app.controller('CouponController', function ($http, $scope, $filter) {
 		$http.delete(url + '/' + id).then(() => $scope.loadAll()).then(() => $scope.reset());
 	}
 	$scope.loadForm = function (coupon) {
-		coupon.startDate = new Date(coupon.startDate);
-		coupon.endDate = new Date(coupon.endDate);
+		coupon.startDate = new Date(moment(coupon.startDate, 'HH:mm:ss DD-MM-YYYY'));
+		coupon.endDate = new Date(moment(coupon.endDate, 'HH:mm:ss DD-MM-YYYY'));
 		$scope.form = angular.copy(coupon);
 	};
 
@@ -641,127 +726,101 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.form = {};
 	$scope.temporarySearchText = '';
 	$scope.modalMessage = '';
-	
+
 	$scope.loadAll = function () {
-	  const url = `${host}/account`;
-	  $http.get(url).then(resp => {
-		$scope.accounts = resp.data;
-		console.log(resp.data);
-	  });
+		const url = `${host}/account`;
+		$http.get(url).then(resp => {
+			$scope.accounts = resp.data;
+			console.log(resp.data);
+		});
 	}
-	$scope.getRoleStyle = function(role) {
-		switch(role) {
-			case 'USER':
-				return {'color': 'black'};
-			case 'MANAGER':
-				return {'color': 'blue'};
-			case 'ADMIN':
-				return {'color': 'red'};
-			case 'SUPERADMIN':
-				return {'color': 'green'};
-			default:
-				return {};
-		}},
+
 	$scope.search = function () {
-	  $scope.searchText = $scope.temporarySearchText;
+		$scope.searchText = $scope.temporarySearchText;
 	};
-	$scope.showReasonBlockerModal = function(reason) {
-		$scope.modalMessage = reason;
-		$('#messageModal').modal('show');
-	};
+
 	$scope.filterOptions = 'all';
+
 	$scope.filterCondition = function (account) {
-	  if ($scope.filterOptions === 'activity') {
-		return !account.account.banned;
-	  } else if ($scope.filterOptions === 'blocker') {
-		return account.account.banned;
-	  } else {
-		return true;
-	  }
-	};
-	$scope.filterByRole = function() {
-		if ($scope.form.role === 'RoleAll') {
-			$scope.roleFilter = $scope.filterAllRoles;
+		if ($scope.filterOptions === 'activity') {
+			return !account.account.banned;
+		} else if ($scope.filterOptions === 'blocker') {
+			return account.account.banned;
 		} else {
-			var roleFilter = function(account) {
-				return account.account.role === $scope.form.role;
-			};
-			$scope.roleFilter = roleFilter;
+			return true;
 		}
 	};
-  
+
 	$scope.editAccount = function (account) {
-	  $scope.form = angular.copy(account.account);
-	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+		$scope.form = angular.copy(account.account);
+		$scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
 	};
-  
+
 	$scope.reset = function () {
-	  $scope.form = {
-		username: '',
-		email: '',
-		address: '',
-		phoneNumber: '',
-		condition: 'activity',
-		reasonBlocker: '',
-		role: 'USER'
-	  };
+		$scope.form = {
+			username: '',
+			email: '',
+			address: '',
+			phoneNumber: '',
+			condition: 'activity',
+			reasonBlocker: '',
+			role: 'USER'
+		};
 	};
-  
+
 	$scope.update = function () {
-	  var formAccount = $scope.form;
-	  formAccount.banned = formAccount.condition === 'activity' ? false : true;
-	  const url = `${host}/account/${formAccount.username}`;
-	  if (formAccount != null) {
-		$http.put(url, formAccount).then(() => {
-		  console.log("Lưu tài khoản thành công!");
-		  $scope.loadAll();
-		  $scope.showModal('Lưu tài khoản thành công!');
-		}).catch(function (error) {
-		  console.error("Lỗi khi lưu tài khoản:", error);
-		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
-		});
-	  }
+		var formAccount = $scope.form;
+		formAccount.banned = formAccount.condition === 'activity' ? false : true;
+		const url = `${host}/account/${formAccount.username}`;
+		if (formAccount != null) {
+			$http.put(url, formAccount).then(() => {
+				console.log("Lưu tài khoản thành công!");
+				$scope.loadAll();
+				$scope.showModal('Lưu tài khoản thành công!');
+			}).catch(function (error) {
+				console.error("Lỗi khi lưu tài khoản:", error);
+				$scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
+			});
+		}
 	}
-  
+
 	$scope.delete = function (username) {
-	  const url = `${host}/account/${username}`;
-	  $http.delete(url).then(function () {
-		console.log("Xóa tài khoản thành công! " + username);
-		$scope.loadAll();
-		$scope.reset();
-		$scope.showModal('Xóa tài khoản thành công!');
-	  }).catch(function (error) {
-		console.error("Lỗi khi xóa tài khoản:", error);
-		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
-	  });
+		const url = `${host}/account/${username}`;
+		$http.delete(url).then(function () {
+			console.log("Xóa tài khoản thành công! " + username);
+			$scope.loadAll();
+			$scope.reset();
+			$scope.showModal('Xóa tài khoản thành công!');
+		}).catch(function (error) {
+			console.error("Lỗi khi xóa tài khoản:", error);
+			$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
+		});
 	}
-  
+
 	$scope.handleFileSelect = function (element) {
-	  var fileName = element.files[0].name;
-	  console.log('Selected file name:', fileName);
-	  $scope.form.photo = fileName;
+		var fileName = element.files[0].name;
+		console.log('Selected file name:', fileName);
+		$scope.form.photo = fileName;
 	};
-  
+
 	$scope.getRelativeImagePath = function (imageName) {
-	  return "/images/accountPhoto/" + imageName;
+		return "/images/accountPhoto/" + imageName;
 	};
-  
+
 	$scope.showModal = function (message) {
-	  $scope.modalMessage = message;
-	  $('#messageModal').modal('show');
+		$scope.modalMessage = message;
+		$('#messageModal').modal('show');
 	};
-  
+
 	$scope.hideModal = function () {
-	  $('#messageModal').modal('hide');
+		$('#messageModal').modal('hide');
 	};
-	
-  
 	$scope.reset();
 	$scope.loadAll();
-  });
+});
 
 app.controller('RegisterController', function ($http, $scope) {
-	var url = `${host}/user/randomname`;
+	var url = `${host}/account/randomname`;
 	$scope.randomName = {};
 	$scope.get = function () {
 		$http.get(url).then(resp => {
@@ -825,9 +884,9 @@ app.controller('CommentController', function ($scope, $http) {
 		})
 	}
 
-    $scope.toggleReplyForm = function (comment) {
-        comment.showReplyForm = !comment.showReplyForm;
-    };
+	$scope.toggleReplyForm = function (comment) {
+		comment.showReplyForm = !comment.showReplyForm;
+	};
 
 	$scope.postComment = function () {
 		var product = {};
@@ -854,15 +913,15 @@ app.controller('CommentController', function ($scope, $http) {
 			$scope.resetForm();
 		});
 	}
-	
+
 	$scope.findByProductId = function (productId) {
 		$http.get(url + '/' + productId).then(resp => {
 			$scope.commentDTOs = resp.data;
 		})
 	}
 	$scope.delete = function (commentId) {
-		console.log(url+'/'+commentId);
-		$http.delete(url+'/'+commentId).then(() => {
+		console.log(url + '/' + commentId);
+		$http.delete(url + '/' + commentId).then(() => {
 			$scope.findByProductId($scope.productId);
 		});
 	}
@@ -871,4 +930,42 @@ app.controller('CommentController', function ($scope, $http) {
 	}
 	// Khởi tạo dữ liệu ban đầu
 	$scope.findByProductId($scope.productId);
+});
+
+app.controller('UserPurchaseController', function ($scope, $http) {
+	var orderUrl = `${host}/order`;
+
+	$scope.orders = [];
+	$scope.userAuth = {};
+
+
+	function getAuthUser() {
+		$http.get(`${host}/account/getAuth`).then(resp => {
+			$scope.userAuth = resp.data;
+		});
+	}
+
+	$scope.loadAll = function (username) {
+		$http.get(orderUrl + "/user/" + username).then(resp => {
+			$scope.orders = resp.data;
+		});
+	}
+
+
+	// Khởi tạo dữ liệu ban đầu
+	getAuthUser().then(() => {
+		$scope.loadAll($scope.userAuth.username)
+	});
+});
+
+app.controller('TestController', function ($scope, $http) {
+	var cities = [];
+
+	$scope.loadAll = function () {
+		$http.get("\\data\\vietnam_location\\cities.json").then(resp => {
+			console.log(resp.data);
+		});
+	}
+
+	$scope.loadAll();
 });

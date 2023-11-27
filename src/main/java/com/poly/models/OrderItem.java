@@ -1,6 +1,7 @@
 package com.poly.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -22,11 +23,12 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "productid")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
 
     @Column(name = "quantity")
     private int quantity;
 
     @Column(name = "price")
-    private Double price;
+    private double price;
 }

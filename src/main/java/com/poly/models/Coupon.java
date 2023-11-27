@@ -4,10 +4,13 @@ import lombok.Data;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.poly.dto.DiscountType;
 
@@ -38,13 +41,16 @@ public class Coupon {
 
     @Column(name = "startdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime startDate;
+    // @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
+    private Timestamp startDate;
 
     @Column(name = "enddate")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime endDate;
+    // @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
+    private Timestamp endDate;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+
+    @JsonIgnore
     @OneToMany(mappedBy = "coupon")
     private List<Order> order;
 

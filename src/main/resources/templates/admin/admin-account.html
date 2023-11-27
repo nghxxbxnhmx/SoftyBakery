@@ -37,16 +37,16 @@
 					<option value="blocker">Blocker</option>
 				</select>
 			</div>
-			<div class="me-3" style="width: 200px;" >
-				<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'RoleAll'" ng-change="filterByRole()">
-					<option value="RoleAll">Roles all</option>
+			<!-- <div class="row">
+				<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'ALL'" style="width: 300px;"  required>
+					<option value="ALL">All</option>
 					<option value="USER">User</option>
 					<option value="MANAGER">Manager</option>
 					<option value="ADMIN">Admin</option>
-					<option value="SUPERADMIN">Super Admin</option>
+					<option value="SUPER_ADMIN">Super Admin</option>
 				</select>
-			</div>
-			<form class="d-flex" role="search" style="width: 600px;">
+			</div> -->
+			<form class="d-flex" role="search" style="width: 700px;">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="temporarySearchText">
 				<button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
 			</form>
@@ -65,8 +65,6 @@
 						<th>PhoneNumber</th>
                         <th>Condition</th>
 						<th>Manipulate</th>
-						
-						  
                     </tr>
                 </thead>
                 <tbody>	
@@ -132,7 +130,7 @@
 						<option value="USER">User</option>
 						<option value="MANAGER">Manager</option>
 						<option value="ADMIN">Admin</option>
-						<option value="SUPERADMIN">Super Admin</option>
+						<option value="SUPER_ADMIN">Super Admin</option>
 					</select>
 				</div>
 				<div class="mb-3">

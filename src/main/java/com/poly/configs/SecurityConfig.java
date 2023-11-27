@@ -19,30 +19,29 @@ public class SecurityConfig {
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.csrf(csrf -> csrf.disable())
-				.authorizeRequests((authorizeRequests) -> authorizeRequests
-						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile",
-						"/profile/edit")
-						.authenticated()
-						.requestMatchers("/home", "/about", "/service", "/contact",
-						"/rest/**").permitAll()
-						.requestMatchers("/admin/**").hasRole("ADMIN"))
-						// .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**", "/admin/**", "/cart",
-						// 		"/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-						// .permitAll())
+
+				.authorizeHttpRequests((auth) -> auth
+						// .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**")
+						// 	.permitAll()
+						
+						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+							.authenticated()
+						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						.anyRequest().permitAll()
+						)
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
-						.failureUrl("/login/?error=true"))
+						.failureUrl("/login/?error=true")
+						// .successForwardUrl("/home")
+						)
 				.logout(logout -> logout
 						.logoutUrl("/logout")
 						.deleteCookies("JSESSIONID"));
 
 		return http.build();
-	}
-
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
 	}
 
 	@Bean
@@ -54,9 +53,9 @@ public class SecurityConfig {
 		}
 		return uDetail;
 	}
-	
+
 	@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

@@ -9,6 +9,6 @@ import com.poly.models.OrderItem;
 
 public interface OrderItemDAO extends JpaRepository<OrderItem, Integer> {
 	@Query("SELECT oi FROM OrderItem oi WHERE oi.order.orderId = ?1")
-	List<OrderItem> getOrderItemByOrderId(int orderId);
+	List<OrderItem> getByOrderId(int orderId);
 }
 

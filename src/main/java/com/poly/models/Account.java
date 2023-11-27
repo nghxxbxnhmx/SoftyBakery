@@ -3,11 +3,12 @@ package com.poly.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.poly.dto.enums.AccountRoleEnum;
 
 @Entity
 @Table(name = "Accounts")
@@ -33,6 +34,8 @@ public class Account {
     @Column(name = "addressdetail")
     private String addressDetail;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd-MM-YYYY")
     @Column(name = "birthday")
     private Date birthDay;
 
@@ -42,16 +45,19 @@ public class Account {
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", columnDefinition = "ENUM('USER', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    private AccountRoleEnum role;
 
     @Column(name = "isbanned")
     private boolean isBanned;
 
     @Column(name = "reasonbanned")
     private String reasonBanned;
+
     @Column(name = "reset_code")
     private String resetCode;
+
     public String getResetCode() {
         return resetCode;
     }
@@ -59,14 +65,15 @@ public class Account {
     public void setResetCode(String resetCode) {
         this.resetCode = resetCode;
     }
+
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Order> orders;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Review> reviews;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Comment> comments;

@@ -33,9 +33,9 @@
                 <thead>
                     <tr class="bg-primary text-white">
                         <th>Order Id</th>
-                        <th>fullName - Email</th>
+                        <th>Full Name - Email</th>
                         <th>Order Date</th>
-                        <!-- <th>Total Amount</th> -->
+                        <th>Total Amount</th>
                         <th>Address</th>
                         <th>Detail</th>
                         <th>Status</th>
@@ -46,7 +46,7 @@
                         <td>{{o.orderId}}</td>
                         <td>{{o.account.fullName + ' - ' + o.account.email}}</td>
                         <td>{{o.orderDate | dateFilter}}</td>
-                        <!-- <td>{{o.totalAmount | vndCurrency}}</td> -->
+						<th>{{getAmount(o.orderItems) | vndCurrency}}</th>
                         <td>{{o.address}}</td>
                         <td>
 							<button type="button" class="btn btn-lg-square btn-outline-light rounded-circle"
@@ -79,7 +79,6 @@
 							        		<td><img  style="height:60px; border: 4px solid white; border-radius: 5px;" ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
 							        		<td>{{oi.product.price | vndCurrency}}</td>
 							        		<td>{{oi.quantity}}</td>
-							        		
 							        	</tr>
 							        
 							        </table>

@@ -13,7 +13,7 @@
     </style>
 </head>
 
-<body ng-app="app" ng-controller="OrderController">
+<body ng-app="app" ng-controller="UserPurchaseController">
     <div th:insert="~{layout :: topbar}"></div>
     <div th:insert="~{layout :: navbar}"></div>
     <!-- Page Header Start -->
@@ -42,139 +42,106 @@
                     </div>
                 </div>
             </div>
+
+
             <!-- tablist -->
-            <div class="col-lg-9 p-4" style="background-color: burlywood; ">
-                <div class="card">
-                    <div class="card">
-                        <h5 class="card-header">Tên loại bánh</h5>
-                        <a href="/product-detail">
-                            <div class="card-body">
-                                <div class="float-start m-2 "><img th:src="${'/images/accountPhoto/'+user.photo}"
-                                        class="card-text" style width="80px" height="80px" alt="..."></div>
-                                <div class="m-2" th:each="order : ${orderList}">
-                                    <p class="card-text">Tên loại bánh: <span th:text="${order.status}"></span></p>
-                        <a href="product-detail">
-                            <div class="card-body">
-                                <div class="float-start m-2 "><img th:src="${'/images/accountPhoto/'+user.photo}"
-                                        class="card-text" style width="80px" height="80px" alt="..."></div>
-                                <div class="m-2">
-                                    <p class="card-texr">Tên loại bánh:...     </p>
-                                    <p class="card-text">Số lượng:...          </p>
-                                    <p class="card-text float-end">giá tiền:...</p>
-                <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
+            <div class="col-lg-9 p-4">
 
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-all-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all"
-                            aria-selected="true" style="color: black;">Tất cả</button>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="pill" href="#all">all</a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-topay-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-topay" type="button" role="tab" aria-controls="pills-topay"
-                            aria-selected="false" style="color: black;">Chờ thanh toán</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#topay">topay</a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-toship-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-toship" type="button" role="tab" aria-controls="pills-toship"
-                            aria-selected="false" style="color: black;">Vận chuyển</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#toship">toship</a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-toreceive-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-toreceive" type="button" role="tab" aria-controls="pills-toreceive"
-                            aria-selected="false" style="color: black;">Đang giao</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#toreceive">toreceive </a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-complete-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-complete" type="button" role="tab" aria-controls="pills-complete"
-                            aria-selected="false" style="color: black;">Hoàn thành</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#complete">complete</a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-cancelled-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-cancelled" type="button" role="tab" aria-controls="pills-cancelled"
-                            aria-selected="false" style="color: black;">Đã hủy</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#cancelled">cancelled </a>
                     </li>
-
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-refund-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-refund" type="button" role="tab" aria-controls="pills-refund"
-                            aria-selected="false" style="color: black;">Trả tiền/Hoàn tiền</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="pill" href="#refund">refund </a>
                     </li>
 
                 </ul>
-                <!-- list -->
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-all" role="tabpanel"
-                        aria-labelledby="pills-all-tab" tabindex="0">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    
+                    <!-- tất cả -->
+                    <div class="tab-pane container active" id="all" th:each="order : ${orderList}">
                         <div class="card">
-                            <!-- card từng đơn hàng -->
-                            <div class="card">
-                                <h5 class="card-header">Tên loại bánh</h5>
-                                <a href="product-detail">
-                                    <div class="card-body">
-                                        <p>image here</p>
-                                        <div class="m-2">
-                                            <p class="card-texr">Phân loại: </p>
-                                            <p class="card-text">Số lượng: </p>
-                                            <p class="card-text float-end">giá tiền:</p>
-                                        </div>
+                            <h5 class="card-header">${order.account.username}</h5>
+                            <a href="product-detail">
+                                <div class="card-body">
+                                    <p>image here</p>
+                                    <div class="m-2">
+                                        <p class="card-texr">Phân loại: </p>
+                                        <p class="card-text">Số lượng: </p>
+                                        <p class="card-text float-end">giá tiền:</p>
                                     </div>
-                                </a>
-                                <hr class="m-2">
-                                <div class="card-text">
-                                    <button type="button" class="btn btn-outline-primary float-end m-2">Mua lại</button>
                                 </div>
+                            </a>
+                            <hr class="m-2">
+                            <div class="card-text">
+                                <button type="button" class="btn btn-outline-primary float-end m-2">Mua lại</button>
                             </div>
-                            <!-- end -->
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="pills-topay" role="tabpanel" aria-labelledby="pills-topay-tab"
-                        tabindex="0">
-                        <p>to pay</p>
+                    <!-- chờ thanh toán -->
+                    <div class="tab-pane container fade" id="topay">
+                        
+
                     </div>
 
-                    <div class="tab-pane fade" id="pills-toship" role="tabpanel" aria-labelledby="pills-toship-tab"
-                        tabindex="0">
-                        <p>to ship</p>
+                    <!-- chờ vận chuyển -->
+                    <div class="tab-pane container fade" id="toship">
+
+
                     </div>
 
-                    <div class="tab-pane fade" id="pills-toreceive" role="tabpanel"
-                        aria-labelledby="pills-toreceive-tab" tabindex="0">
-                        <p>to receive</p>
+                    <!-- đang giao -->
+                    <div class="tab-pane container fade" id="toreceive">
+
+
                     </div>
 
-                    <div class="tab-pane fade" id="pills-complete" role="tabpanel" aria-labelledby="pills-complete-tab"
-                        tabindex="0">
-                        <p>complete</p>
+                    <!-- hoàn thành -->
+                    <div class="tab-pane container fade" id="complete">
+
+
                     </div>
 
-                    <div class="tab-pane fade" id="pills-cancelled" role="tabpanel"
-                        aria-labelledby="pills-cancelled-tab" tabindex="0">
-                        <p>cancelled</p>
+                    <!-- đã hủy -->
+                    <div class="tab-pane container fade" id="cancelled">
+                        
+
                     </div>
 
-                    <div class="tab-pane fade" id="pills-refund" role="tabpanel" aria-labelledby="pills-refund-tab"
-                        tabindex="0">
-                        <p>refund</p>
-                    </div>
+                    <!-- hoàn tiền/ trả hàng -->
+                    <div class="tab-pane container fade" id="refund">
+                        
 
+                    </div>
                 </div>
-
             </div>
+
+
         </div>
+    </div>
+    <!-- Order End -->
 
-
-        <!-- Order End -->
-
-        <div th:insert="~{layout :: footer}"></div>
-        <div th:insert="~{layout :: copyright}"></div>
-        <div th:insert="~{layout :: backtotop}"></div>
-        <div th:insert="~{layout :: js-link}"></div>
+    <div th:insert="~{layout :: footer}"></div>
+    <div th:insert="~{layout :: copyright}"></div>
+    <div th:insert="~{layout :: backtotop}"></div>
+    <div th:insert="~{layout :: js-link}"></div>
 
 </body>
 

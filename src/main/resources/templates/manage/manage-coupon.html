@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Products - Softy Bakery</title>
+  <th:block th:insert="~{layout :: css-link}"></th:block>
+</head>
+
+<body ng-app="app" ng-controller="CouponController" class="bg-light">
+  <div th:insert="~{layout :: spinner}"></div>
+  <div th:insert="~{layout :: topbar}"></div>
+  <div th:insert="~{layout :: navbarProduct}"></div>
+  <!-- Page Header Start -->
+  <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
+    <div class="text-center pt-5 pb-3">
+      <h1 class="display-4 text-white animated slideInDown mb-3">Products</h1>
+      <nav aria-label="breadcrumb animated slideInDown">
+        <ol class="breadcrumb justify-content-center mb-0">
+          <li class="breadcrumb-item">
+            <a class="text-white" href="#">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="text-white" href="#">Pages</a>
+          </li>
+          <li class="breadcrumb-item text-primary active" aria-current="page">
+            Products
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <!-- Page Header End -->
+  <!-- Coupon manager start -->
+  <div>
+    <span style="font-size: 1.5em">Phiếu giảm giá:</span>
+  </div>
+  <hr />
+  <div class="wow fadeIn" data-wow-delay="0.1s" style="padding: 50px">
+    <div class="row">
+      <div class="col-8">
+        <table class="table table-hover tbl-coupon">
+          <thead>
+            <th>Coupon ID</th>
+            <th>Coupon Code</th>
+            <th>Discount Type</th>
+            <th>Discount Value</th>
+            <th>Min Purchase Amount</th>
+            <th>Max Usage</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Is Active</th>
+          </thead>
+          <tr ng-repeat="coupon in coupons" ng-dblclick="loadForm(coupon)">
+            <td ng-bind="coupon.couponId"></td>
+            <td ng-bind="coupon.couponCode"></td>
+            <td ng-bind="coupon.discountType"></td>
+            <td ng-bind="coupon.discountValue"></td>
+            <td ng-bind="coupon.minPurchaseAmount"></td>
+            <td ng-bind="coupon.maxUsage"></td>
+            <td ng-bind="coupon.startDate"></td>
+            <td ng-bind="coupon.endDate"></td>
+            <td ng-bind="coupon.active"></td>
+            <td class="btn-group">
+              <button class="btn btn-secondary" ng-click="loadForm(coupon)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-4">
+        <form>
+          <label class="form-label" for="">Mã phiếu giảm giá:</label><input class="form-control" type="text"
+            ng-model="form.couponCode" />
+          <br />
+          <label class="form-label" for="">Loại giảm giá:</label>
+          <select class="form-select" ng-model="form.discountType">
+            <option value="">-- Chọn --</option>
+            <option value="Percentage">Phần trăm</option>
+            <option value="Amount">Số tiền</option>
+          </select>
+          <br />
+          <label class="form-label" for="">Giá trị giảm giá:</label><input class="form-control" type="text"
+            ng-model="form.discountValue" />
+          <br />
+          <label class="form-label" for="">Số lần sử dụng tối đa:</label><input class="form-control" type="number"
+            ng-model="form.maxUsage" />
+          <br />
+          <label class="form-label" for="">Giá trị đơn hàng tối thiểu:</label><input class="form-control" type="text"
+            ng-model="form.minPurchaseAmount" />
+          <br />
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label" for="">Ngày bắt đầu:</label><input class="form-control" type="datetime-local"
+                ng-model="form.startDate" />
+            </div>
+            <div class="col-6">
+              <label class="form-label" for="">Ngày kết thúc:</label><input class="form-control" type="datetime-local"
+                ng-model="form.endDate" />
+            </div>
+          </div>
+
+          <div class="form-check" style="margin:5px;">
+            <input class="form-check-input" type="checkbox" ng-model="form.active"
+              style="min-height: 1.2em; min-width: 1.2em;">
+            <label class="form-check-label">Trạng thái kích hoạt</label>
+          </div>
+          <input ng-model="form.couponId" type="hidden">
+          <hr />
+          <div class="btn-group">
+            <button class="btn btn-success" ng-click="add()">Thêm mới</button>
+            <button class="btn btn-warning" ng-click="update()">Cập nhật</button>
+            <button class="btn btn-danger" ng-click="delete(form.couponId)">Xóa</button>
+            <button class="btn btn-secondary" ng-click="reset()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coupon manager end -->
+  <div th:insert="~{layout :: footer}"></div>
+  <div th:insert="~{layout :: copyright}"></div>
+  <div th:insert="~{layout :: backtotop}"></div>
+  <div th:insert="~{layout :: js-link}"></div>
+</body>
+
+</html>

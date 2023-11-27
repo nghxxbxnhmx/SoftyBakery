@@ -20,6 +20,7 @@ import com.poly.dao.*;
 import com.poly.dto.*;
 import com.poly.models.Product;
 import com.poly.services.ProductService;
+import com.poly.utils.JsonReaderUtil;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -33,7 +34,6 @@ public class ProductRestController {
 	OrderItemDAO oiDAO;
 	@Autowired
 	ProductImageDAO piDAO;
-
 	@Autowired
 	ProductService productService;
 	
@@ -46,7 +46,6 @@ public class ProductRestController {
 					return pDTO;
 				})
 				.collect(Collectors.toList());
-
 		return ResponseEntity.ok(pDTOs);
 	}
 

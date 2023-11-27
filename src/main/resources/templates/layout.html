@@ -89,7 +89,7 @@
 		<a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
 		<a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
 		<a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
-		<a href="/test" class="nav-item nav-link"  th:text="#{test}">Test</a>
+		<a href="/test" class="nav-item nav-link">Test</a>
 		<span class="dropdown">
 			<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Language
@@ -122,7 +122,7 @@
 	            <a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
 	            	<div class="dropdown-toggle">
 						<span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
-						<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPERADMIN' ? '4px solid #f39c12' : 'none')))}">
+						<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
 
 					</div>
 					
@@ -197,7 +197,7 @@
 					  <a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
 						  <div class="dropdown-toggle">
 							  <span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
-							  <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPERADMIN' ? '4px solid #f39c12' : 'none')))}">
+							  <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
 	  
 						  </div>
 						  
@@ -222,21 +222,6 @@
 		</div>
 	  </nav>
 	<!-- Navbar product end -->
-	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn"
-		data-wow-delay="0.1s" th:fragment="headerstart">
-		<div class="container text-center pt-5 pb-3">
-			<h1 class="display-4 text-white animated slideInDown mb-3">Services</h1>
-			<nav aria-label="breadcrumb animated slideInDown">
-				<ol class="breadcrumb justify-content-center mb-0">
-					<li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-					<li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-					<li class="breadcrumb-item text-primary active" aria-current="page">Services</li>
-				</ol>
-			</nav>
-		</div>
-	</div>
-	<!-- Page Header End -->
 	<!-- Carousel Start -->
 	<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s" th:fragment="carousel">
 		<div class="owl-carousel header-carousel position-relative">
@@ -249,7 +234,7 @@
 								<p class="text-primary text-uppercase fw-bold mb-2">// The
 									Best Bakery</p>
 								<h1 class="display-1 text-light mb-4 animated slideInDown">
-									Bánh mềm như môi crush
+									Lorem ipsum dolor, sit amet consectetur adipisicing elit.
 								</h1>
 								<p class="text-light fs-5 mb-4 pb-3">Vero elitr justo clita
 									lorem. Ipsum dolor sed stet sit diam rebum ipsum.</p>
@@ -834,7 +819,7 @@
 		<script src="/lib/counterup/counterup.min.js"></script>
 		<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 		
-		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
 		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
