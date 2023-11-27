@@ -53,8 +53,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.poly.dao.*;
 import com.poly.dto.DiscountType;
-import com.poly.dto.ObjectHehe;
-import com.poly.dto.ProductHehe;
 import com.poly.dto.RoleEnum;
 import com.poly.models.*;
 import com.poly.services.*;
@@ -92,20 +90,6 @@ public class Test {
 
 	@GetMapping("/test")
     public String test(Model model) throws IOException {
-		List<ProductHehe> hehe = JsonReaderUtil.read("src\\main\\resources\\static\\data\\softybakery_product.json", ProductHehe.class);
-		for(ProductHehe he : hehe) {
-			Product product = new Product();
-			product.setProductName(he.getProductName());
-			product.setPrice(he.getPrice());
-			product.setQuantityInStorage(50);
-			product.setSubDescription(he.getProductName()+" hấp dẫn quá chừng");
-			product.setDescription(he.getDescription());
-			product.setCategory(cDAO.findById(he.getCategoryId()).get());
-			product.setAvailable(true);
-			String productUrl = DiacriticsUtil.removeDiacritics(he.getProductName().toLowerCase().replace(" ", "-").replace("đ","d"));
-			product.setProductUrl(productUrl);
-			pDAO.save(product);
-		}
 		return "meo meo";
     }
 

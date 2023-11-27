@@ -15,11 +15,11 @@ public class Discount {
     @Column(name = "discountid")
     private int discountId;
 
-    @Column(name = "percentage")
-    private int percentage;
+    // @Column(name = "percentage")
+    // private int percentage;
 
-    @Column(name = "amount")
-    private double amount;
+    // @Column(name = "amount")
+    // private double amount;
 
     @Column(name = "startdate")
     private Date startDate;

@@ -23,7 +23,7 @@ public class SecurityConfig {
 						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile",
 						"/profile/edit")
 						.authenticated()
-						.requestMatchers("/home", "/about", "/service", "/contact",
+						.requestMatchers("/home", "/about", "/service", "/contact","/admin","/admin/account",
 						"/rest/**").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN"))
 						// .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**", "/admin/**", "/cart",

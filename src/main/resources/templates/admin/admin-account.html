@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/layoutAdmin.html}"
 	xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
 <meta charset="utf-8">
@@ -7,28 +8,7 @@
 <th:block th:insert="~{layout :: css-link}"></th:block>
 </head>
 <body ng-app="app" ng-controller="AdminAccountController">
-	<div th:insert="~{layout :: spinner}"></div>
-	<div th:insert="~{layout :: topbar}"></div>
-	<div th:insert="~{layout :: navbar}"></div>
-	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn"
-		data-wow-delay="0.1s">
-		<div class="container text-center pt-5 pb-3">
-			<h1 class="display-4 text-white animated slideInDown mb-3">Products</h1>
-			<nav aria-label="breadcrumb animated slideInDown">
-				<ol class="breadcrumb justify-content-center mb-0">
-					<li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
-					</li>
-					<li class="breadcrumb-item"><a class="text-white" href="#">Pages</a>
-					</li>
-					<li class="breadcrumb-item text-primary active" aria-current="page">Products</li>
-				</ol>
-			</nav>
-		</div>
-	</div>
-	<!-- Page Header End -->
-	<!-- Admin Product Start -->
-	<div class="mx-5">
+	<div class="mx-5" layout:fragment="content">
 		<div class="mb-3 d-flex">
 			<div class="me-3" style="width: 200px;">
 				<select class="form-select" id="filterOptions" ng-model="filterOptions">
@@ -40,13 +20,14 @@
 			<div class="me-3" style="width: 200px;" >
 				<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'RoleAll'" ng-change="filterByRole()">
 					<option value="RoleAll">Roles all</option>
+
 					<option value="USER">User</option>
 					<option value="MANAGER">Manager</option>
 					<option value="ADMIN">Admin</option>
 					<option value="SUPERADMIN">Super Admin</option>
 				</select>
 			</div>
-			<form class="d-flex" role="search" style="width: 600px;">
+			<form class="d-flex" role="search" style="width: 700px;">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="temporarySearchText">
 				<button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
 			</form>
@@ -65,8 +46,6 @@
 						<th>PhoneNumber</th>
                         <th>Condition</th>
 						<th>Manipulate</th>
-						
-						  
                     </tr>
                 </thead>
                 <tbody>	
@@ -163,10 +142,9 @@
 			</form>
 		</div>
 		</div>
-		<!-- Modal -->
-
-  
     </div>
+	<!-- <div class="footer"  layout:fragment="footer"></div> -->
+	<!-- Modal -->
 	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		  <div class="modal-content">
@@ -185,11 +163,7 @@
 		  </div>
 		</div>
 	  </div>
-	<!-- Admin Product End -->
-	<div th:insert="~{layout :: footer}"></div>
-	<div th:insert="~{layout :: copyright}"></div>
-	<div th:insert="~{layout :: backtotop}"></div>
-	<div th:insert="~{layout :: js-link}"></div>
+
 	<script>
 		$(document).ready(function () {
 			// Initialize Bootstrap tooltips

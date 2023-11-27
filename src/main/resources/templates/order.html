@@ -134,10 +134,9 @@
         var productName = item.querySelector('[th:text="${c.product.productName}"]').textContent;
         var quantity = item.querySelector('[th:text="${c.quantity}"]').textContent;
         var price = item.querySelector('[th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, \'COMMA\', 0, \'POINT\') + \' ₫\'}"]').textContent;
-
-        formData.append('productNameList', productName);
-        formData.append('quantityList', quantity);
-        formData.append('priceList', price);
+        formData.append('productNameList', 'aaaa');
+        formData.append('quantityList', 123);
+        formData.append('priceList', 321);
     });
 
 				$.ajax({

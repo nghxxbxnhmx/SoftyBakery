@@ -559,7 +559,9 @@ app.controller('AdminProductController', function ($scope, $http) {
 app.controller('AdminOrderController', function ($scope, $http) {
 	$scope.orders = [];
 	$scope.orderitems = [];
+
 	const url = `${host}/order`;
+
 	$scope.loadAll = function () {
 		const url = `${host}/order`;
 		$http.get(url).then(resp => {
@@ -581,10 +583,16 @@ app.controller('AdminOrderController', function ($scope, $http) {
 
 	$scope.getOrderItems = function (order) {
 		$scope.orderitems = [];
-		console.log(order)
 		$scope.orderitems = order.orderItems;
 	}
 
+	
+	$scope.getAmount = function (orderItems) {
+		return orderItems.reduce(function (total, product) {
+			return total + product.product.price * product.quantity;
+		}, 0);
+	}
+	
 	$scope.delete = function (orderId) {
 		var urlDelete = url + '/' + orderId;
 		$http.delete(urlDelete).then(resp => $scope.loadAll());
@@ -761,7 +769,7 @@ app.controller('AdminAccountController', function ($scope, $http) {
   });
 
 app.controller('RegisterController', function ($http, $scope) {
-	var url = `${host}/user/randomname`;
+	var url = `${host}/account/randomname`;
 	$scope.randomName = {};
 	$scope.get = function () {
 		$http.get(url).then(resp => {

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Softy Bakery</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+<!-- Css link start -->
+<th:block th:fragment="css-link">
+	<!-- Favicon -->
+	<link href="/images/icon2.png" rel="icon">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+	<!-- Icon Font Stylesheet -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- Libraries Stylesheet -->
+	<link href="/lib/animate/animate.min.css" rel="stylesheet">
+	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Template Stylesheet -->
+	<link href="/css/style.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <style>
+        .nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-item {
+            padding-left: 20px;
+            color: black;
+            font-family: "Roboto", sans-serif;
+        }
+
+        .nav-item:hover {
+            color: #EAA636;
+        }
+
+        .administer-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .administer-icon.collapsed i {
+            transform: rotate(-90deg);
+        }
+        .sidebar {
+            float: left;
+            height: 100%;
+            margin: 0;
+            width: 300px;
+            border-right: 1px solid gray;
+        }
+
+        .avatar-container {
+            margin-right: 10px;
+        }
+    </style>
+</th:block>
+<!-- Css link end -->
+</head>
+
+<body>
+	
+	<!-- Spinner Start -->
+	<div id="spinner"
+		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+		th:fragment="spinner">
+		<div class="spinner-grow text-primary" role="status"></div>
+	</div>
+	<!-- Spinner End -->
+
+
+	<!-- Topbar Start -->
+	<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar" ng-app="app" ng-controller="TopBarController">
+    <div class="row gx-0 align-items-center d-none d-lg-flex">
+        <div class="col-lg-6 px-5 text-start">
+            <small>Follow us:</small>
+            <div class="h-100 d-inline-flex align-items-center">
+                <a class="btn-lg-square text-primary border-end rounded-0" href="">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="btn-lg-square text-primary border-end rounded-0" href="">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="btn-lg-square text-primary pe-0" href="">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+		<div class="col px-5 text-end">
+            <small><i class="fas fa-map-marker-alt"></i> HCM City, <span ng-bind="date | date: 'HH:mm:s MM/dd/yyyy'"></span></small>
+        </div>
+		
+    </div>
+</div>
+
+	<!-- Topbar End -->
+	<!-- Page Header Start -->
+	<div class="container-fluid page-header py-6 wow fadeIn"
+		data-wow-delay="0.1s" th:fragment="headerstart">
+		<div class="container text-center pt-5 pb-3">
+			<h1 class="display-4 text-white animated slideInDown mb-3">Admin</h1>
+			<nav aria-label="breadcrumb animated slideInDown">
+			</nav>
+		</div>
+	</div>
+	<!-- Page Header End -->
+    <!-- navbar Start -->
+    <!-- navbar End -->
+    <div class="sidebar" layout:fragment="navbar">
+        <!-- img account -->
+        <div ng-app="app" ng-controller="UserController" class="avatar-container">
+            <span ng-if="userInfo">
+                <a href="#" class=" nav-item nav-link" data-bs-toggle="dropdown">
+                    <div class="">
+                        <span ng-bind="userInfo.fullName" class="nav-item"></span>
+                        <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPERADMIN' ? '4px solid #f39c12' : 'none')))}">
+                    </div>
+                </a>
+            </span>
+        </div>
+        <hr>
+        <!--  -->
+        <p><a href="#" class="nav-item"><i class="bi bi-bar-chart-line-fill"></i> Chart</a></p>
+        <span class="btn administer-icon nav-item" data-bs-toggle="collapse" data-bs-target="#administerList" aria-expanded="false">
+            <i class="fas fa-chevron-down"></i> Administer
+        </span>
+        <ul class="collapse nav-list" id="administerList">
+            <li><a href="/admin/product" class="nav-item"><i class="fas fa-cogs"></i> Product</a></li>
+            <li><a href="/admin/order" class="nav-item">Order</a></li>
+            <li><a href="/admin/account" class="nav-item"><i class="bi bi-person-fill-gear"></i> Account</a></li>
+            <li><a href="/admin/category" class="nav-item">Category</a></li>
+            <li><a href="/manager/coupon" class="nav-item">Coupon</a></li>
+            <li><a href="/admin/discount" class="nav-item">Discount</a></li>
+            <li><a href="/admin/orderitem" class="nav-item">Order Item</a></li>
+            <li><a href="/admin/productimage" class="nav-item"><i class="bi bi-file-image"></i> Product Image</a></li>
+            <li><a href="/admin/review" class="nav-item">Review</a></li>
+            <li><a href="/admin/specialoption" class="nav-item">Special Option</a></li>
+        </ul>
+    </div>
+	<!-- Footer Start -->
+    <div layout:fragment="content"></div>
+	<div
+		class="container-fluid bg-dark text-light footer my-6 mb-0 py-5 wow fadeIn"
+		data-wow-delay="0.1s" th:fragment="footer">
+		<div class="container py-5">
+			<div class="row g-5">
+				<div class="col-lg-3 col-md-6">
+					<h4 class="text-light mb-4">Office Address</h4>
+					<p class="mb-2">
+						<i class="fa fa-map-marker-alt me-3"></i>Tô Ký, Công Viên Phần Mềm
+						Quang Trung, Quận 12
+					</p>
+					<p class="mb-2">
+						<i class="fa fa-phone-alt me-3"></i>+84 869945854
+					</p>
+					<p class="mb-2">
+						<i class="fa fa-envelope me-3"></i>Softybakery.contact@gmail.com
+					</p>
+					<div class="d-flex pt-2">
+						<a class="btn btn-square btn-outline-light rounded-circle me-1"
+							href=""> <i class="fab fa-twitter"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
+							href=""> <i class="fab fa-facebook-f"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
+							href=""> <i class="fab fa-youtube"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-0"
+							href=""> <i class="fab fa-linkedin-in"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<h4 class="text-light mb-4">Quick Links</h4>
+					<a class="btn btn-link" href="/">Home</a> <a
+						class="btn btn-link" href="/products/">Products</a> <a
+						class="btn btn-link" href="/cart">Cart</a> <a
+						class="btn btn-link" href="/order">Order</a> <a
+						class="btn btn-link" href="/test">Test</a>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<h4 class="text-light mb-4">Quick Links</h4>
+					<a class="btn btn-link" href="">About Us</a> <a
+						class="btn btn-link" href="">Contact Us</a> <a
+						class="btn btn-link" href="">Our Services</a> <a
+						class="btn btn-link" href="">Terms & Condition</a> <a
+						class="btn btn-link" href="">Support</a><a
+						class="btn btn-link" href="/admin/product">Admin</a>
+						
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<h4 class="text-light mb-4">Photo Gallery</h4>
+					<div class="row g-2">
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-1.jpg" alt="Image">
+						</div>
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-2.jpg" alt="Image">
+						</div>
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-3.jpg" alt="Image">
+						</div>
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-2.jpg" alt="Image">
+						</div>
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-3.jpg" alt="Image">
+						</div>
+						<div class="col-4">
+							<img class="img-fluid bg-light rounded p-1"
+								src="/img/product-1.jpg" alt="Image">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer End -->
+
+
+	<!-- Copyright Start -->
+	<div class="container-fluid copyright text-light py-4 wow fadeIn"
+		data-wow-delay="0.1s" th:fragment="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+					&copy; <a href="#">Softy Bakery</a>, All Right Reserved.
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Copyright End -->
+
+
+	<!-- Back to Top -->
+	<a href="#"
+		class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
+		th:fragment="backtotop"><i class="bi bi-arrow-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+	<th:block th:fragment="js-link">
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="/lib/wow/wow.min.js"></script>
+		<script src="/lib/easing/easing.min.js"></script>
+		<script src="/lib/waypoints/waypoints.min.js"></script>
+		<script src="/lib/counterup/counterup.min.js"></script>
+		<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+		<script src='/js/angular.min.js'></script>
+		<script src='/js/angular.route.js'></script>
+		<script src="/js/main.js"></script>
+	</th:block>
+</body>
+
+</html>
