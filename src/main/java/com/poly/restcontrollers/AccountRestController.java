@@ -1,6 +1,6 @@
 package com.poly.restcontrollers;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.dao.AccountDAO;
-import com.poly.dto.AccountDTO;
 import com.poly.models.Account;
 import com.poly.services.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,23 +23,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @CrossOrigin(origins = "*")
 @RequestMapping("/rest/account")
 public class AccountRestController {
-    @Autowired
-    AccountDAO aDAO;
+	@Autowired
+	AccountDAO aDAO;
 	@Autowired
 	AccountService accountService;
 	ObjectMapper ObjectMapper = new ObjectMapper();
-	@GetMapping
-	public ResponseEntity<List<AccountDTO>> page() {
-		List<AccountDTO> aDTOs = aDAO.findAll().stream()
-				.map(a -> {
-					AccountDTO aDTO = new AccountDTO();
-						aDTO.setAccount(a);
-					return aDTO;
-				})
-				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(aDTOs);
+	@GetMapping
+
+	public ResponseEntity<List<Account>> page() {
+		return ResponseEntity.ok(aDAO.findAll());
 	}
+
+	@GetMapping("/getAuth")
+	public Account getAccountAuth() {
+		return accountService.getAccountAuth();
+	}
+
 	@PostMapping()
 	public ResponseEntity<Account> post(@RequestBody Account account) {
 		return ResponseEntity.ok(accountService.add(account));

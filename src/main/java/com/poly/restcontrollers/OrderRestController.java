@@ -1,5 +1,6 @@
 package com.poly.restcontrollers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.*;
 import com.poly.dto.*;
 import com.poly.models.Account;
@@ -44,6 +47,10 @@ public class OrderRestController {
             return ResponseEntity.ok(oDAO.findById(id).get());
     }
 
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<Order>> getByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(oDAO.findOrderByUsername(username));
+    }
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         if (order.getOrderId() == 0) {
@@ -94,6 +101,12 @@ public class OrderRestController {
             oiList.add(oi);
         }
         return ResponseEntity.ok(oiList);
+    }
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    @GetMapping("/idontknow")
+    public String idontknow() throws IOException {
+        return objectMapper.writeValueAsString(oDAO.findByProductIdAndUsername(1,getAccountAuth().getUsername()));
     }
 
     public Account getAccountAuth() {

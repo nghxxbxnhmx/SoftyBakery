@@ -53,7 +53,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.poly.dao.*;
 import com.poly.dto.DiscountType;
-import com.poly.dto.RoleEnum;
 import com.poly.models.*;
 import com.poly.services.*;
 import com.poly.utils.*;
@@ -88,7 +87,7 @@ public class Test {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	@GetMapping("/test")
+	@GetMapping("/rest/test")
     public String test(Model model) throws IOException {
 		return "meo meo";
     }
@@ -143,20 +142,4 @@ public class Test {
 	// }
 	// }
 
-	public void coupon() {
-
-		Coupon coupon = new Coupon();
-		// = couponDAO.findAll().get(0);
-		// System.out.println(coupon.toString());
-		coupon.setCouponId(1);
-		coupon.setCouponCode("MENDAY1111");
-		coupon.setDiscountType(DiscountType.Percentage);
-		coupon.setDiscountValue(20);
-		coupon.setMaxUsage(1);
-		coupon.setStartDate(LocalDateTime.of(2023, 11, 11, 23, 55));
-		coupon.setEndDate(LocalDateTime.of(2023, 11, 20, 23, 55));
-		coupon.setMinPurchaseAmount(0.0);
-		couponDAO.save(coupon);
-		couponDAO.findAll().stream().forEach((c) -> System.out.println(c.toString()));
-	}
 }

@@ -1,190 +1,191 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title>Login - Softy Bakery</title>
-	<th:block th:insert="~{layout :: css-link}"></th:block>
-  </head>
-  <body>
-    <!-- Contact Start -->
-	
-    <div th:insert="~{layout :: spinner}"></div>
-    <div th:insert="~{layout :: topbar}"></div>
-    
-    <div class="row page-header ">
-    
-    	<!-- Page Header Start -->
-			<div class="container py-6 wow fadeIn col-4"
-				data-wow-delay="0.1s">
-				<div class="container text-center pt-5 pb-3">
-					<h1 class="display-4 text-white animated slideInDown mb-3">Login</h1>
-					<nav aria-label="breadcrumb animated slideInDown">
-						<ol class="breadcrumb justify-content-center mb-0">
-							<li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
-							</li>
-							<li class="breadcrumb-item text-primary active" aria-current="page">Login</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-			<!-- Page Header End -->
-			<form class="container py-6 wow fadeIn col-8" id="loginForm" action="/login" method="POST">
+
+<head>
+  <meta charset="utf-8">
+  <title>Login - Softy Bakery</title>
+  <th:block th:insert="~{layout :: css-link}"></th:block>
+</head>
+
+<body>
+  <!-- Contact Start -->
+
+  <div th:insert="~{layout :: spinner}"></div>
+  <div th:insert="~{layout :: topbar}"></div>
+
+  <div class="row page-header ">
+
+    <!-- Page Header Start -->
+    <div class="container py-6 wow fadeIn col-4" data-wow-delay="0.1s">
+      <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">Login</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item text-primary active" aria-current="page">Login</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- Page Header End -->
+    <form class="container py-6 wow fadeIn col-8" id="loginForm" action="/login" method="POST">
       <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
         </div>
         <div class="row g-0 justify-content-center">
           <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
             <!-- start form login -->
-              <div class="row g-3">
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="username" placeholder="Username" name="username"required>
-                    <label for="">Username</label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <input type="password" class="form-control" id="subject" placeholder="Password" name="password" required>
-                    <label for="">Password</label>
-                  </div>
-                </div>
-                <div class="row" th:if="${message}">
-                	<p style="color:red;"><i class="fas fa-exclamation-circle"></i> <span th:text="${message}"></span></p>
-                </div>
-                <div class="row">
-	                <div class="col">
-                    <p class="mb-4 text-light">Forgot your password? <a href="#" id="forgotPasswordLink">Click here</a>.</p>
-                </div>
-	                <div class="col" style="text-align: right;">
-	                	<p class="mb-4"><a href="/register">Sign up</a></p>
-	                </div>
-	                
-                </div>
-                
-                
-                <div class="col-12 text-center">
-                  <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Login</button>
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="username" placeholder="Username" name="username" required autofocus>
+                  <label for="">Username</label>
                 </div>
               </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="subject" placeholder="Password" name="password"
+                    required>
+                  <label for="">Password</label>
+                </div>
+              </div>
+              <div class="row" th:if="${message}">
+                <p style="color:red;"><i class="fas fa-exclamation-circle"></i> <span th:text="${message}"></span></p>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p class="mb-4 text-light">Forgot your password? <a href="#" id="forgotPasswordLink">Click here</a>.
+                  </p>
+                </div>
+                <div class="col" style="text-align: right;">
+                  <p class="mb-4"><a href="/register">Sign up</a></p>
+                </div>
+
+              </div>
+
+
+              <div class="col-12 text-center">
+                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Login</button>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
     </form>
-    </div>
-    <div class="row" th:if="${resetSuccess}">
-      <p style="color: green;"><i class="fas fa-check-circle"></i> Password reset successful! Please login with your new password.</p>
-  </div>  
-    <div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Form for entering the reset code -->
-            <form id="resetPasswordForm">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="resetCode" placeholder="Reset Code" required>
-                <label for="resetCode">Reset Code</label>
-              </div>
-              <br>
-              <!-- Form for entering the new password -->
-              <div class="form-floating">
-                <input type="password" class="form-control" id="newPassword" placeholder="New Password" required>
-                <label for="newPassword">New Password</label>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="resetPassword()">Reset Password</button>
-          </div>
+  </div>
+  <div class="row" th:if="${resetSuccess}">
+    <p style="color: green;"><i class="fas fa-check-circle"></i> Password reset successful! Please login with your new
+      password.</p>
+  </div>
+  <div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form for entering the reset code -->
+          <form id="resetPasswordForm">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="resetCode" placeholder="Reset Code" required>
+              <label for="resetCode">Reset Code</label>
+            </div>
+            <br>
+            <!-- Form for entering the new password -->
+            <div class="form-floating">
+              <input type="password" class="form-control" id="newPassword" placeholder="New Password" required>
+              <label for="newPassword">New Password</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="resetPassword()">Reset Password</button>
         </div>
       </div>
     </div>
-    <!-- Modal for Success/Failure -->
-<div class="modal" id="resultModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="resultModalLabel">Result</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <p id="resultMessage"></p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-      </div>
   </div>
-</div>
-<script>
- document.getElementById('forgotPasswordLink').addEventListener('click', function () {
-    $('#resetPasswordModal').modal('show');
-});
-  function resetPassword() {
+  <!-- Modal for Success/Failure -->
+  <div class="modal" id="resultModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">Result</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="resultMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('forgotPasswordLink').addEventListener('click', function () {
+      $('#resetPasswordModal').modal('show');
+    });
+    function resetPassword() {
       var resetCode = document.getElementById('resetCode').value;
       var newPassword = document.getElementById('newPassword').value;
-  
+
       $.ajax({
-          type: "POST",
-          url: "/resetPassword",
-          data: {
-              username: $('#username').val(),
-              resetCode: resetCode,
-              newPassword: newPassword
-          },
-          success: function (response) {
-              console.log(response);
-  
-              // Check if the response status is 'success'
-              if (response.status === 'success') {
-                  // Display success message in the result modal
-                  $('#resultMessage').text(response.message);
-                  // Change the modal color to green for success
-                  $('#resultModal .modal-content').removeClass('text-danger').addClass('text-success');
-              } else {
-                  // Display the error message in the result modal
-                  $('#resultMessage').text(response.message);
-                  // Change the modal color to red for error
-                  $('#resultModal .modal-content').removeClass('text-success').addClass('text-danger');
-              }
-  
-              // Show the result modal
-              $('#resultModal').modal('show');
-          },
-          error: function (error) {
-              console.error(error);
+        type: "POST",
+        url: "/resetPassword",
+        data: {
+          username: $('#username').val(),
+          resetCode: resetCode,
+          newPassword: newPassword
+        },
+        success: function (response) {
+          console.log(response);
+
+          if (response.status === 'success') {
+            $('#resultMessage').text(response.message);
+            $('#resultModal .modal-content').removeClass('text-danger').addClass('text-success');
+          } else {
+            $('#resultMessage').text(response.message);
+            $('#resultModal .modal-content').removeClass('text-success').addClass('text-danger');
           }
+
+          // Show the result modal
+          $('#resultModal').modal('show');
+        },
+        error: function (error) {
+          console.error(error);
+        }
       });
-  
+
       $('#resetPasswordModal').modal('hide');
-  }
-  
-  document.getElementById('forgotPasswordLink').addEventListener('click', function (event) {
+    }
+
+    document.getElementById('forgotPasswordLink').addEventListener('click', function (event) {
       event.preventDefault();
       var formData = new FormData(document.getElementById('loginForm'));
       $.ajax({
-          type: "POST",
-          url: "/forgotPassword",
-          data: formData,
-          processData: false,
-          contentType: false,
-          
+        type: "POST",
+        url: "/forgotPassword",
+        data: formData,
+        processData: false,
+        contentType: false,
+
       });
-      
-  });
+
+    });
   </script>
-  
-    <div th:insert="~{layout :: footer}"></div>
-    <div th:insert="~{layout :: copyright}"></div>
-	<div th:insert="~{layout :: js-link}"></div>
-  </body>
+
+  <div th:insert="~{layout :: footer}"></div>
+  <div th:insert="~{layout :: copyright}"></div>
+  <div th:insert="~{layout :: js-link}"></div>
+</body>
+
 </html>

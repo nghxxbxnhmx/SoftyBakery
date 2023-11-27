@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title>Register - Softy Bakery</title>
+
+<head>
+	<meta charset="utf-8">
+	<title>Register - Softy Bakery</title>
 	<th:block th:insert="~{layout :: css-link}"></th:block>
-  </head>
-  <body ng-app="app" ng-controller="RegisterController">
-    <!-- Contact Start -->
-    <div th:insert="~{layout :: spinner}"></div>
-    <div th:insert="~{layout :: topbar}"></div>
-    <!-- Page Header Start -->
-    <div class="row page-header " style="height:600px;">
-	    <div class="col-4 container-fluid py-6 wow fadeIn" data-wow-delay="0.1s">
+</head>
+
+<body ng-app="app" ng-controller="RegisterController">
+	<!-- Contact Start -->
+	<div th:insert="~{layout :: spinner}"></div>
+	<div th:insert="~{layout :: topbar}"></div>
+	<!-- Page Header Start -->
+	<div class="row page-header " style="height:600px;">
+		<div class="col-4 container-fluid py-6 wow fadeIn" data-wow-delay="0.1s">
 			<div class="container text-center pt-5 pb-3">
 				<h1 class="display-4 text-white animated slideInDown mb-3">Register</h1>
 				<nav aria-label="breadcrumb animated slideInDown">
@@ -23,80 +25,125 @@
 				</nav>
 			</div>
 		</div>
-		
+
 		<div class="col-8">
 			<div class="row g-0 container-fluid py-6 wow fadeIn">
-	          <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
-	            <!-- start form register -->
-	            <form action="/register" method="POST" th:object="${user}">
-	              <div class="row g-3">
-	                <div class="col-6">
-						<div class="form-floating">
-							<input th:field="*{username}" class="form-control" id="username" placeholder="username" ng-model="randomName.username" required min="8" max="200">
-							<label for="username">Your Username</label>
-						  </div>
-	                </div>
-	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{fullName}" class="form-control" id="fullname" placeholder="fullname" ng-model="randomName.full_name" min="12" max="200">
-	                    <label for="fullname">Your Fullname</label>
-	                  </div>
-	                </div>
-	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{email}" type="email" class="form-control" id="email" placeholder="email" required max="200">
-	                    <label for="email">Your Email</label>
-	                  </div>
-	                </div>
-	                <div class="col-6">
-					  <div class="form-floating">
-	                    <input th:field="*{addressDetail}" class="form-control" placeholder="addressdetail" required min="8" max="200">
-	                    <label for="username">Address Detail</label>
-	                  </div>
-	                </div>
-	                <div class="col-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{address}" class="form-control" placeholder="address" min="8" max="200">
-	                    <label>Your Address</label>
-	                  </div>
-	                </div>
-	                <div class="col-md-6">
-	                  <div class="form-floating">
-	                    <input th:field="*{password}" type="password" class="form-control" placeholder="password" required min="8" max="200">
-	                    <label for="password">Your Password</label>
-	                  </div>
-	                </div>
-	                <div class="col-md-6">
-	                  <div class="form-floating">
-	                    <input type="password" th:text="${repeatPassword}" class="form-control" placeholder="repeatpassword" required min="8" max="200" disabled>
-	                    <label for="">Repeat Your Password</label>
-	                  </div>
-	                </div>
-					
-					<!-- <input th:field="*{accountId}" class="form-control" id="fullname" placeholder="name" required min="12" max="200" disabled="true"> -->
-	                <!-- <input type="hidden" id="admin" name="admin" value="false" th:field="*{admin}"> -->
-					
-	                <span class="mb-4 text-light">You have an account? <a href="/login">Login</a>.</span>
-	                <div class="col-12 text-center">
-						<button class="btn btn-outline-secondary" ng-click="get()" style="border-radius: 50px;" placeholder="Random Name"><i class="fas fa-undo"></i></button>
-	                  	<button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Register</button>
-	                </div>
-	              </div>
-	            </form>
-	            <!-- end form login -->
-	          </div>
-	        </div>
-	    </div>
-    </div>
-	
+				<div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
+					<!-- start form register -->
+					<form action="/register" method="POST" th:object="${user}">
+						<div class="row g-3">
+							<div class="col-6">
+								<div class="form-floating">
+									<input th:field="*{username}" class="form-control" id="username"
+										placeholder="username" ng-model="randomName.username" required min="8"
+										max="200">
+									<label for="username">Your Username</label>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-floating">
+									<input th:field="*{fullName}" class="form-control" id="fullname"
+										placeholder="fullname" ng-model="randomName.full_name" min="12" max="200">
+									<label for="fullname">Your Fullname</label>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-floating">
+									<input th:field="*{email}" type="email" class="form-control" id="email"
+										placeholder="email" required max="200">
+									<label for="email">Your Email</label>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-floating">
+									<input th:field="*{email}" type="email" class="form-control" id="email"
+										placeholder="email" required max="200">
+									<label for="email">Your Email</label>
+								</div>
+							</div>
+							
+							<div class="col-6">
+								<div class="form-floating dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+									<input th:field="*{address}" class="form-control" placeholder="address" min="8"
+										max="200" ng-model="form.address" >
+									<label>Your Address</label>
+								</div>
+
+								<div class="dropdown-menu" style="border:0.1 solid gray">
+									<div class="dropdown-item">
+										<div class="row" style="hover:none;">
+											<div class="col-4">
+												<select class="form-select"
+													ng-options="city as city.name for city in cities"
+													ng-change="loadDistricts()" ng-model="city">
+													<option value="">Chọn thành phố</option>
+												</select>
+											</div>
+											<div class="col-4">
+												<select class="form-select"
+													ng-options="district as district.name for district in districts"
+													ng-change="loadWards()" ng-model="district">
+													<option value="">Chọn quận/huyện</option>
+												</select>
+											</div>
+											<div class="col-4">
+												<select class="form-select"
+													ng-options="ward as ward.name for ward in wards" ng-model="ward"
+													ng-change="setAddress()">
+													<option value="">Chọn phường/xã</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6" ng-app="app" ng-controller="AddressController">
+								<div class="form-floating">
+									<input th:field="*{addressDetail}" class="form-control" placeholder="addressdetail"
+										required min="8" max="200">
+									<label for="username">Address Detail</label>
+								</div>
+							</div>
+
+
+							<div class="col-md-6">
+								<div class="form-floating">
+									<input th:field="*{password}" type="password" class="form-control"
+										placeholder="password" required min="8" max="200">
+									<label for="password">Your Password</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-floating">
+									<input type="password" th:text="${repeatPassword}" class="form-control"
+										placeholder="repeatpassword" required min="8" max="200" disabled>
+									<label for="">Repeat Your Password</label>
+								</div>
+							</div>
+
+							<span class="mb-4 text-light">You have an account? <a href="/login">Login</a>.</span>
+							<div class="col-12 text-center">
+								<button class="btn btn-outline-secondary" ng-click="get()" style="border-radius: 50px;"
+									placeholder="Random Name"><i class="fas fa-undo"></i></button>
+								<button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Register</button>
+							</div>
+						</div>
+					</form>
+					<!-- end form login -->
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Page Header End -->
-    <script>
+	<!-- <script>
 		window.addEventListener('load', function () {
-		    document.getElementById('phoneNum').focus();
+			document.getElementById('phoneNum').focus();
 		});
-	</script>
-    <div th:insert="~{layout :: footer}"></div>
-    <div th:insert="~{layout :: copyright}"></div>
+	</script> -->
+	<div th:insert="~{layout :: footer}"></div>
+	<div th:insert="~{layout :: copyright}"></div>
 	<div th:insert="~{layout :: js-link}"></div>
-  </body>
+</body>
+
 </html>

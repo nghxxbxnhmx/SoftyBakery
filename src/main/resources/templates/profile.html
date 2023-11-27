@@ -47,9 +47,14 @@
 	
 	                    <!-- Profile Information -->
 	                    <div class="mb-4">
-	                        <h4>Profile Information</h4>
-	                        <p>Username: <span th:text="${user.username}"></span></p>
-	                        <p>Phone: <span th:text="${user.phoneNumber}"></span></p>
+							<h4>Profile Information</h4>
+							<p><strong>Role:</strong> <span th:text="${user.role}" class="text-black-50"></span></p>
+							<p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+							<p><strong>Phone:</strong> <span th:text="${user.phoneNumber}"></span></p>
+	                        
+							
+	                        
+	                        
 	                        
 	                    </div>
 	

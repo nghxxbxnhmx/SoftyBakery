@@ -1,5 +1,7 @@
 package com.poly.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -13,6 +15,7 @@ public class SpecialOption {
     @Column(name = "specialoptionid")
     private int specialOptionId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "productid")
     private Product product;

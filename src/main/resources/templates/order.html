@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" lang="vi">
+
 <head>
-<meta charset="utf-8">
-<title>Products - Softy Bakery</title>
-<th:block th:insert="~{layout :: css-link}"></th:block>
+	<meta charset="utf-8">
+	<title>Products - Softy Bakery</title>
+	<th:block th:insert="~{layout :: css-link}"></th:block>
 </head>
+
 <body ng-app="app" ng-controller="OrderController">
 	<!-- <div th:insert="~{layout :: spinner}"></div> -->
 	<div th:insert="~{layout :: topbar}"></div>
-	<div th:insert="~{layout :: navbar}"></div>
+    <div th:insert="~{layout :: navbar}"></div>
 	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn"
-		data-wow-delay="0.1s">
+	<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container text-center pt-5 pb-3">
 			<h1 class="display-4 text-white animated slideInDown mb-3">Order</h1>
 			<nav aria-label="breadcrumb animated slideInDown">
@@ -30,131 +30,135 @@
 
 	<!-- Order Start -->
 
-		<form class="needs-validation" id="orderForm" action="" method="POST" th:object="${user}"><!-- Đang bị lỗi controller order nên bỏ trống action-->
-			<div class="container" data-wow-delay="0.1s">
-				<div class="text-center mx-auto mb-5 wow fadeInUp"
-					style="max-width: 500px;">
-					<p class="text-primary text-uppercase mb-2">// Order</p>
-					<h1 class="display-6 mb-4">Thanh toán</h1>
-					<i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
-				</div>
+	<form class="needs-validation" id="orderForm" action="/order" method="POST" th:object="${orderForm}">
+		<div class="container" data-wow-delay="0.1s">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" style="max-width: 500px;">
+				<p class="text-primary text-uppercase mb-2">// Order</p>
+				<h1 class="display-6 mb-4">Thanh toán</h1>
+				<i class="fa fa-credit-card fa-4x" aria-hidden="true"></i>
+			</div>
 
-				<div class="row">
-					<div class="col-md-4 order-md-2 mb-4">
-						<h4 class="mb-3">Giỏ hàng</h4>
-						<ul class="list-group mb-3">
-							<li
-								class="list-group-item d-flex justify-content-between lh-condensed"
-								th:each="c : ${cart}">
-								<div>
-									<h6 class="my-0" th:text="${c.product.productName}"></h6>
-									<small class="text-muted"><span
+			<div class="row">
+				<div class="col-md-4 order-md-2 mb-4">
+					<h4 class="mb-3">Giỏ hàng</h4>
+					<ul class="list-group mb-3">
+						<li class="list-group-item d-flex justify-content-between lh-condensed" th:each="c : ${cart}">
+							<div>
+								<h6 class="my-0" th:text="${c.product.productName}"></h6>
+								<small class="text-muted"><span
 										th:text="${#numbers.formatDecimal(c.product.price, 0, 'COMMA', 0, 'POINT')+' ₫'}">
 									</span>x <span th:text="${c.quantity}"></span></small>
-								</div>
-								<span th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
-							</li>
-							<li class="list-group-item d-flex justify-content-between">
-								<span>Tổng thành tiền</span> 
-								<strong>
-									<span  th:text="${#numbers.formatDecimal(amount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
-								</strong>
-							</li>
-						</ul>
-
-
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Mã khuyến mãi">
-							<div class="input-group-append">
-								<button type="submit" class="btn btn-secondary">Xác
-									nhận</button>
 							</div>
-						</div>
+							<span
+								th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
+						</li>
+						<li class="list-group-item d-flex justify-content-between">
+							<span>Tổng thành tiền</span>
+							<strong>
+								<span th:text="${#numbers.formatDecimal(amount, 0, 'COMMA', 0, 'POINT')+' ₫'}"></span>
+							</strong>
+						</li>
+					</ul>
 
+
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Mã khuyến mãi" id="couponCodeCheckInput">
+						<div class="input-group-append">
+							<input type="hidden" th:field="*{coupon.couponCode}"  id="couponCodeInput">
+							<button type="submit" class="btn btn-secondary" ng-click="submitForm()">Xác nhận</button>
+						</div>
 					</div>
-					<div class="col-md-8 order-md-1">
-						<h4 class="mb-3">Thông tin khách hàng</h4>
 
-						<div class="row">
-							<div class="col-md-12">
-								<label>Họ tên</label> <input type="text"  class="form-control" th:field="*{fullName}">
-							</div>
-							<div class="col-md-12">
-								<label>Địa chỉ chi tiết</label>
-								<input type="text" class="form-control" th:field="*{addressDetail}"/>
-							</div>
-							<div class="col-md-12">
-								<label>Địa chỉ</label>
-								<input type="text" class="form-control" th:field="*{address}"/>
-							</div>
-							<div class="col-md-12">
-								<label for="kh_dienthoai">Điện thoại</label> <input type="text"
-									class="form-control" th:field="*{phoneNumber}">
-							</div>
-							<div class="col-md-12">
-								<label for="kh_email">Email</label> <input type="text"
-									class="form-control" th:field="*{email}">
-							</div>
+				</div>
+				<div class="col-md-8 order-md-1">
+					<h4 class="mb-3">Thông tin khách hàng</h4>
+
+					<div class="row">
+						<div class="col-md-12">
+							<label>Họ tên</label> <input type="text" class="form-control" th:field="*{account.fullName}">
 						</div>
-						<h4 class="mb-3">Hình thức thanh toán</h4>
-						<div class="d-block my-3">
-							<input type="radio" id="cast" name="payment" value="cast" checked>
-							<label>Cast</label><br> <input type="radio" id="creditCard"
-								name="payment" value="credit_card"> <label>Credit
-								Card</label><br>
+						<div class="col-md-12">
+							<label>Địa chỉ chi tiết</label>
+							<input type="text" class="form-control" th:field="*{account.addressDetail}" />
 						</div>
-						<hr class="mb-4">
+						<div class="col-md-12">
+							<label>Địa chỉ</label>
+							<input type="text" class="form-control" th:field="*{account.address}" />
+						</div>
+						<div class="col-md-12">
+							<label for="kh_dienthoai">Điện thoại</label> <input type="text" class="form-control"
+								th:field="*{account.phoneNumber}">
+						</div>
+						<div class="col-md-12">
+							<label for="kh_email">Email</label> <input type="text" class="form-control"
+								th:field="*{account.email}">
+						</div>
+					</div>
+					<br>
+					<h4>Yêu cầu món ăn:</h4>
+					<div class="form-floating">
+						<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" th:field="*{message}"></textarea>
+						<label for="floatingTextarea">Message...</label>
+					  </div>
+					<br/>
+					<hr/>
+					<br/>
+					<h4 class="mb-3">Hình thức thanh toán</h4>
+					<div class="d-block my-3">
+						<input type="radio" id="cast" name="payment" value="cast" checked>
+						<label>Cast</label><br> <input type="radio" id="creditCard" name="payment" value="credit_card">
+						<label>Credit Card</label><br>
 					</div>
 				</div>
-				<div class="col-12 text-center">
-					<button class="btn btn-primary rounded-pill py-3 px-5" ng-click="">
-						Order Now
-					</button>
-				</div>
-				<input type="hidden" th:field="*{username}">
-				<input type="hidden" th:field="*{photo}">												
-		</form>
-		<script>
-			document.getElementById('orderForm').addEventListener('submit', function (event) {
-				event.preventDefault(); // Ngăn chặn gửi form mặc định
-				// Lấy dữ liệu từ form
-				var formData = new FormData(this);
-				// Gửi dữ liệu đến controller "/order"
-				// $.ajax({
-				// 	url: '/order',
-				// 	method: 'POST',
-				// 	data: formData,
-				// 	processData: false,
-				// 	contentType: false,
-				// });
-				// Gửi dữ liệu đến controller "/OderMail"
-				var cartItems = document.querySelectorAll('[th:each="c : ${cart}"]');
-    cartItems.forEach(function(item, index) {
-        var productName = item.querySelector('[th:text="${c.product.productName}"]').textContent;
-        var quantity = item.querySelector('[th:text="${c.quantity}"]').textContent;
-        var price = item.querySelector('[th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, \'COMMA\', 0, \'POINT\') + \' ₫\'}"]').textContent;
+			</div>
+			<div class="col-12 text-center">
+				<button class="btn btn-primary rounded-pill py-3 px-5" type="submit" value="Submit">
+					Order Now
+				</button>
+			</div>
+			<input type="hidden" th:field="*{account.username}">
+		</div>
+	</form>
+	<!-- <script>
+		document.getElementById('orderForm').addEventListener('submit', function (event) {
+			event.preventDefault(); // Ngăn chặn gửi form mặc định
+			// Lấy dữ liệu từ form
+			var formData = new FormData(this);
+			// Gửi dữ liệu đến controller "/order"
+			// $.ajax({
+			// 	url: '/order',
+			// 	method: 'POST',
+			// 	data: formData,
+			// 	processData: false,
+			// 	contentType: false,
+			// });
+			// Gửi dữ liệu đến controller "/OderMail"
+			var cartItems = document.querySelectorAll('[th:each="c : ${cart}"]');
+			cartItems.forEach(function (item, index) {
+				var productName = item.querySelector('[th:text="${c.product.productName}"]').textContent;
+				var quantity = item.querySelector('[th:text="${c.quantity}"]').textContent;
+				var price = item.querySelector('[th:text="${#numbers.formatDecimal(c.product.price * c.quantity, 0, \'COMMA\', 0, \'POINT\') + \' ₫\'}"]').textContent;
 
-        formData.append('productNameList', productName);
-        formData.append('quantityList', quantity);
-        formData.append('priceList', price);
-    });
-
-				$.ajax({
-					url: '/OrderMail',
-					method: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
-					success: function (data) {
-						console.log('OderMail controller success:', data);
-					},
-					error: function (error) {
-						console.error('OderMail controller error:', error);
-					}
-				});
+				formData.append('productNameList', productName);
+				formData.append('quantityList', quantity);
+				formData.append('priceList', price);
 			});
-		</script>
+
+			$.ajax({
+				url: '/OrderMail',
+				method: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (data) {
+					console.log('OderMail controller success:', data);
+				},
+				error: function (error) {
+					console.error('OderMail controller error:', error);
+				}
+			});
+		});
+	</script> -->
 	<!-- Order End -->
 
 	<div th:insert="~{layout :: footer}"></div>
@@ -163,4 +167,5 @@
 	<div th:insert="~{layout :: js-link}"></div>
 
 </body>
+
 </html>

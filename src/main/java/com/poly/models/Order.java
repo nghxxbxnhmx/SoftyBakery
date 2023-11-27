@@ -6,9 +6,13 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.poly.dto.enums.OrderStatusEnum;
@@ -22,6 +26,7 @@ public class Order {
     @Column(name = "orderid")
     private int orderId;
 
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;
@@ -31,10 +36,11 @@ public class Order {
 
     @Column(name = "orderdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime orderDate;
+    @JsonFormat(pattern = "HH:mm:ss YYYY-MM-dd")
+    private Timestamp orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "discount")
+    @JoinColumn(name = "discountid")
     private Discount discount;
 
     @ManyToOne
@@ -48,8 +54,7 @@ public class Order {
     @Column(name = "status")
     private OrderStatusEnum status;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 }
-

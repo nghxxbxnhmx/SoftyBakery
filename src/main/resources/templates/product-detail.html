@@ -180,7 +180,7 @@
 
   <!-- Review Start -->
   <div class="container-xxl py-3" style="background-color: #FFFFFF; border-radius: 20px;">
-    <form class="comment-container" ng-if="userInfo">
+    <form class="comment-container" ng-if="userInfo.username">
       <div class="comment-avatar">
         <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar">
       </div>
@@ -201,6 +201,10 @@
       </div>
     </form>
 
+    <div class="comment-container" ng-if="!userInfo.username">
+      <small class="text-black-50"><a href="/login">Đăng nhập</a> để đánh giá sản phẩm</small>
+    </div>
+
     <div class="comment-container" ng-repeat="r in reviewList">
       <a class="comment-avatar" href="/images/accountPhoto/{{r.account.photo}}">
         <img ng-src="/images/accountPhoto/{{r.account.photo}}" class="circle-avatar">
@@ -209,7 +213,7 @@
         <div>
           <span class="comment-name" ng-bind="r.account.fullName"></span>
           <span class="comment-separator">·</span>
-          <small><i class="far fa-clock"></i> <span ng-bind="r.reviewDate | dateFilter"
+          <small><i class="far fa-clock"></i> <span ng-bind="r.reviewDate"
               style="font-size:12px; align-items: center;"></span></small>
         </div>
 
@@ -233,7 +237,7 @@
   <div class="container-xxl py-3" style="background-color: #FFFFFF; border-radius: 20px;" ng-app="app"
     ng-controller="CommentController">
     <!-- Form comment -->
-    <form class="comment-container">
+    <form class="comment-container" ng-if="userInfo.username">
       <div class="comment-avatar">
         <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar">
       </div>
@@ -247,6 +251,9 @@
         </div>
       </div>
     </form>
+    <div class="comment-container" ng-if="!userInfo.username">
+      <small class="text-black-50"><a href="/login">Đăng nhập</a> để viết bình luận</small>
+    </div>
     <!-- Display parent comments and their sub-comments -->
     <div class="comment-container" ng-repeat="commentDTO in commentDTOs">
       <a class="comment-avatar" href="/images/accountPhoto/{{commentDTO.parentComment.account.photo}}">
@@ -257,7 +264,7 @@
         <div>
           <span class="comment-name" ng-bind="commentDTO.parentComment.account.fullName"></span>
           <span class="comment-separator">·</span>
-          <small><i class="far fa-clock"></i> <span ng-bind="commentDTO.parentComment.commentDate | dateFilter"
+          <small><i class="far fa-clock"></i> <span ng-bind="commentDTO.parentComment.commentDate "
               style="font-size:12px; align-items: center;"></span></small>
         </div>
         <!-- Display parent comment text -->
@@ -275,7 +282,7 @@
             <div>
               <span class="comment-name" ng-bind="subComment.account.fullName"></span>
               <span class="comment-separator">·</span>
-              <small><i class="far fa-clock"></i> <span ng-bind="subComment.commentDate | dateFilter"
+              <small><i class="far fa-clock"></i> <span ng-bind="subComment.commentDate "
                   style="font-size:12px; align-items: center;"></span></small>
             </div>
             <!-- Display sub-comment text -->
@@ -284,21 +291,23 @@
         </div>
         <div>
           <!-- Form sub comment -->
-          <form class="comment-container">
+          <form class="comment-container" ng-if="userInfo.username">
             <div class="comment-avatar">
               <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-sub-avatar">
             </div>
             <div class="comment-content">
               <div class="comment-name" ng-bind="userInfo.fullName"></div>
               <div class="comment-input-container">
-                <input class="comment-input" placeholder="Viết bình luận..." ng-model="commentForm.commentContent"></input>
+                <input class="comment-input" placeholder="Viết bình luận..." ng-model="commentForm.commentContent" ></input>
                 <div class="btn-group">
                   <button class="comment-button" ng-click="postSubComment(commentDTO.parentComment.commentId)"><i class="fas fa-arrow-right"></i></button>
                 </div>
               </div>
             </div>
           </form>
-
+          <div class="comment-container" ng-if="!userInfo.username">
+            <small class="text-black-50"><a href="/login">Đăng nhập</a> để viết bình luận</small>
+          </div>
         </div>
       </div>
     </div>

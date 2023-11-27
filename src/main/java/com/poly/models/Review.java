@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "reviews")
@@ -30,5 +33,7 @@ public class Review {
     private String comment;
 
     @Column(name = "reviewdate")
-    private Date reviewDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
+    private Timestamp reviewDate;
 }

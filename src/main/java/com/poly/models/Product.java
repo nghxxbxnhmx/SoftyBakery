@@ -2,6 +2,7 @@ package com.poly.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
@@ -56,6 +57,11 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages;
+    
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
     
     @Column(name = "isavailable")
     private boolean isAvailable;

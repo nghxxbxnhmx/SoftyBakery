@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "Comments")
@@ -26,11 +24,13 @@ public class Comment {
     @JoinColumn(name = "productid")
     private Product product;
 
-    @Column(name = "commentcontent")
+    @Column(name = "commentcontent", nullable = false)
     private String commentContent;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
     @Column(name = "commentdate")
-    private Date commentDate;
+    private Timestamp commentDate;
 
     @Column(name = "parentcommentid")
     private int parentCommentId;

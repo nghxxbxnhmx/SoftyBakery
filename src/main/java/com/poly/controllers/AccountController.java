@@ -86,7 +86,7 @@ public class AccountController {
     public String editProfile(@RequestParam("file") MultipartFile file, Model model) {
         return "redirect:/profile";
     }
-	//purchase clone của shoppe
+
 	@GetMapping("/order-history")
 	public String orderhistory(Model model){
 		Account a = getAccountAuth();
@@ -94,6 +94,8 @@ public class AccountController {
 		model.addAttribute("user", a);
 		return "order-history";
 	}
+
+
 	public Account getAccountAuth() { 
 		return accountService.getAccountAuth();
 	}

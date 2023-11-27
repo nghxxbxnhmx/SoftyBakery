@@ -44,7 +44,7 @@ public class AdminController {
 	}
 	@GetMapping("/admin/account")
 	public String adminAccount(Model model) {
-
+		
 		return "admin/admin-account";
 	}
 
@@ -88,11 +88,11 @@ public class AdminController {
 
 	@GetMapping("/manage/coupon")
 	public String manage_coupon() {
-		return "manage/coupon";
+		return "manage/manage-coupon";
 	}
 	
-	@GetMapping("/admin/account")
-	public String adminAccount() {
-		return "admin/admin-account";
+	@GetMapping("/manage/discount")
+	public String manageDiscount() {
+		return "manage/manage-discount";
 	}
 }

@@ -1,5 +1,9 @@
 package com.poly.restcontrollers;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,29 @@ public class CouponRestController {
         return cpDAO.findAll();
     }
 
+    @GetMapping("/check/{couponCode}")
+    public Coupon checkCoupon(@PathVariable("couponCode") String couponCode) {
+        LocalDateTime now = LocalDateTime.now();
+
+        Coupon coupon = cpDAO.findByCouponCode(couponCode);
+
+        if (coupon != null) {
+            Instant startInstant = coupon.getStartDate().toInstant();
+            Instant endInstant = coupon.getEndDate().toInstant();
+
+            LocalDateTime startDateTime = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault());
+            LocalDateTime endDateTime = LocalDateTime.ofInstant(endInstant, ZoneId.systemDefault());
+
+            if (now.isAfter(startDateTime) && now.isBefore(endDateTime)) {
+                return coupon;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     @PostMapping
     public void add(@RequestBody Coupon coupon) {
         coupon.setCouponCode(coupon.getCouponCode().toUpperCase().replace(" ", ""));
@@ -31,7 +58,6 @@ public class CouponRestController {
         coupon.setCouponCode(coupon.getCouponCode().toUpperCase().replace(" ", ""));
         cpDAO.save(coupon);
     }
-    
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int couponId) {
