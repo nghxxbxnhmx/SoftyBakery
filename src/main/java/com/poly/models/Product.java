@@ -42,13 +42,18 @@ public class Product {
     @JoinColumn(name = "categoryid")
     private Category category;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    // @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    // @OneToMany(mappedBy = "product")
+    // private List<SpecialOption> specialOptions;
+    @JsonIgnoreProperties({"product"}) // or specify fields to ignore
     @OneToMany(mappedBy = "product")
     private List<SpecialOption> specialOptions;
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JsonIgnoreProperties({"product"}) // or specify fields to ignore
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages;
+    // @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    // @OneToMany(mappedBy = "product")
+    // private List<ProductImage> productImages;
     
     @Column(name = "isavailable")
     private boolean isAvailable;

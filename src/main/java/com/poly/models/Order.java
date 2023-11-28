@@ -35,8 +35,8 @@ public class Order {
     private LocalDateTime orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "discount")
-    private Discount discount;
+    @JoinColumn(name = "discountid")
+    private Discount discountid;
 
     @JsonIgnore
     @ManyToOne

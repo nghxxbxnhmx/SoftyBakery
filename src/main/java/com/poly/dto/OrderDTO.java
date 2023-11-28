@@ -12,7 +12,7 @@ public class OrderDTO extends Order{
     public OrderDTO(Order order) {
     	super.setOrderId(order.getOrderId());
     	super.setOrderDate(order.getOrderDate());
-    	super.setDiscount(order.getDiscount());
+    	super.setDiscountid(order.getDiscountid());
     	super.setAddress(order.getAddress());
     	super.setStatus(order.getStatus());
 	}

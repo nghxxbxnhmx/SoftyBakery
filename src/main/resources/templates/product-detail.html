@@ -65,6 +65,7 @@
           <li class="nav-item nav-info mt-2 ms-2">
             <a class="nav-link active" data-bs-toggle="tab" href="#mota"> Mô Tả Sản Phẩm </a>
           </li>
+         
           <li class="nav-item nav-info mt-2 ms-2">
             <a class="nav-link" data-bs-toggle="tab" href="#thongtin">Thành phần</a>
           </li>
@@ -119,6 +120,10 @@
         <br>
         <span class="fw-light">Mô tả:
           <span th:text="${product.subDescription}"></span>
+        </span>
+        <span class="fw-light">Chọn:
+      
+          <span th:text="${spe.option}"></span>
         </span>
         <br>
         <div class="product-hotline mt-2">

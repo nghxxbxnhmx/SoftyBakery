@@ -8,6 +8,12 @@ public enum OrderStatusEnum {
     CANCELED,
     PROCESSING,
     REFUNDED,
-    ERROR
+    DELIVERING,
+    SHIPPING,
+    ERROR;
+
+    
+  
+   
 }
 

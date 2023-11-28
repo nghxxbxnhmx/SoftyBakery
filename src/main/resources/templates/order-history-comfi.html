@@ -13,7 +13,7 @@
     </style>
 </head>
 
-<body ng-app="app" ng-controller="OrderHistoryController">
+<body ng-app="app" ng-controller="OrderComfi">
     <div th:insert="~{layout :: topbar}"></div>
     <div th:insert="~{layout :: navbar}"></div>
     <!-- Page Header Start -->
@@ -50,7 +50,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link " id="pills-all-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all"
-                            aria-selected="false" style="color: black;"> <a href="history">Tất cả</a></button>
+                            aria-selected="true" style="color: black;"> <a href="history">Tất cả</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
@@ -90,55 +90,53 @@
                     </li>
                   
                 </ul>
-            
-                
-                    <div class="">
-                        <div class="" ng-repeat="order in OrderList">
-                            <div class="card" >
-                                <div class="row g-0">
-                                    <div class="col-md-4 pt-2 pb-3">
-                                        <strong class="card-text m-2" style="font-family: Arial, sans-serif;">OrderID: {{order.orderId}}</strong>
-                                    </div>
-                                    <div class="col-md-8 pt-2 pb-3">
-                                        <strong class="card-text float-end me-2" style="font-family: Arial, sans-serif;">Trạng thái: {{order.status}}</strong>
-                                    </div>
-                                    <hr class="">                                 
-                                    <div class="col-md-12 d-flex flex-row" ng-repeat="item in order.orderItems">
-                                        <div class="card mb-3 m-3">
-                                            <img ng-src="/images/{{ item.product.productImages[0].imageUrl }}" class="img-fluid rounded-start card-body" style="max-width: 150px; height: auto;" alt="Product Image">
-                                        </div>
-                                        <div class="card-body" style="font-family: Arial, sans-serif;">
-                                            <h5 class="card-title">{{item.product.productName}}</h5>
-                                            <p class="card-text"><small class="text-body-secondary">Phân loại hàng: {{item.product.category.categoryName}}</small></p>
-                                            <p class="card-text"><small class="text-body-secondary">{{item.quantity}}</small></p>
-                                            <div class="d-flex justify-content-between align-items-end"> 
-                                                <span class="text-danger"><strong class="text-danger">đ{{ item.product.price | number }}</strong></span>
-                                                    <!-- <span class="text-danger"> <strong class="text-danger">đ</strong>{{ item.product.price }}</span> -->
-                                                <p class="card-text ps-2">
-                                                    <button type="button" class="btn btn-outline-primary mt-2"  ng-click="modifyCart(item.product.productId, 'add')">Mua lại</button>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="">
-                                        <hr class="m-2">
-                                        <div class="card-text me-3 pb-2" style="font-family: Arial, sans-serif;">
-                                            <div class="d-flex flex-column align-items-end">
-                                                <p class="card-text ps-2 text-end mb-0">
-                                                    <strong class="text-danger">Thành tiền: đ</strong>
-                                                    <span class="text-danger">{{ item.product.price * item.quantity }}</span>
-                                                </p>
-                                                <button type="button" class="btn btn-outline-primary mt-2" ng-click="rebuyItem(item.product.productId)">Mua lại</button>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                <div class="">
+                    <div class="" ng-repeat="order in OrderList">
+                        <div class="card" >
+                            <div class="row g-0">
+                                <div class="col-md-4 pt-2 pb-3">
+                                    <strong class="card-text m-2" style="font-family: Arial, sans-serif;">OrderID: {{order.orderId}}</strong>
                                 </div>
+                                <div class="col-md-8 pt-2 pb-3">
+                                    <strong class="card-text float-end me-2" style="font-family: Arial, sans-serif;">Trạng thái: {{order.status}}</strong>
+                                </div>
+                                <hr class="">                                 
+                                <div class="col-md-12 d-flex flex-row" ng-repeat="item in order.orderItems">
+                                    <div class="card mb-3 m-3">
+                                        <img ng-src="/images/{{ item.product.productImages[0].imageUrl }}" class="img-fluid rounded-start card-body" style="max-width: 150px; height: auto;" alt="Product Image">
+                                    </div>
+                                    <div class="card-body" style="font-family: Arial, sans-serif;">
+                                        <h5 class="card-title">{{item.product.productName}}</h5>
+                                        <p class="card-text"><small class="text-body-secondary">Phân loại hàng: {{item.product.category.categoryName}}</small></p>
+                                        <p class="card-text"><small class="text-body-secondary">{{item.quantity}}</small></p>
+                                        <div class="d-flex justify-content-between align-items-end"> 
+                                            <span class="text-danger"><strong class="text-danger">đ{{ item.product.price | number }}</strong></span>
+                                                <!-- <span class="text-danger"> <strong class="text-danger">đ</strong>{{ item.product.price }}</span> -->
+                                            <p class="card-text ps-2">
+                                                <button type="button" class="btn btn-outline-primary mt-2"  ng-click="modifyCart(item.product.productId, 'add')">Mua lại</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="">
+                                    <hr class="m-2">
+                                    <div class="card-text me-3 pb-2" style="font-family: Arial, sans-serif;">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <p class="card-text ps-2 text-end mb-0">
+                                                <strong class="text-danger">Thành tiền: đ</strong>
+                                                <span class="text-danger">{{ item.product.price * item.quantity }}</span>
+                                            </p>
+                                            <button type="button" class="btn btn-outline-primary mt-2" ng-click="rebuyItem(item.product.productId)">Mua lại</button>
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    
-               <!-- End -->
+                </div>
+             
                
+                            <!-- end -->
                         </div>
                     </div>
 
@@ -179,20 +177,12 @@
 
    
         <!-- Order End -->
-        <script>
-            $scope.rebuyItem = function(productId) {
-      // Lưu ID sản phẩm vào localStorage khi bấm nút Mua lại
-      localStorage.setItem('rebuyProductId', productId);
-      console.log('rebuyProductId');
-      // Chuyển hướng đến trang sản phẩm
-      window.location.href = '/product-detail'; // Điều hướng đến trang sản phẩm
-  };
-          </script>
+
         <div th:insert="~{layout :: footer}"></div>
         <div th:insert="~{layout :: copyright}"></div>
         <div th:insert="~{layout :: backtotop}"></div>
         <div th:insert="~{layout :: js-link}"></div>
-       
+
 </body>
 
 </html>

@@ -76,13 +76,50 @@ public class OrderController {
 		return "order-success";
 	}
 
-	@GetMapping("/user/purchase")
-	public String user_purchase(Model model) {
-		model.addAttribute("user", accountService.getAccountAuth());
-		model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+
+		@GetMapping("/order/history")
+	public String wait(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
 		return "order-history";
 	}
-
+		@GetMapping("/order/cancel")
+	public String cancel(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-canceled";
+	}
+	@GetMapping("/order/shipping")
+	public String shipping(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-shipping";
+		
+	}
+	@GetMapping("/order/delyvering")
+	public String delyvering(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-delyvering";
+	}
+		@GetMapping("/order/comfi")
+	public String Comfi(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-comfi";
+	}
+		@GetMapping("/order/refun")
+	public String refun(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-refun";
+	}
+		@GetMapping("/order/pending")
+	public String pending(Model model) {
+		 model.addAttribute("user", accountService.getAccountAuth());
+	 	 model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
+		return "order-history-pending";
+	}
 	public Double getTotalAmount(Order order) {
 		List<OrderItem> orderItems = order.getOrderItems();
 		double result = 0;

@@ -15,7 +15,25 @@ public interface OrderDAO extends JpaRepository<Order, Integer> {
 	@Query("SELECT o FROM Order o WHERE account.username = ?1")
 	List<Order> findOrderByUsername(String username);
 	
+	@Query("SELECT o FROM Order o WHERE o.status = 'CANCELED'")
+    List<Order> findCancelledOrders();
 	//String insertQuery = "INSERT INTO reviews (username, comment, productid, rating, reviewdate, OrderID) VALUES (?, ?, ?, ?, ?, ?)";
 
+	@Query("SELECT o FROM Order o WHERE o.status = 'SHIPPING'")
+    List<Order> findShippingOrders();
+
+	@Query("SELECT o FROM Order o WHERE o.status = 'DELIVERING'")
+    List<Order> findDelyveringOrders();
+
+	@Query("SELECT o FROM Order o WHERE o.status = 'CONFIRMED'")
+    List<Order> findConfirmedOrders();
+
+	@Query("SELECT o FROM Order o WHERE o.status = 'REFUNDED'")
+    List<Order> findRefundedOrders();
+
+	
+	@Query("SELECT o FROM Order o WHERE o.status = 'PENDING'")
+    List<Order> findPendingOrders();
+	
 }
   

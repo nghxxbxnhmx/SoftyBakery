@@ -270,6 +270,7 @@ app.controller('review', function ($scope, $http) {
 });
 app.controller('ProductController', function ($scope, $http, $filter, $location, $routeParams) {
 	// product
+	$scope.spe = [];
 	$scope.listAllProducts = [];
 	$scope.filteredProducts = [];
 	$scope.filterByCategory = [];
@@ -303,6 +304,7 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 
 
 	$scope.categoryList = [];
+	
 	function loadAllProducts() {
 		var url = `${host}/product`;
 		return $http.get(url).then(response => {
@@ -490,7 +492,19 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 		$scope.cart = JSON.parse(localStorage.getItem('cart')) || [];
 	}
 	// cart - cart - cart - cart - cart - cart - cart - cart - cart - cart - cart - cart - cart - cart
-
+	// function loadAllSpe() {
+	// 	var url = `${host}/product/specialoption`;
+	// 	return $http.get(url).then(response => {
+	// 		$scope.spe = response.data;
+		
+	// 	});
+	// }
+	$scope.loadAllSpe = function () {
+		var url = `${host}/product/specialoption`;
+		$http.get(url).then(resp => {
+			$scope.spe = resp.data;
+		});
+	}
 
 	// Khởi tạo dữ liệu ban đầu
 	loadAllProducts().then(function () {
@@ -504,9 +518,124 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 	getUser();
 	$scope.setSelectedProductId();
 	$scope.loadReviews();
+	$scope.loadAllSpe ();
 });
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+app.controller('OrderPending', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/pending`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+app.controller('OrderRefun', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/refun`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+app.controller('OrderComfi', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/comfi`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+app.controller('OrderDely', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/dely`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+app.controller('OrderShipping', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/shipping`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+app.controller('OrderCanceled', function ($scope, $http) {
+	$scope.OrderList = [];
+	$scope.form = {};
+	$scope.loadAll = function () {
+		const url = `${host}/order/cancel`;
+		$http.get(url).then(resp => {
+			$scope.OrderList = resp.data;
+		});
+	}
+	$scope.loadAll();
+});
+// app.controller('OrderHistoryController', function ($scope, $http) {
+
+// 	$scope.modifyCart = function (id, method) {
+// 		// console.log(`${host}/cart/${method}/${id}`);
+// 		$http.get(`${host}/cart/${method}/${id}`).then(function () {
+// 			$scope.loadAllCart();
+// 		});
+// 	};
+// 	$scope.OrderList = [];
+// 	$scope.form = {};
+// 	$scope.loadAll = function () {
+// 		const url = `${host}/order`;
+// 		$http.get(url).then(resp => {
+// 			$scope.OrderList = resp.data;
+// 		});
+// 	}
+// 	$scope.loadAll();
+// });
+app.controller('OrderHistoryController', function ($scope, $http) {
+
+    $scope.modifyCart = function (id, method) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+          
+            $scope.addToCart(id); // Gọi hàm addToCart để lưu sản phẩm vào giỏ hàng
+        });
+    };
+
+    // Hàm để thêm sản phẩm vào giỏ hàng (có thể thay đổi tùy theo cách bạn quản lý giỏ hàng)
+    $scope.addToCart = function(productId) {
+    
+        if (!$scope.cart) {
+            $scope.cart = []; // Khởi tạo giỏ hàng nếu chưa tồn tại
+        }
+        $scope.cart.push(productId); // Thêm sản phẩm vào giỏ hàng
+        console.log("Sản phẩm đã được thêm vào giỏ hàng:", productId);
+    };
+
+    $scope.OrderList = [];
+    $scope.form = {};
+
+    $scope.loadAll = function () {
+        const url = `${host}/order`;
+        $http.get(url).then(resp => {
+            $scope.OrderList = resp.data;
+        });
+    };
+
+    $scope.loadAll();
+});
 app.controller('OrderController', function ($scope, $http) {
 	$scope.products = [];
 	$scope.category = [];

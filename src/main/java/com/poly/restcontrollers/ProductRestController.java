@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.*;
 import com.poly.dto.*;
 import com.poly.models.Product;
+import com.poly.models.SpecialOption;
 import com.poly.services.ProductService;
 
 @RestController
@@ -33,10 +34,17 @@ public class ProductRestController {
 	OrderItemDAO oiDAO;
 	@Autowired
 	ProductImageDAO piDAO;
+	@Autowired 
+	SpecialOptionDAO	sDao;
 
 	@Autowired
 	ProductService productService;
 	
+	 @GetMapping("specialoption")
+   public ResponseEntity<List<SpecialOption>> findAll() {
+        return ResponseEntity.ok(sDao.findAll());
+    }
+
 	@GetMapping
 	public ResponseEntity<List<ProductDTO>> page() {
 		List<ProductDTO> pDTOs = pDAO.findAll().stream()

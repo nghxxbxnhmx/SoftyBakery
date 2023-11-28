@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.poly.dao.CategoryDAO;
 import com.poly.dao.ProductDAO;
 import com.poly.dao.ProductImageDAO;
+import com.poly.dao.SpecialOptionDAO;
 import com.poly.models.ProductImage;
 
 @Controller
@@ -25,6 +26,8 @@ public class ProductController {
 	CategoryDAO cDAO;
 	@Autowired
 	ProductImageDAO piDAO;
+	@Autowired
+	SpecialOptionDAO sDAO;
 
 	private final RestTemplate restTemplate;
 
@@ -41,6 +44,7 @@ public class ProductController {
 	@GetMapping("/product/detail/{id}")
 	public String product_detail(@PathVariable("id") int id, Model model) {
 		model.addAttribute("product", pDAO.findById(id).get());
+			model.addAttribute("spe", sDAO.findById(id).get());
 		return "product-detail";
 	}
 

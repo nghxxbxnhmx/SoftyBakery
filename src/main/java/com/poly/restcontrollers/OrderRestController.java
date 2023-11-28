@@ -3,6 +3,7 @@ package com.poly.restcontrollers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +34,37 @@ public class OrderRestController {
     AccountDAO aDAO;
     @Autowired
     AccountService accountService;
-
     @GetMapping
-    public ResponseEntity<List<OrderDTO>> findAll() {
-        List<OrderDTO> orders = new ArrayList<>();
-        for (Order o : oDAO.findAll()) {
-            OrderDTO oDTO = new OrderDTO(o);
-            oDTO.setAccount(o.getAccount());
-            orders.add(oDTO);
-        }
-        return ResponseEntity.ok(orders);
+    public ResponseEntity<List<Order>> findAll() {
+        return ResponseEntity.ok(oDAO.findAll());
     }
 
+@GetMapping("/pending")
+public List<Order> getPendingOrders() {
+    return oDAO.findPendingOrders();
+}
+@GetMapping("/cancel")
+public List<Order> getCancelledOrders() {
+    return oDAO.findCancelledOrders();
+}
+
+@GetMapping("/shipping")
+public List<Order> getShippingOrders() {
+    return oDAO.findShippingOrders();
+}
+
+@GetMapping("/dely")
+public List<Order> getDelyveringOrders() {
+    return oDAO.findDelyveringOrders();
+}
+@GetMapping("/comfi")
+public List<Order> getConfirmedOrders() {
+    return oDAO.findConfirmedOrders();
+}
+@GetMapping("/refun")
+public List<Order> getRefundedOrders() {
+    return oDAO.findRefundedOrders();
+}
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
         Optional<Order> optionalOrder = oDAO.findById(id);
@@ -125,6 +145,8 @@ public class OrderRestController {
         }
         return ResponseEntity.ok(oiList);
     }
+
+
 
     public Account getAccountAuth() {
         return accountService.getAccountAuth();
