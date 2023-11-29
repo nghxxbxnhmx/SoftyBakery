@@ -46,45 +46,45 @@
         
             <div class="col-lg-9 p-4">
                 <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
-
+                    
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link " id="pills-all-tab" data-bs-toggle="pill"
+                        <button class="nav-link " id="pills-all-tab" 
                             data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all"
-                            aria-selected="true" style="color: black;"> <a href="history">Tất cả</a></button>
+                            aria-selected="false" style="color: black;"> <a href="history">Tất cả</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-topay-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-topay-tab" 
                             data-bs-target="#pills-topay" type="button" role="tab" aria-controls="pills-topay"
                             aria-selected="false" style="color: black;"> <a href="pending">Chờ thanh toán</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-toship-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-toship-tab" 
                             data-bs-target="#pills-toship" type="button" role="tab" aria-controls="pills-toship"
                             aria-selected="false" style="color: black;"><a href="shipping">Vận chuyển</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-toreceive-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-toreceive-tab" 
                             data-bs-target="#pills-toreceive" type="button" role="tab" aria-controls="pills-toreceive"
                             aria-selected="false" style="color: black;"><a href="delyvering">Đang giao</a> </button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-complete-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-complete-tab" 
                             data-bs-target="#pills-complete" type="button" role="tab" aria-controls="pills-complete"
                             aria-selected="false" style="color: black;"><a href="comfi">Hoàn thành</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-cancelled-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-cancelled-tab"
                             data-bs-target="#pills-cancelled" type="button" role="tab" aria-controls="pills-cancelled"
                             aria-selected="false" style="color: black;"><a href="cancel"> Đã hủy</a></button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-refund-tab" data-bs-toggle="pill"
+                        <button class="nav-link" id="pills-refund-tab" 
                             data-bs-target="#pills-refund" type="button" role="tab" aria-controls="pills-refund"
                             aria-selected="false" style="color: black;"><a href="refun">Trả tiền/Hoàn tiền</a> </button>
                     </li>
@@ -109,9 +109,9 @@
                                         <h5 class="card-title">{{item.product.productName}}</h5>
                                         <p class="card-text"><small class="text-body-secondary">Phân loại hàng: {{item.product.category.categoryName}}</small></p>
                                         <p class="card-text"><small class="text-body-secondary">{{item.quantity}}</small></p>
+                                        <span class="text-danger"><strong class="text-danger">đ{{ item.product.price | number }}</strong></span>   
                                         <div class="d-flex justify-content-between align-items-end"> 
-                                            <span class="text-danger"><strong class="text-danger">đ{{ item.product.price | number }}</strong></span>
-                                                <!-- <span class="text-danger"> <strong class="text-danger">đ</strong>{{ item.product.price }}</span> -->
+                                             <span class="text-danger"><strong class="text-danger">Thành tiền: {{item.product.price * item.quantity | number }}đ</strong></span>      <!-- <span class="text-danger"> <strong class="text-danger">đ</strong>{{ item.product.price }}</span> -->
                                             <p class="card-text ps-2">
                                                 <button type="button" class="btn btn-outline-primary mt-2"  ng-click="modifyCart(item.product.productId, 'add')">Mua lại</button>
                                             </p>

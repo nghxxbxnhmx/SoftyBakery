@@ -521,7 +521,13 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 	$scope.loadAllSpe ();
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-app.controller('OrderPending', function ($scope, $http) {
+app.controller('OrderPending', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -532,7 +538,13 @@ app.controller('OrderPending', function ($scope, $http) {
 	}
 	$scope.loadAll();
 });
-app.controller('OrderRefun', function ($scope, $http) {
+app.controller('OrderRefun', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -543,7 +555,13 @@ app.controller('OrderRefun', function ($scope, $http) {
 	}
 	$scope.loadAll();
 });
-app.controller('OrderComfi', function ($scope, $http) {
+app.controller('OrderComfi', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -554,7 +572,13 @@ app.controller('OrderComfi', function ($scope, $http) {
 	}
 	$scope.loadAll();
 });
-app.controller('OrderDely', function ($scope, $http) {
+app.controller('OrderDely', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -565,7 +589,13 @@ app.controller('OrderDely', function ($scope, $http) {
 	}
 	$scope.loadAll();
 });
-app.controller('OrderShipping', function ($scope, $http) {
+app.controller('OrderShipping', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -576,7 +606,13 @@ app.controller('OrderShipping', function ($scope, $http) {
 	}
 	$scope.loadAll();
 });
-app.controller('OrderCanceled', function ($scope, $http) {
+app.controller('OrderCanceled', function ($scope, $http,$window) {
+	$scope.modifyCart = function (id, method,quantity) {
+        $http.get(`${host}/cart/${method}/${id}`).then(function () {
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
+        });
+    };
 	$scope.OrderList = [];
 	$scope.form = {};
 	$scope.loadAll = function () {
@@ -605,25 +641,15 @@ app.controller('OrderCanceled', function ($scope, $http) {
 // 	}
 // 	$scope.loadAll();
 // });
-app.controller('OrderHistoryController', function ($scope, $http) {
 
-    $scope.modifyCart = function (id, method) {
+app.controller('OrderHistoryController', function ($scope, $http,$window) {
+    $scope.modifyCart = function (id, method,quantity) {
         $http.get(`${host}/cart/${method}/${id}`).then(function () {
-          
-            $scope.addToCart(id); // Gọi hàm addToCart để lưu sản phẩm vào giỏ hàng
+			$window.localStorage.setItem('quantity', quantity); 
+			$window.location.href = 'http://localhost:8080/cart'; // Chuyển hướng đến trang giỏ hàng sau khi thêm sản phẩm vào giỏ hàng
         });
     };
-
-    // Hàm để thêm sản phẩm vào giỏ hàng (có thể thay đổi tùy theo cách bạn quản lý giỏ hàng)
-    $scope.addToCart = function(productId) {
-    
-        if (!$scope.cart) {
-            $scope.cart = []; // Khởi tạo giỏ hàng nếu chưa tồn tại
-        }
-        $scope.cart.push(productId); // Thêm sản phẩm vào giỏ hàng
-        console.log("Sản phẩm đã được thêm vào giỏ hàng:", productId);
-    };
-
+	
     $scope.OrderList = [];
     $scope.form = {};
 
