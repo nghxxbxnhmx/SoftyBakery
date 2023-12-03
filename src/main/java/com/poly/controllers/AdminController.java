@@ -27,7 +27,10 @@ public class AdminController {
 	@Autowired ProductDAO pDAO;
 	@Autowired CategoryDAO cDAO;
 	@Autowired ProductImageDAO piDAO;
-	
+		@GetMapping("/admin")
+	public String pageadmin() {
+		return "fragments/layoutAdmin";
+	}
 	@GetMapping("/admin/product")
 	public String admin_product(Model model) {
 		return "admin/admin-product";
@@ -89,10 +92,5 @@ public class AdminController {
 	@GetMapping("/manage/coupon")
 	public String manage_coupon() {
 		return "manage/manage-coupon";
-	}
-	
-	@GetMapping("/manage/discount")
-	public String manageDiscount() {
-		return "manage/manage-discount";
 	}
 }

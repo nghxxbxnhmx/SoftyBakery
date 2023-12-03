@@ -95,8 +95,7 @@ public class OrderController {
 	public String user_purchase(Model model) throws JsonProcessingException {
 		model.addAttribute("user", accountService.getAccountAuth());
 		model.addAttribute("orderList", oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername()));
-		System.out.println(objectMapper
-				.writeValueAsString(oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername())));
+		System.out.println(objectMapper.writeValueAsString(oDAO.findOrderByUsername(accountService.getAccountAuth().getUsername())));
 		return "order-history";
 	}
 

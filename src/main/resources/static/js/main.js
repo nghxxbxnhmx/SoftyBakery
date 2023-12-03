@@ -660,13 +660,13 @@ app.controller('AdminOrderController', function ($scope, $http) {
 		$scope.orderitems = order.orderItems;
 	}
 
-
+	
 	$scope.getAmount = function (orderItems) {
 		return orderItems.reduce(function (total, product) {
 			return total + product.product.price * product.quantity;
 		}, 0);
 	}
-
+	
 	$scope.delete = function (orderId) {
 		var urlDelete = url + '/' + orderId;
 		$http.delete(urlDelete).then(resp => $scope.loadAll());
@@ -726,99 +726,124 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.form = {};
 	$scope.temporarySearchText = '';
 	$scope.modalMessage = '';
-
+	
 	$scope.loadAll = function () {
-		const url = `${host}/account`;
-		$http.get(url).then(resp => {
-			$scope.accounts = resp.data;
-			console.log(resp.data);
-		});
+	  const url = `${host}/account`;
+	  $http.get(url).then(resp => {
+		$scope.accounts = resp.data;
+		console.log(resp.data);
+	  });
 	}
-
+	$scope.getRoleStyle = function(role) {
+		switch(role) {
+			case 'USER':
+				return {'color': 'black'};
+			case 'MANAGER':
+				return {'color': 'blue'};
+			case 'ADMIN':
+				return {'color': 'red'};
+			case 'SUPERADMIN':
+				return {'color': 'green'};
+			default:
+				return {};
+		}},
 	$scope.search = function () {
-		$scope.searchText = $scope.temporarySearchText;
+	  $scope.searchText = $scope.temporarySearchText;
 	};
-
-	$scope.filterOptions = 'all';
-
-	$scope.filterCondition = function (account) {
-		if ($scope.filterOptions === 'activity') {
-			return !account.account.banned;
-		} else if ($scope.filterOptions === 'blocker') {
-			return account.account.banned;
-		} else {
-			return true;
-		}
-	};
-
-	$scope.editAccount = function (account) {
-		$scope.form = angular.copy(account.account);
-		$scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
-	};
-
-	$scope.reset = function () {
-		$scope.form = {
-			username: '',
-			email: '',
-			address: '',
-			phoneNumber: '',
-			condition: 'activity',
-			reasonBlocker: '',
-			role: 'USER'
-		};
-	};
-
-	$scope.update = function () {
-		var formAccount = $scope.form;
-		formAccount.banned = formAccount.condition === 'activity' ? false : true;
-		const url = `${host}/account/${formAccount.username}`;
-		if (formAccount != null) {
-			$http.put(url, formAccount).then(() => {
-				console.log("Lưu tài khoản thành công!");
-				$scope.loadAll();
-				$scope.showModal('Lưu tài khoản thành công!');
-			}).catch(function (error) {
-				console.error("Lỗi khi lưu tài khoản:", error);
-				$scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
-			});
-		}
-	}
-
-	$scope.delete = function (username) {
-		const url = `${host}/account/${username}`;
-		$http.delete(url).then(function () {
-			console.log("Xóa tài khoản thành công! " + username);
-			$scope.loadAll();
-			$scope.reset();
-			$scope.showModal('Xóa tài khoản thành công!');
-		}).catch(function (error) {
-			console.error("Lỗi khi xóa tài khoản:", error);
-			$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
-		});
-	}
-
-	$scope.handleFileSelect = function (element) {
-		var fileName = element.files[0].name;
-		console.log('Selected file name:', fileName);
-		$scope.form.photo = fileName;
-	};
-
-	$scope.getRelativeImagePath = function (imageName) {
-		return "/images/accountPhoto/" + imageName;
-	};
-
-	$scope.showModal = function (message) {
-		$scope.modalMessage = message;
+	$scope.showReasonBlockerModal = function(reason) {
+		$scope.modalMessage = reason;
 		$('#messageModal').modal('show');
 	};
-
-	$scope.hideModal = function () {
-		$('#messageModal').modal('hide');
+	$scope.filterOptions = 'all';
+	$scope.filterCondition = function (account) {
+	  if ($scope.filterOptions === 'activity') {
+		return !account.account.banned;
+	  } else if ($scope.filterOptions === 'blocker') {
+		return account.account.banned;
+	  } else {
+		return true;
+	  }
 	};
-
+	$scope.filterByRole = function() {
+		if ($scope.form.role === 'RoleAll') {
+			$scope.roleFilter = $scope.filterAllRoles;
+		} else {
+			var roleFilter = function(account) {
+				return account.account.role === $scope.form.role;
+			};
+			$scope.roleFilter = roleFilter;
+		}
+	};
+  
+	$scope.editAccount = function (account) {
+	  $scope.form = angular.copy(account.account);
+	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+	};
+  
+	$scope.reset = function () {
+	  $scope.form = {
+		username: '',
+		email: '',
+		address: '',
+		phoneNumber: '',
+		condition: 'activity',
+		reasonBlocker: '',
+		role: 'USER'
+	  };
+	};
+  
+	$scope.update = function () {
+	  var formAccount = $scope.form;
+	  formAccount.banned = formAccount.condition === 'activity' ? false : true;
+	  const url = `${host}/account/${formAccount.username}`;
+	  if (formAccount != null) {
+		$http.put(url, formAccount).then(() => {
+		  console.log("Lưu tài khoản thành công!");
+		  $scope.loadAll();
+		  $scope.showModal('Lưu tài khoản thành công!');
+		}).catch(function (error) {
+		  console.error("Lỗi khi lưu tài khoản:", error);
+		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
+		});
+	  }
+	}
+  
+	$scope.delete = function (username) {
+	  const url = `${host}/account/${username}`;
+	  $http.delete(url).then(function () {
+		console.log("Xóa tài khoản thành công! " + username);
+		$scope.loadAll();
+		$scope.reset();
+		$scope.showModal('Xóa tài khoản thành công!');
+	  }).catch(function (error) {
+		console.error("Lỗi khi xóa tài khoản:", error);
+		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
+	  });
+	}
+  
+	$scope.handleFileSelect = function (element) {
+	  var fileName = element.files[0].name;
+	  console.log('Selected file name:', fileName);
+	  $scope.form.photo = fileName;
+	};
+  
+	$scope.getRelativeImagePath = function (imageName) {
+	  return "/images/accountPhoto/" + imageName;
+	};
+  
+	$scope.showModal = function (message) {
+	  $scope.modalMessage = message;
+	  $('#messageModal').modal('show');
+	};
+  
+	$scope.hideModal = function () {
+	  $('#messageModal').modal('hide');
+	};
+	
+  
 	$scope.reset();
 	$scope.loadAll();
-});
+  });
 
 app.controller('RegisterController', function ($http, $scope) {
 	var url = `${host}/account/randomname`;
