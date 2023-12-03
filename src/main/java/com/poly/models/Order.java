@@ -5,12 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +21,7 @@ public class Order {
     @Column(name = "orderid")
     private int orderId;
 
-    // @JsonIgnore
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;

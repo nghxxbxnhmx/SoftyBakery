@@ -1,5 +1,7 @@
 package com.poly.services.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +14,7 @@ import com.poly.models.Account;
 import com.poly.services.AccountService;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDAO aDAO;
 
@@ -21,6 +23,7 @@ public class AccountServiceImpl implements AccountService{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
             return aDAO.findById(userDetails.getUsername()).orElse(null);
         } else {
             return null;
@@ -31,10 +34,12 @@ public class AccountServiceImpl implements AccountService{
     public UserDetails loadUserByUsername(String username) {
         return new AccountToUserDetail(getByUsername(username));
     }
+
     public Account getByUsername(String username) {
         return aDAO.findById(username).orElse(null);
     }
-     @Override
+
+    @Override
     public Account update(Account account) {
         if (aDAO.findById(account.getUsername()) != null) {
             aDAO.save(account);
@@ -44,9 +49,13 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account add(Account account) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+    public void add(Account account) {
+        try {
+            aDAO.save(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override

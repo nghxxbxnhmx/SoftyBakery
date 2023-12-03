@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Comments")

@@ -1,8 +1,22 @@
 package com.poly.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,90 +27,188 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.AccountDAO;
+import com.poly.dto.enums.AccountRoleEnum;
 import com.poly.models.Account;
+import com.poly.models.Product;
+import com.poly.models.ProductImage;
 import com.poly.services.AccountService;
 import com.poly.utils.PasswordUtil;
+import com.poly.utils.RandomStringUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class AccountController {
-	@Autowired AccountDAO aDAO;
-	@Autowired AccountService accountService;
+	@Autowired
+	AccountDAO aDAO;
+	@Autowired
+	AccountService accountService;
+
 	@GetMapping("/register")
-	public String register(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String register(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws JsonProcessingException {
 		Account a = new Account();
-		model.addAttribute("user",a);
-		
+		model.addAttribute("user", a);
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(getAccountAuth()!=null) {
-			 new SecurityContextLogoutHandler().logout(request, response, auth);
+		if (getAccountAuth() != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		return "register";
 	}
+
 	@PostMapping("/register")
 	public String register1(Model model, @ModelAttribute("user") Account a) {
+		a.setRole(AccountRoleEnum.USER);
 		a.setPassword(PasswordUtil.encode(a.getPassword()));
 		a.setPhoto("noImage.jpg");
 		aDAO.save(a);
 		return "login";
 	}
+
 	@GetMapping("/login")
 	public String login() {
 
 		return "login";
 	}
+
 	@GetMapping("/login/")
 	public String loginValidation(@RequestParam("error") Boolean error, Model model) {
-		if(error == true) {
-				String message = "Sai tên đăng nhập hoặc mật khẩu!";
-				model.addAttribute("message",message);
-				return "login";
-			}
+		if (error == true) {
+			String message = "Sai tên đăng nhập hoặc mật khẩu!";
+			model.addAttribute("message", message);
+			return "login";
+		}
 		return "login";
 	}
-	
+
 	@GetMapping("/profile")
 	public String profile(Model model) {
 		Account a = getAccountAuth();
-		
+
 		model.addAttribute("user", a);
 		return "profile";
 	}
+
 	@GetMapping("/profile/{username}")
-	public String profileUser(@PathVariable("username") String username,Model model) {
+	public String profileUser(@PathVariable("username") String username, Model model) {
 		Account a = aDAO.getById(username);
-		
+
 		model.addAttribute("user", a);
 		return "profile";
 	}
-	
 
 	@GetMapping("/profile/edit")
 	public String editProfile(Model model) {
 		return "profile-edit";
 	}
-	private static final String CLIENT_ID = "0ab0fb9877708c6";
-    private static final String CLIENT_SECRET = "d55ae0d35f1f889cd6be96aca5684032c59ac50a";
-    private static final String IMGUR_UPLOAD_URL = "https://api.imgur.com/3/upload";
 
-    @PostMapping("/profile/edit")
-    public String editProfile(@RequestParam("file") MultipartFile file, Model model) {
-        return "redirect:/profile";
-    }
+	private static final String CLIENT_ID = "0ab0fb9877708c6";
+	private static final String CLIENT_SECRET = "d55ae0d35f1f889cd6be96aca5684032c59ac50a";
+	private static final String IMGUR_UPLOAD_URL = "https://api.imgur.com/3/upload";
+
+	@PostMapping("/profile/edit")
+	public String editProfile(@RequestParam("file") MultipartFile file, Model model) {
+		return "redirect:/profile";
+	}
 
 	@GetMapping("/order-history")
-	public String orderhistory(Model model){
+	public String orderhistory(Model model) {
 		Account a = getAccountAuth();
-		
+
 		model.addAttribute("user", a);
 		return "order-history";
 	}
 
-
-	public Account getAccountAuth() { 
+	public Account getAccountAuth() {
 		return accountService.getAccountAuth();
+	}
+
+	@GetMapping("/oauth2/login/form")
+	public String form() {
+		return "oauth2/login";
+	}
+
+	@GetMapping("/oauth2/login/success")
+public String success(OAuth2AuthenticationToken oauth, Model model) throws IOException {
+    String email = oauth.getPrincipal().getAttribute("email");
+    String username = email.substring(0, email.indexOf("@"));
+    String fullName = oauth.getPrincipal().getAttribute("name");
+    String address = oauth.getPrincipal().getAttribute("address");
+    String addressDetail = oauth.getPrincipal().getAttribute("address_detail");
+    String photoUrl = oauth.getPrincipal().getAttribute("picture");
+
+    String UPLOAD_DIR = "src\\main\\resources\\static\\images\\accountPhoto";
+
+    Account account = aDAO.findById(username).orElse(null);
+
+    if (account == null) {
+        account = new Account();
+        account.setUsername(username);
+        account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20))); // Sửa password thành chuỗi ngẫu nhiên
+
+        account.setEmail(email);
+        
+		if(address!=null && !address.isEmpty() && !address.isBlank()) {
+			account.setAddress(address);
+		} else {
+			account.setAddress("");
+		}
+
+		if(addressDetail!=null && !addressDetail.isEmpty() && !addressDetail.isBlank()) {
+			account.setAddressDetail(addressDetail);
+		} else {
+			account.setAddressDetail("");
+		}
+        account.setFullName(fullName);
+        account.setRole(AccountRoleEnum.USER);
+
+        if (photoUrl == null) {
+            account.setPhoto("noImage.jpg");
+        } else {
+            String photoName = RandomStringUtil.generateRandomString(20) + ".png";
+
+            try {
+                URL url = new URL(photoUrl);
+                Path uploadDir = Paths.get(UPLOAD_DIR);
+                Path filePath = uploadDir.resolve(photoName);
+                Files.createDirectories(uploadDir);
+
+                try (InputStream in = url.openStream()) {
+                    Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                account.setPhoto(photoName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Xử lý lỗi tải hình ảnh
+                return "redirect:/error";
+            }
+        }
+
+        aDAO.save(account);
+    } else {
+        // Bạn có thể xử lý logic khi tài khoản đã tồn tại ở đây
+        System.out.println("Account already exists");
+    }
+
+    UserDetails user = User.withUsername(username)
+            .password("")
+            .roles("USER")
+            .build();
+    Authentication auth = new UsernamePasswordAuthenticationToken(user, true, user.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(auth);
+
+    return "redirect:/home";
+}
+
+
+	@GetMapping("/oauth2/login/error")
+	public String error() {
+		return "redirect:/oauth2/authorization/google";
 	}
 }

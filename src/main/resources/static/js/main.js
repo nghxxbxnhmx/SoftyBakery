@@ -823,11 +823,70 @@ app.controller('AdminAccountController', function ($scope, $http) {
 app.controller('RegisterController', function ($http, $scope) {
 	var url = `${host}/account/randomname`;
 	$scope.randomName = {};
+
+	$scope.formRegister = {};
+
+	$scope.cities = [];
+	$scope.districts = [];
+	$scope.wards = [];
+
+	$scope.city = null;
+	$scope.district = null;
+	$scope.ward = null;
+
+
+	const urlAddress = `${host}/address/`;
+	const urlName= `${host}/account/randomname`;
+	
+
 	$scope.get = function () {
-		$http.get(url).then(resp => {
+		$http.get(urlName).then(resp => {
 			$scope.randomName = resp.data;
 		});
 	}
+
+	$scope.loadCities = function () {
+		$http.get(urlAddress + "cities").then(response => {
+			$scope.cities = response.data;
+		});
+	};
+
+	$scope.loadDistricts = function () {
+		if ($scope.city !== null && $scope.city === '') {
+			$scope.address = $scope.city.name;
+			$scope.districts = [];
+			$scope.wards = [];
+			return;
+		}
+
+		$http.get(urlAddress + $scope.city.code + "/districts").then(function (response) {
+			$scope.districts = response.data;
+			$scope.district = null;
+			$scope.wards = [];
+			$scope.setAddress();
+		});
+
+	};
+
+	$scope.loadWards = function () {
+		if (!$scope.district) {
+			$scope.wards = [];
+			return;
+		}
+		$http.get(urlAddress + $scope.district.code + "/wards").then(function (response) {
+			$scope.wards = response.data;
+			$scope.setAddress();
+		});
+	};
+
+	$scope.setAddress = function () {
+		if ($scope.ward != null) {
+			$scope.formRegister.address = '';
+			$scope.formRegister.address = $scope.ward.path_with_type;
+		}
+	}
+
+	$scope.loadCities();
 });
 
 app.controller('AdminCategoryController', function ($scope, $http) {

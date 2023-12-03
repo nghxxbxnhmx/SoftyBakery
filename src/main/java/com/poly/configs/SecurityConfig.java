@@ -9,8 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableWebSecurity
@@ -21,25 +26,31 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-						// .requestMatchers("/home", "/about", "/service", "/contact", "/rest/**")
-						// 	.permitAll()
-						
 						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-							.authenticated()
+						.authenticated()
 						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
 						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
 						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
-						.anyRequest().permitAll()
-						)
+						.anyRequest().permitAll())
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
 						.failureUrl("/login/?error=true")
-						// .successForwardUrl("/home")
-						)
+				// .successForwardUrl("/home")
+				)
+
 				.logout(logout -> logout
 						.logoutUrl("/logout")
-						.deleteCookies("JSESSIONID"));
+						.deleteCookies("JSESSIONID"))
+				.oauth2Login(oauth2 -> oauth2
+						.loginPage("/oauth/login/form")
+						.defaultSuccessUrl("/oauth2/login/success", true)
+						.failureUrl("/oauth2/login/error")
+						.authorizationEndpoint()
+						.baseUri("/oauth2/authorization")
+						.authorizationRequestRepository(getRepository())
+						.and().tokenEndpoint()
+						.accessTokenResponseClient(getToken()));
 
 		return http.build();
 	}
@@ -52,6 +63,16 @@ public class SecurityConfig {
 			uDetail = (UserDetails) auth.getPrincipal();
 		}
 		return uDetail;
+	}
+
+	@Bean
+	public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getRepository() {
+		return new HttpSessionOAuth2AuthorizationRequestRepository();
+	}
+
+	@Bean
+	public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getToken() {
+		return new DefaultAuthorizationCodeTokenResponseClient();
 	}
 
 	@Bean
