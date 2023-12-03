@@ -1,8 +1,14 @@
 package com.poly.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poly.dao.AccountDAO;
+import com.poly.dto.enums.AccountRoleEnum;
 import com.poly.models.Account;
 import com.poly.services.AccountService;
 import com.poly.utils.PasswordUtil;
@@ -57,7 +64,42 @@ public class AccountController {
 			}
 		return "login";
 	}
+	@GetMapping("/oauth2/login/form")
+	public String form(){
+		return "oauth2/login";
+	}
+	@GetMapping("/oauth2/login/success")
+public String success(OAuth2AuthenticationToken oauth,Account a ){
+    String email = oauth.getPrincipal().getAttribute("email");
+    String name = oauth.getPrincipal().getAttribute("name");	
+// Username, emaill, fullname, bỉrday,phone, 
+// role
+// a.setUsername(name);
+// a.setFullName(name);
+// a.setEmail(email);
+// a.setAddress("");
+// a.setBirthDay(null);
+// a.setPhoneNumber("");
+// a.setRole(AccountRoleEnum.USER);
+
+    // Kiểm tra xem tài khoản có tồn tại trong hệ thống không
 	
+	
+    // Sử dụng thông tin từ Google để cập nhật hoặc tạo tài khoản mới
+    UserDetails user = User.withUsername(email)
+                            .password("") // Bạn có thể sử dụng một giá trị mặc định hoặc tạo mật khẩu ngẫu nhiên
+                            .roles("USER")
+                            .build();
+    Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(auth);
+    return "redirect:/home";
+}
+	@GetMapping("/oauth2/login/error")
+	public String error(){
+		return "/home";
+	}
+	
+
 	@GetMapping("/profile")
 	public String profile(Model model) {
 		Account a = getAccountAuth();

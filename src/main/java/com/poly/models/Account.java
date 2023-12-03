@@ -55,16 +55,16 @@ public class Account {
     @Column(name = "reasonbanned")
     private String reasonBanned;
 
-    @Column(name = "reset_code")
-    private String resetCode;
+    // @Column(name = "reset_code")
+    // private String resetCode;
 
-    public String getResetCode() {
-        return resetCode;
-    }
+    // public String getResetCode() {
+    //     return resetCode;
+    // }
 
-    public void setResetCode(String resetCode) {
-        this.resetCode = resetCode;
-    }
+    // public void setResetCode(String resetCode) {
+    //     this.resetCode = resetCode;
+    // }
 
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)

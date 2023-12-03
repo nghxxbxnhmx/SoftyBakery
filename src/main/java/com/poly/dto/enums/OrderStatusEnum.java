@@ -10,7 +10,9 @@ public enum OrderStatusEnum {
     CANCELED("Đã hủy", "Đơn hàng đã bị hủy"),
     PROCESSING("Đang xử lý", "Đơn hàng đang trong quá trình xử lý"),
     REFUNDED("Đã hoàn tiền", "Đã hoàn tiền cho đơn hàng"),
+    DELIVERING("Đang xử lý", "Đơn hàng đang trong quá trình xử lý"),
     ERROR("Lỗi", "Đã xảy ra lỗi trong quá trình xử lý đơn hàng");
+    
     private final String description;
     private final String vietnameseDescription;
     OrderStatusEnum(String description, String vietnameseDescription) {
