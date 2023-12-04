@@ -26,11 +26,11 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-						.authenticated()
-						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
-						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						// .requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+						// .authenticated()
+						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
 						.anyRequest().permitAll())
 				.formLogin(form -> form
 						.loginPage("/login")

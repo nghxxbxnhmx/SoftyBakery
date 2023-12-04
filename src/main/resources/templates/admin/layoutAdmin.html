@@ -4,10 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Softy Bakery</title>
-	<div th:insert="~{layout :: spinner}"></div>
-	<div th:insert="~{layout :: topbar}"></div>
-	<div th:insert="~{layout :: navbarProduct}"></div>
 	<!-- Page Header Start -->
+	<th:block th:insert="~{layout :: css-link}"></th:block>
 	<style>
 		.nav-list {
 			list-style: none;
@@ -59,20 +57,11 @@
 	<!-- Css link end -->
 </head>
 
-<body class="bg-light">
+<body class="bg-light" ng-app="app">
+	<div th:insert="~{layout :: spinner}"></div>
+	<div th:insert="~{layout :: adminNavbar}"></div>
 
-
-	<!-- Topbar End -->
-	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s" th:fragment="headerstart"
-		style="margin: 0;">
-		<div class="container text-center pt-5 pb-3">
-			<h1 class="display-4 text-white animated slideInDown mb-3">Admin</h1>
-			<nav aria-label="breadcrumb animated slideInDown">
-			</nav>
-		</div>
 	</div>
-	<!-- Page Header End -->
 	<div class="body-content">
 		<!-- navbar Start -->
 		<div class="sidebar" layout:fragment="navbar p-4">
@@ -81,9 +70,10 @@
 				<span ng-if="userInfo">
 					<a href="#" class=" nav-item nav-link" data-bs-toggle="dropdown">
 						<div class="">
-							<span ng-bind="userInfo.fullName" class="nav-item"></span>
 							<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
-								ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPERADMIN' ? '4px solid #f39c12' : 'none')))}">
+								ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
+							
+							<span ng-bind="userInfo.fullName" class="nav-item"></span>
 						</div>
 					</a>
 				</span>
