@@ -642,6 +642,12 @@ app.controller('AdminOrderController', function ($scope, $http) {
 			$scope.orders = resp.data;
 		});
 	}
+	$scope.loadOrderStatus = function () {
+		const url = `${host}/order/OrderStatus`;
+		$http.get(url).then(resp => {
+			$scope.orderStatusOptions = resp.data;
+		});
+	}
 	// $scope.getStatusClass = function (status) {
 	// 	switch (status) {
 	// 		case 'Đang chờ':
@@ -671,8 +677,10 @@ app.controller('AdminOrderController', function ($scope, $http) {
 		var urlDelete = url + '/' + orderId;
 		$http.delete(urlDelete).then(resp => $scope.loadAll());
 	}
-
-
+	$scope.applyFilter = function (statusOption) {
+		$scope.filterOptions = statusOption;
+	};
+	$scope.loadOrderStatus();
 	$scope.loadAll();
 });
 
@@ -837,7 +845,7 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  $('#messageModal').modal('hide');
 	};
 	
-  
+	
 	$scope.reset();
 	$scope.loadAll();
   });

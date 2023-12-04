@@ -58,22 +58,7 @@ public class Account {
     @Column(name = "reasonbanned")
     private String reasonBanned;
 
-<<<<<<< HEAD
-    // @Column(name = "reset_code")
-    // private String resetCode;
-
-    // public String getResetCode() {
-    //     return resetCode;
-    // }
-
-    // public void setResetCode(String resetCode) {
-    //     this.resetCode = resetCode;
-    // }
-
-    @JsonIgnore
-=======
     @JsonIgnore(value = true)
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Order> orders;
 

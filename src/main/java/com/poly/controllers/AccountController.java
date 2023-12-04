@@ -19,11 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-<<<<<<< HEAD
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
-=======
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,44 +87,6 @@ public class AccountController {
 		}
 		return "login";
 	}
-<<<<<<< HEAD
-	
-	@GetMapping("/oauth2/login/form")
-	public String form(){
-		return "oauth2/login";
-	}
-	@GetMapping("/oauth2/login/success")
-public String success(OAuth2AuthenticationToken oauth){
-    String email = oauth.getPrincipal().getAttribute("email");
-    String name = oauth.getPrincipal().getAttribute("name");
-    // Kiểm tra xem tài khoản có tồn tại trong hệ thống không
-    Account account = (Account) accountService.loadUserByUsername(email);
-    
-        // Nếu tài khoản không tồn tại, tạo mới tài khoản
-        account = new Account();
-        account.setEmail(email);
-		account.setFullName(name);
-		account.setRole(AccountRoleEnum.USER);
-        account.setUsername(email); // Sử dụng email làm username
-        // Có thể thêm các thông tin khác nếu cần
-        accountService.add(account) ;// Lưu tài khoản mới
-  
-    // Sử dụng thông tin từ Google để cập nhật hoặc tạo tài khoản mới
-    UserDetails user = User.withUsername(email)
-                            .password("") // Bạn có thể sử dụng một giá trị mặc định hoặc tạo mật khẩu ngẫu nhiên
-                            .roles("USER")
-                            .build();
-    Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(auth);
-    return "redirect:/home";
-}
-	@GetMapping("/oauth2/login/error")
-	public String error(){
-		return "/home";
-	}
-	
-=======
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 
 	@GetMapping("/profile")
 	public String profile(Model model) {
@@ -146,10 +103,6 @@ public String success(OAuth2AuthenticationToken oauth){
 		model.addAttribute("user", a);
 		return "profile";
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 	@GetMapping("/profile/edit")
 	public String editProfile(Model model) {
 		return "profile-edit";
@@ -182,12 +135,6 @@ public String success(OAuth2AuthenticationToken oauth){
 		model.addAttribute("user", a);
 		return "order-history";
 	}
-<<<<<<< HEAD
-	public Account getAccountAuth() { 
-		return accountService.getAccountAuth();
-	}
-}
-=======
 
 	public Account getAccountAuth() {
 		return accountService.getAccountAuth();
@@ -275,4 +222,3 @@ public String success(OAuth2AuthenticationToken oauth){
 		return "redirect:/oauth2/authorization/google";
 	}
 }
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d

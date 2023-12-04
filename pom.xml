@@ -157,11 +157,6 @@
 			<version>5.11.0</version>
 			<scope>compile</scope>
 		</dependency>
-<<<<<<< HEAD
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
-=======
 
 		
 		<dependency>
@@ -183,7 +178,6 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-jose</artifactId>
 			<version>6.2.0</version>
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 		</dependency>
 	</dependencies>
 

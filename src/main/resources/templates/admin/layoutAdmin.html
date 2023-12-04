@@ -2,42 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
 <head>
-<<<<<<< HEAD
-<meta charset="utf-8">
-<title>Softy Bakery</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
-<!-- Css link start -->
-<th:block th:fragment="css-link">
-	<!-- Favicon -->
-	<link href="/images/icon2.png" rel="icon">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<meta content="" name="keywords">
-	<meta content="" name="description">
-	<!-- Google Web Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-	<!-- Icon Font Stylesheet -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-	<!-- Libraries Stylesheet -->
-	<link href="/lib/animate/animate.min.css" rel="stylesheet">
-	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-	<!-- Customized Bootstrap Stylesheet -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Template Stylesheet -->
-	<link href="/css/style.css" rel="stylesheet">
-
-	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <style>
-        .nav-list {
-            list-style: none;
-            padding: 0;
-			margin-left: 35px;
-        }
-=======
 	<meta charset="utf-8">
 	<title>Softy Bakery</title>
 	<!-- Page Header Start -->
@@ -48,7 +12,6 @@
 			padding: 0;
 			margin-left: 40px;
 		}
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 
 		#administerList>li {
 			text-align: left;
@@ -69,16 +32,6 @@
 			transition: transform 0.3s ease;
 		}
 
-<<<<<<< HEAD
-        .administer-icon.collapsed i {
-            transform: rotate(-90deg);
-        }
-        .sidebar {
-            float: left;
-            margin: 0;
-            width: 250px;
-            border-right: 2px solid #E4DDD4;
-=======
 		.administer-icon.collapsed i {
 			transform: rotate(-90deg);
 		}
@@ -88,7 +41,6 @@
 			margin: 0;
 			width: 250px;
 			border-right: 1px solid gray;
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 			margin-right: 5px;
 
 		}
@@ -105,110 +57,12 @@
 	<!-- Css link end -->
 </head>
 
-<<<<<<< HEAD
-<body>
-	<!-- Spinner Start -->
-	<div id="spinner"
-		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-		th:fragment="spinner">
-		<div class="spinner-grow text-primary" role="status"></div>
-=======
 <body class="bg-light" ng-app="app">
 	<div th:insert="~{layout :: spinner}"></div>
 	<div th:insert="~{layout :: adminNavbar}"></div>
 
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 	</div>
 	<div class="body-content">
-<<<<<<< HEAD
-    <!-- navbar Start -->
-    <div class="sidebar" layout:fragment="navbar p-4">
-        <!-- img account -->
-        <div ng-app="app" ng-controller="UserController" class="avatar-container mt-3">
-            <span ng-if="userInfo">
-                    <div class="m-0" style="padding-left: 20px;">
-                        <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPERADMIN' ? '4px solid #f39c12' : 'none')))}">
-						<span ng-bind="userInfo.username" class="nav-item h4" style="font-size: 18px;"></span>
-                    </div>
-            </span>
-        </div>
-        <hr>
-        <!--  -->
-        <p><a href="#" class="nav-item"><i class="bi bi-bar-chart-line-fill"></i> Chart</a></p>
-        <span class="btn administer-icon nav-item" data-bs-toggle="collapse" data-bs-target="#administerList" aria-expanded="false" style="font-size: 20px; padding-left: 30px;">
-            <i class="fas fa-chevron-down"></i> Administer
-        </span>
-        <ul class="collapse nav-list" id="administerList">
-            <li><a href="/admin/product" class="nav-item"><i class="bi bi-shop"></i> Product</a></li>
-            <li><a href="/admin/order" class="nav-item"><i class="bi bi-basket2"></i> Order</a></li>
-            <li><a href="/admin/account"  class="nav-item"><i class="bi bi-person"></i> Account</a></li>
-            <li><a href="/admin/category" class="nav-item"><i class="bi bi-list-ul"></i> Category</a></li>
-            <li><a href="/manager/coupon" class="nav-item"><i class="bi bi-ticket-detailed"></i> Coupon</a></li>
-            <li><a href="/admin/discount" class="nav-item"><i class="bi bi-fire"></i> Discount</a></li>
-            <li><a href="/admin/orderitem" class="nav-item">Order Item</a></li>
-            <li><a href="/admin/productimage" class="nav-item"><i class="bi bi-file-image"></i> Product Image</a></li>
-            <li><a href="/admin/review" class="nav-item"><i class="bi bi-chat-right-dots"></i> Review</a></li>
-            <li><a href="/admin/specialoption" class="nav-item"><i class="bi bi-gear"></i> Special Option</a></li>
-        </ul>
-		<p><a href="/logout" class="nav-item"><i class="bi bi-box-arrow-left"></i> Exit</a></p>
-    </div>
-	<!-- navbar End -->
-    <div layout:fragment="content"></div>
-</div>
-	<!-- Footer Start -->
-	<div class="container-fluid bg-dark text-light footer my-6 m-0 py-5 wow fadeIn"
-		data-wow-delay="0.1s" th:fragment="footer">
-		<div class="container py-5">
-			<div class="row g-5">
-				<div class="col-lg-3 col-md-6">
-					<h4 class="text-light mb-4">Office Address</h4>
-					<p class="mb-2">
-						<i class="fa fa-map-marker-alt me-3"></i>Tô Ký, Công Viên Phần Mềm
-						Quang Trung, Quận 12
-					</p>
-					<p class="mb-2">
-						<i class="fa fa-phone-alt me-3"></i>+84 869945854
-					</p>
-					<p class="mb-2">
-						<i class="fa fa-envelope me-3"></i>Softybakery.contact@gmail.com
-					</p>
-					<div class="d-flex pt-2">
-						<a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-twitter"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-facebook-f"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-youtube"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-0"
-							href=""> <i class="fab fa-linkedin-in"></i>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<h4 class="text-light mb-4">Quick Links</h4>
-					<a class="btn btn-link" href="/">Home</a> <a
-						class="btn btn-link" href="/products/">Products</a> <a
-						class="btn btn-link" href="/cart">Cart</a> <a
-						class="btn btn-link" href="/order">Order</a> <a
-						class="btn btn-link" href="/test">Test</a>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<h4 class="text-light mb-4">Quick Links</h4>
-					<a class="btn btn-link" href="">About Us</a> <a
-						class="btn btn-link" href="">Contact Us</a> <a
-						class="btn btn-link" href="">Our Services</a> <a
-						class="btn btn-link" href="">Terms & Condition</a> <a
-						class="btn btn-link" href="">Support</a><a
-						class="btn btn-link" href="/admin/product">Admin</a>
-						
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<h4 class="text-light mb-4">Photo Gallery</h4>
-					<div class="row g-2">
-						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-1.jpg" alt="Image">
-=======
 		<!-- navbar Start -->
 		<div class="sidebar" layout:fragment="navbar p-4">
 			<!-- img account -->
@@ -220,7 +74,6 @@
 								ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
 							
 							<span ng-bind="userInfo.fullName" class="nav-item"></span>
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 						</div>
 					</a>
 				</span>
@@ -254,55 +107,11 @@
 		<!-- navbar End -->
 		<div layout:fragment="content"></div>
 	</div>
-<<<<<<< HEAD
-	<!-- Footer End -->
-	<!-- Copyright Start -->
-	<div class="container-fluid copyright text-light py-4 wow fadeIn"
-		data-wow-delay="0.1s" th:fragment="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-					&copy; <a href="#">Softy Bakery</a>, All Right Reserved.
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Copyright End -->
-
-
-	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
-		th:fragment="backtotop"><i class="bi bi-arrow-up"></i></a>
-
-
-	<!-- JavaScript Libraries -->
-	<th:block th:fragment="js-link">
-		
-		</script>
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="/lib/wow/wow.min.js"></script>
-		<script src="/lib/easing/easing.min.js"></script>
-		<script src="/lib/waypoints/waypoints.min.js"></script>
-		<script src="/lib/counterup/counterup.min.js"></script>
-		<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-		
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
-		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-		<script src='/js/angular.min.js'></script>
-		<script src='/js/angular.route.js'></script>
-		<script src="/js/main.js"></script>
-	</th:block>
-=======
 
 	<!-- Product End -->
 	<div th:insert="~{layout :: footer}"></div>
 	<div th:insert="~{layout :: copyright}"></div>
 	<div th:insert="~{layout :: backtotop}"></div>
 	<div th:insert="~{layout :: js-link}"></div>
->>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 </body>
 </html>

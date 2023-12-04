@@ -6,10 +6,28 @@ layout:decorate="~{admin/layoutAdmin.html}"
 <meta charset="utf-8">
 <title>Products - Softy Bakery</title>
 <th:block th:insert="~{layout :: css-link}"></th:block>
+<style>
+	.tab {
+	color: #eaa636;
+    padding: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.tab:hover, .tab.active {
+	color: white;
+    background-color: #eaa636;
+	border-radius: 10px;
+	
+}
+</style>
 </head>
 <body ng-app="app" ng-controller="AdminOrderController">	
 	<!-- Admin Product Start -->
-	<div class="container bg-light" layout:fragment="content">
+	<div class="bg-light" layout:fragment="content" style="width: 100%;">
+		<div class="my-3">
+			<span class="tab" style="width: 100px;" ng-click="applyFilter('All')">FIND ALL</span>
+			<span class="tab" ng-repeat="statusOption in orderStatusOptions" style="width: 150px;" ng-click="applyFilter(statusOption)">{{statusOption}}</span>
+		</div>
             <table class="table table-hover">
                 <thead>
                     <tr class="bg-primary text-white">
@@ -23,7 +41,7 @@ layout:decorate="~{admin/layoutAdmin.html}"
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="o in orders">
+                    <tr ng-repeat="o in orders | filter: { status: filterOptions }">
                         <td>{{o.orderId}}</td>
                         <td>{{o.account.fullName + ' - ' + o.account.email}}</td>
                         <td>{{o.orderDate | dateFilter}}</td>
@@ -49,32 +67,42 @@ layout:decorate="~{admin/layoutAdmin.html}"
 							      		<p>
 							      	</span>
 							        <table class="table table-hover bg-light">
-								        <tr class="bg-primary text-white">
+								        <tr class="bg-primary text-white text-center">
 					                        <th>Product Name</th>
 					                        <th>Image</th>
 					                        <th>Price</th>
 					                        <th>Quantity</th>
+											<th>Edit</th>
 					                    </tr>
 							        	<tr ng-repeat="oi in orderitems">
 							        		<td>{{oi.product.productName}}</td>
 							        		<td><img  style="height:60px; border: 4px solid white; border-radius: 5px;" ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
 							        		<td>{{oi.product.price | vndCurrency}}</td>
-							        		<td>{{oi.quantity}}</td>
+							        		<td class="text-center">{{oi.quantity}}</td>
+											<td class="h3 pe-3">
+												<a  href=""><i class="bi bi-dash"></i></a>
+												<a href=""><i class="bi bi-plus"></i></a>
+											</td>
 							        	</tr>
 							        
 							        </table>
 							      </div>
-							      <div class="modal-footer">
+							      <div class="modal-footer me-3">
+									<button type="button" class="btn btn-success" data-bs-dismiss="modal">Update</button>
 							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
 							      </div>
 							    </div>
 							  </div>
 							</div>
                         </td>
-                        <td class="btn-group">
+                        <td class="d-flex">
                         	<!-- <button ng-class="getStatusClass(o.status)" ng-click="updateStatus(o.orderId)" style="width: 120px;">{{o.status}}</button>							 -->
-							<button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button>							
-							
+							<!-- <button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button>-->
+							<div class="me-1" style="width: 150px;">
+								<select class="form-select" id="filterOptions" ng-model="filterOptions" ng-init="filterOptions = o.status">
+									<option ng-repeat="statusOption in orderStatusOptions" value="{{statusOption}}">{{statusOption}}</option>
+								</select>
+							</div>
 							<button class="btn btn-danger" ng-click="delete(o.orderId)">Xóa</button>
                        	</td>
                     </tr>
