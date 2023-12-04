@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -54,6 +55,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.poly.dao.*;
 import com.poly.dto.DiscountType;
+import com.poly.dto.enums.OrderStatusEnum;
 import com.poly.models.*;
 import com.poly.services.*;
 import com.poly.utils.*;
@@ -87,12 +89,12 @@ public class Test {
 	CommentDAO cmtDAO;
 
 	ObjectMapper objectMapper = new ObjectMapper();
-
 	@GetMapping("/rest/test")
-    public String test(Model model) throws IOException {
-
-		return "meo meo";
+    public String  test(Model model) throws IOException {
+		return objectMapper.writeValueAsString(Arrays.asList(OrderStatusEnum.values()));
 	}
+
+
 
 	public static Date generateRandomDate() {
 		Random random = new Random();

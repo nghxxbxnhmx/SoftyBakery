@@ -26,11 +26,12 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-						// .requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-						// .authenticated()
-						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
-						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						.requestMatchers(
+							"/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit", "/order-history")
+						.authenticated()
+						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
 						.anyRequest().permitAll())
 				.formLogin(form -> form
 						.loginPage("/login")
@@ -46,11 +47,11 @@ public class SecurityConfig {
 						.loginPage("/oauth/login/form")
 						.defaultSuccessUrl("/oauth2/login/success", true)
 						.failureUrl("/oauth2/login/error")
-						.authorizationEndpoint()
-						.baseUri("/oauth2/authorization")
-						.authorizationRequestRepository(getRepository())
-						.and().tokenEndpoint()
-						.accessTokenResponseClient(getToken()));
+						.authorizationEndpoint(auth -> auth
+								.baseUri("/oauth2/authorization")
+								.authorizationRequestRepository(getRepository()))
+						.tokenEndpoint(token -> token
+								.accessTokenResponseClient(getToken())));
 
 		return http.build();
 	}
