@@ -60,7 +60,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void delete(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        aDAO.deleteById(username);
     }
 }

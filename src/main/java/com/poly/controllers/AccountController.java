@@ -136,7 +136,7 @@ public class AccountController {
 	@GetMapping("/oauth2/login/success")
 public String success(OAuth2AuthenticationToken oauth, Model model) throws IOException {
     String email = oauth.getPrincipal().getAttribute("email");
-    String username = email.substring(0, email.indexOf("@"));
+    String username = "GOOGLE_" + email.substring(0, email.indexOf("@"));
     String fullName = oauth.getPrincipal().getAttribute("name");
     String address = oauth.getPrincipal().getAttribute("address");
     String addressDetail = oauth.getPrincipal().getAttribute("address_detail");
@@ -149,7 +149,7 @@ public String success(OAuth2AuthenticationToken oauth, Model model) throws IOExc
     if (account == null) {
         account = new Account();
         account.setUsername(username);
-        account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20))); // Sửa password thành chuỗi ngẫu nhiên
+        account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20)));
 
         account.setEmail(email);
         

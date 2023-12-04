@@ -69,21 +69,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="a in filteredAccounts = (accounts | filter:searchText) | filter:filterCondition">
-							<td>{{a.account.username}}</td>
-							<td><img src="../images/accountPhoto/{{a.account.photo}}" width="50px"></td>
-							<td>{{a.account.email}}</td>
-							<td>{{a.account.fullName}}</td>
-							<td>{{a.account.addressDetail}} {{a.account.address}}</td>
-							<td>{{a.account.phoneNumber}}</td>
+						<tr ng-repeat="account in filteredAccounts = (accounts | filter:searchText) | filter:filterCondition">
+							<td>{{account.username}}</td>
+							<td><img src="../images/accountPhoto/{{account.photo}}" width="50px"></td>
+							<td>{{account.email}}</td>
+							<td>{{account.fullName}}</td>
+							<td>{{account.addressDetail}} {{account.address}}</td>
+							<td>{{account.phoneNumber}}</td>
 							<td class="text-center "
-								ng-class="{'text-danger': a.account.banned, 'text-success': !a.account.banned}">
-								{{a.account.banned ? 'Locked' : 'Unlocked'}}
+								ng-class="{'text-danger': account.banned, 'text-success': !account.banned}">
+								{{account.banned ? 'Locked' : 'Unlocked'}}
 							</td>
-							<td class="text-center ">{{a.account.role}}</td>
+							<td class="text-center ">{{account.role}}</td>
 							<td class="text-center ">
 								<button type="button" class="btn btn-lg-square btn-outline-light rounded-circle m-auto"
-									ng-click="editAccount(a)">
+									ng-click="editAccount(account)">
 									<i class="bi bi-pencil-square text-primary"></i>
 								</button>
 							</td>

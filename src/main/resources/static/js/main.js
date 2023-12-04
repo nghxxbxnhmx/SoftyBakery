@@ -731,7 +731,6 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  const url = `${host}/account`;
 	  $http.get(url).then(resp => {
 		$scope.accounts = resp.data;
-		console.log(resp.data);
 	  });
 	}
 	$scope.getRoleStyle = function(role) {
@@ -754,6 +753,7 @@ app.controller('AdminAccountController', function ($scope, $http) {
 		$scope.modalMessage = reason;
 		$('#messageModal').modal('show');
 	};
+
 	$scope.filterOptions = 'all';
 	$scope.filterCondition = function (account) {
 	  if ($scope.filterOptions === 'activity') {
@@ -776,8 +776,9 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	};
   
 	$scope.editAccount = function (account) {
-	  $scope.form = angular.copy(account.account);
+	  $scope.form = angular.copy(account);
 	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+	//   console.log($scope.form);
 	};
   
 	$scope.reset = function () {
@@ -798,11 +799,9 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  const url = `${host}/account/${formAccount.username}`;
 	  if (formAccount != null) {
 		$http.put(url, formAccount).then(() => {
-		  console.log("Lưu tài khoản thành công!");
 		  $scope.loadAll();
 		  $scope.showModal('Lưu tài khoản thành công!');
 		}).catch(function (error) {
-		  console.error("Lỗi khi lưu tài khoản:", error);
 		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
 		});
 	  }
@@ -811,12 +810,10 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.delete = function (username) {
 	  const url = `${host}/account/${username}`;
 	  $http.delete(url).then(function () {
-		console.log("Xóa tài khoản thành công! " + username);
 		$scope.loadAll();
 		$scope.reset();
 		$scope.showModal('Xóa tài khoản thành công!');
 	  }).catch(function (error) {
-		console.error("Lỗi khi xóa tài khoản:", error);
 		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
 	  });
 	}
