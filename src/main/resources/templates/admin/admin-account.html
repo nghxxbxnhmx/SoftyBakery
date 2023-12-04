@@ -8,98 +8,29 @@
 </head>
 
 <body ng-app="app" ng-controller="AdminAccountController">
-	<div th:insert="~{layout :: spinner}"></div>
-	<div th:insert="~{layout :: topbar}"></div>
-	<div th:insert="~{layout :: navbar}"></div>
-	<!-- Page Header Start -->
-	<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
-		<div class="container text-center pt-5 pb-3">
-			<h1 class="display-4 text-white animated slideInDown mb-3">Products</h1>
-			<nav aria-label="breadcrumb animated slideInDown">
-				<ol class="breadcrumb justify-content-center mb-0">
-					<li class="breadcrumb-item"><a class="text-white" href="#">Home</a>
-					</li>
-					<li class="breadcrumb-item"><a class="text-white" href="#">Pages</a>
-					</li>
-					<li class="breadcrumb-item text-primary active" aria-current="page">Products</li>
-				</ol>
-			</nav>
-		</div>
-	</div>
-	<!-- Page Header End -->
-	<!-- Admin Product Start -->
-	<div class="mx-5">
-		<div class="mb-3 d-flex">
-			<div class="me-5" style="width: 250px;">
-				<select class="form-select" id="filterOptions" ng-model="filterOptions">
-					<option value="all">Find all</option>
-					<option value="activity">Activity</option>
-					<option value="blocker">Blocker</option>
-				</select>
-			</div>
-			<!-- <div class="row">
-				<select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'ALL'" style="width: 300px;"  required>
-					<option value="ALL">All</option>
-					<option value="USER">User</option>
-					<option value="MANAGER">Manager</option>
-					<option value="ADMIN">Admin</option>
-					<option value="SUPER_ADMIN">Super Admin</option>
-				</select>
-			</div> -->
-			<form class="d-flex" role="search" style="width: 700px;">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-					ng-model="temporarySearchText">
-				<button class="btn btn-outline-success" type="submit" ng-click="search()">Search</button>
-			</form>
-		</div>
-		<div class="row">
-			<div class="col-md-8">
-				<table class="table table-hover table-bordered">
-					<thead>
-						<tr class="bg-primary text-white">
-							<th>Username</th>
-							<th>Image</th>
-							<th>Email</th>
-							<th>Fullname</th>
-							<th>Address</th>
-							<th>PhoneNumber</th>
-							<th>Condition</th>
-							<th>Role</th>
-							<th>Manipulate</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="account in filteredAccounts = (accounts | filter:searchText) | filter:filterCondition">
-							<td>{{account.username}}</td>
-							<td><img src="../images/accountPhoto/{{account.photo}}" width="50px"></td>
-							<td>{{account.email}}</td>
-							<td>{{account.fullName}}</td>
-							<td>{{account.addressDetail}} {{account.address}}</td>
-							<td>{{account.phoneNumber}}</td>
-							<td class="text-center "
-								ng-class="{'text-danger': account.banned, 'text-success': !account.banned}">
-								{{account.banned ? 'Locked' : 'Unlocked'}}
-							</td>
-							<td class="text-center ">{{account.role}}</td>
-							<td class="text-center ">
-								<button type="button" class="btn btn-lg-square btn-outline-light rounded-circle m-auto"
-									ng-click="editAccount(account)">
-									<i class="bi bi-pencil-square text-primary"></i>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col-md-4">
-				<form id="editUserForm">
-					<div class="mb-3">
-						<label class="form-label" for="editPhoto">Photo:</label>
-						<div>
-							<img ng-src="{{getRelativeImagePath(form.photo)}}" width="100px" ng-show="form.photo" />
-							<input type="file" id="editPhoto" name="editPhoto" ng-model="form.photo" accept="image/*"
-								style="margin-top: 10px;"
-								onchange="angular.element(this).scope().handleFileSelect(this)">
+    <div class="mb-2" style="width: 100%;" layout:fragment="content">
+        <div class="mb-3 mt-3 d-flex">
+            <div class="me-3" style="width: 200px;">
+                <select class="form-select" id="filterOptions" ng-model="filterOptions">
+                    <option value="all">Condition all</option>
+                    <option value="activity">Activity</option>
+                    <option value="blocker">Blocker</option>
+                </select>
+            </div>
+            <div class="me-3" style="width: 200px;">
+                <select class="form-select" id="editRole" name="editRole" ng-model="form.role" ng-init="form.role = 'RoleAll'" ng-change="filterByRole()">
+                    <option value="RoleAll">Roles all</option>
+                    <option value="USER">User</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="SUPER_ADMIN">Super Admin</option>
+                </select>
+            </div>
+            <form class="d-flex" role="search" style="width: 700px;">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-model="temporarySearchText">
+                <button class="btn btn-outline-success d-flex" type="submit" ng-click="search()"><i class="bi bi-search"></i> Search</button>
+            </form>
+        </div>
 
 						</div>
 

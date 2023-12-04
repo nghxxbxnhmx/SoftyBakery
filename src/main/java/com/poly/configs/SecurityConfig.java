@@ -26,8 +26,9 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
+
 						.requestMatchers(
-							"/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit", "/order-history")
+								"/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit", "/order-history")
 						.authenticated()
 						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
 						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
@@ -36,9 +37,7 @@ public class SecurityConfig {
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
-						.failureUrl("/login/?error=true")
-				// .successForwardUrl("/home")
-				)
+						.failureUrl("/login/?error=true"))
 
 				.logout(logout -> logout
 						.logoutUrl("/logout")
@@ -47,23 +46,12 @@ public class SecurityConfig {
 						.loginPage("/oauth/login/form")
 						.defaultSuccessUrl("/oauth2/login/success", true)
 						.failureUrl("/oauth2/login/error")
-						.authorizationEndpoint(auth -> auth
+						.authorizationEndpoint(author -> author
 								.baseUri("/oauth2/authorization")
 								.authorizationRequestRepository(getRepository()))
 						.tokenEndpoint(token -> token
 								.accessTokenResponseClient(getToken())));
-
 		return http.build();
-	}
-
-	@Bean
-	public static UserDetails getUser() {
-		UserDetails uDetail = null;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
-			uDetail = (UserDetails) auth.getPrincipal();
-		}
-		return uDetail;
 	}
 
 	@Bean
@@ -77,7 +65,18 @@ public class SecurityConfig {
 	}
 
 	@Bean
+	public static UserDetails getUser() {
+		UserDetails uDetail = null;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
+			uDetail = (UserDetails) auth.getPrincipal();
+		}
+		return uDetail;
+	}
+
+	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }

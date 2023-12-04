@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layoutAdmin.html}"
-  xmlns:th="http://www.thymeleaf.org" lang="vi">
-
-<head>
-  <meta charset="utf-8" />
-  <title>Products - Softy Bakery</title>
-</head>
-
-<body class="bg-light" layout:fragment="content">
-  <!-- Admin Product Start -->
-  <div class="container-fluid"  ng-app="app" ng-controller="AdminProductController">
-    <form method="post" id="formProduct" name="formProduct" enctype="multipart/form-data" style="padding-top: 20px;">
-      <div class="row">
-        <div class="col-4 square-image">
-          <img ng-if="form.productImages[0].imageUrl" ng-src="/images/{{form.productImages[0].imageUrl}}"
-            alt="Product Image" style="
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/layoutAdmin.html}"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Products - Softy Bakery</title>
+  </head>
+  <body ng-app="app" ng-controller="AdminProductController" class="bg-light" >
+    <!-- Admin Product Start -->
+    <div class="container " layout:fragment="content">
+      <form
+        method="post"
+        id="formProduct"
+        name="formProduct"
+        enctype="multipart/form-data"
+        style="padding-top: 180px"
+      >
+        <div class="row">
+          <div class="col-4 square-image">
+            <img
+              ng-if="form.productImages[0].imageUrl"
+              ng-src="/images/{{form.productImages[0].imageUrl}}"
+              alt="Product Image"
+              style="
                 max-width: 100%;
                 max-height: 100%;
                 border-radius: 20px;

@@ -58,7 +58,7 @@ public class Account {
     @Column(name = "reasonbanned")
     private String reasonBanned;
 
-    @JsonIgnore(value = true)
+    @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Order> orders;
 
