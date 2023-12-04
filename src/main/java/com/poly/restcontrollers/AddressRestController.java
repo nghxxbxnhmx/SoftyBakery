@@ -1,6 +1,8 @@
 package com.poly.restcontrollers;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +22,22 @@ public class AddressRestController {
     private String cityFilePath = url + "cities.json";
     private String districtFilePath = url + "districts.json";
     private String wardFilePath = url + "wards.json";
-
     @Autowired
     JsonReaderUtil jsonReader;
 
     @GetMapping("/cities")
-    public ResponseEntity<List<City>> cityIndex() {
-        List<City> cityList = jsonReader.read(cityFilePath, City.class);
-
+    public List<City> cityIndex() {
+        List<City> cityList = (ArrayList<City>) jsonReader.read(cityFilePath, City.class);
         if (cityList != null) {
-            return ResponseEntity.ok(cityList);
-        } else {
-            return null;
+            return cityList;
         }
+        String [] citiesName = {};
+        return null;
     }
 
     @GetMapping("/{cityCode}/districts")
-    public ResponseEntity<List<District>> districtIndex(@PathVariable("cityCode") String cityCode) {
-        List<District> districtList = jsonReader.read(districtFilePath, District.class);
+    public List<District> districtIndex(@PathVariable("cityCode") String cityCode) {
+        ArrayList<District> districtList = (ArrayList<District>) jsonReader.read(districtFilePath, District.class);
         if (districtList != null) {
             List<District> filteredDistricts = new ArrayList<>();
             for (District district : districtList) {
@@ -45,10 +45,9 @@ public class AddressRestController {
                     filteredDistricts.add(district);
                 }
             }
-            return ResponseEntity.ok(filteredDistricts);
-        } else {
-            return null;
+            return filteredDistricts;
         }
+        return null;
     }
 
     @GetMapping("/{districtCode}/wards")

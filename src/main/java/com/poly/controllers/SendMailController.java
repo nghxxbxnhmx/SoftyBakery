@@ -97,6 +97,7 @@ public class PasswordResetController {
 //     @Autowired
 //     private AccountDAO aDAO;
 
+<<<<<<< HEAD
 //     @PostMapping("/resetPassword")
 //     public ResponseEntity<Map<String, String>> resetPassword(
 //             @RequestParam String username,
@@ -119,6 +120,30 @@ public class PasswordResetController {
 //         }
 //     }
 // }
+=======
+    // @PostMapping("/resetPassword")
+    // public ResponseEntity<Map<String, String>> resetPassword(
+    //         @RequestParam String username,
+    //         @RequestParam String resetCode,
+    //         @RequestParam String newPassword) {
+    //     Account account = aDAO.getByUsername(username);
+    //     Map<String, String> response = new HashMap<>();
+    //     if (account != null && resetCode.equals(account.getResetCode())) {
+    //         // Reset the password and clear the reset code
+    //         account.setPassword(PasswordUtil.encode(newPassword));
+    //         account.setResetCode(null); // Clear the reset code after using it
+    //         aDAO.save(account);
+    //         response.put("status", "success");
+    //         response.put("message", "Đổi mật khẩu thành công");
+    //         return ResponseEntity.ok(response);
+    //     } else {
+    //         response.put("status", "error");
+    //         response.put("message", "Thông tin đặt lại mật khẩu không hợp lệ.");
+    //         return ResponseEntity.ok(response);
+    //     }
+    // }
+}
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 //OrderMail
 @PostMapping("/OrderMail")
 public String OderMaiil(Model model, @RequestParam String address,@RequestParam String email, @RequestParam String fullName,

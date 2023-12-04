@@ -426,7 +426,7 @@ app.controller('UserController', function ($scope, $http) {
 		})
 	}
 	$scope.putUser = function () {
-		$http.put(urlUser, $scope.form)
+		$http.put(urlUser+"/"+$scope.form.username, $scope.form)
 			.then(function (resp) {
 				$scope.form = resp.data;
 			});
@@ -731,7 +731,6 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  const url = `${host}/account`;
 	  $http.get(url).then(resp => {
 		$scope.accounts = resp.data;
-		console.log(resp.data);
 	  });
 	}
 	$scope.getRoleStyle = function(role) {
@@ -754,6 +753,7 @@ app.controller('AdminAccountController', function ($scope, $http) {
 		$scope.modalMessage = reason;
 		$('#messageModal').modal('show');
 	};
+
 	$scope.filterOptions = 'all';
 	$scope.filterCondition = function (account) {
 	  if ($scope.filterOptions === 'activity') {
@@ -776,8 +776,9 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	};
   
 	$scope.editAccount = function (account) {
-	  $scope.form = angular.copy(account.account);
+	  $scope.form = angular.copy(account);
 	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+	//   console.log($scope.form);
 	};
   
 	$scope.reset = function () {
@@ -798,11 +799,9 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	  const url = `${host}/account/${formAccount.username}`;
 	  if (formAccount != null) {
 		$http.put(url, formAccount).then(() => {
-		  console.log("Lưu tài khoản thành công!");
 		  $scope.loadAll();
 		  $scope.showModal('Lưu tài khoản thành công!');
 		}).catch(function (error) {
-		  console.error("Lỗi khi lưu tài khoản:", error);
 		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
 		});
 	  }
@@ -811,12 +810,10 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.delete = function (username) {
 	  const url = `${host}/account/${username}`;
 	  $http.delete(url).then(function () {
-		console.log("Xóa tài khoản thành công! " + username);
 		$scope.loadAll();
 		$scope.reset();
 		$scope.showModal('Xóa tài khoản thành công!');
 	  }).catch(function (error) {
-		console.error("Lỗi khi xóa tài khoản:", error);
 		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
 	  });
 	}
@@ -848,11 +845,70 @@ app.controller('AdminAccountController', function ($scope, $http) {
 app.controller('RegisterController', function ($http, $scope) {
 	var url = `${host}/account/randomname`;
 	$scope.randomName = {};
+
+	$scope.formRegister = {};
+
+	$scope.cities = [];
+	$scope.districts = [];
+	$scope.wards = [];
+
+	$scope.city = null;
+	$scope.district = null;
+	$scope.ward = null;
+
+
+	const urlAddress = `${host}/address/`;
+	const urlName= `${host}/account/randomname`;
+	
+
 	$scope.get = function () {
-		$http.get(url).then(resp => {
+		$http.get(urlName).then(resp => {
 			$scope.randomName = resp.data;
 		});
 	}
+
+	$scope.loadCities = function () {
+		$http.get(urlAddress + "cities").then(response => {
+			$scope.cities = response.data;
+		});
+	};
+
+	$scope.loadDistricts = function () {
+		if ($scope.city !== null && $scope.city === '') {
+			$scope.address = $scope.city.name;
+			$scope.districts = [];
+			$scope.wards = [];
+			return;
+		}
+
+		$http.get(urlAddress + $scope.city.code + "/districts").then(function (response) {
+			$scope.districts = response.data;
+			$scope.district = null;
+			$scope.wards = [];
+			$scope.setAddress();
+		});
+
+	};
+
+	$scope.loadWards = function () {
+		if (!$scope.district) {
+			$scope.wards = [];
+			return;
+		}
+		$http.get(urlAddress + $scope.district.code + "/wards").then(function (response) {
+			$scope.wards = response.data;
+			$scope.setAddress();
+		});
+	};
+
+	$scope.setAddress = function () {
+		if ($scope.ward != null) {
+			$scope.formRegister.address = '';
+			$scope.formRegister.address = $scope.ward.path_with_type;
+		}
+	}
+
+	$scope.loadCities();
 });
 
 app.controller('AdminCategoryController', function ($scope, $http) {

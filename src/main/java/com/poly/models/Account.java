@@ -6,13 +6,16 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.poly.dto.enums.AccountRoleEnum;
 
 @Entity
 @Table(name = "Accounts")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
     @Id
     @Column(name = "username")
@@ -34,8 +37,8 @@ public class Account {
     @Column(name = "addressdetail")
     private String addressDetail;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "dd-MM-YYYY")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
     private Date birthDay;
 
@@ -55,6 +58,7 @@ public class Account {
     @Column(name = "reasonbanned")
     private String reasonBanned;
 
+<<<<<<< HEAD
     // @Column(name = "reset_code")
     // private String resetCode;
 
@@ -67,14 +71,17 @@ public class Account {
     // }
 
     @JsonIgnore
+=======
+    @JsonIgnore(value = true)
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Order> orders;
 
-    @JsonIgnore
+    @JsonIgnore(value = true)
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Review> reviews;
 
-    @JsonIgnore
+    @JsonIgnore(value = true)
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<Comment> comments;
 }

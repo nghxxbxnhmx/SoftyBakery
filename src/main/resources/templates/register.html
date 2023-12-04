@@ -9,8 +9,9 @@
 
 <body ng-app="app" ng-controller="RegisterController">
 	<!-- Contact Start -->
-	<div th:insert="~{layout :: spinner}"></div>
+	<!-- <div th:insert="~{layout :: spinner}"></div> -->
 	<div th:insert="~{layout :: topbar}"></div>
+	
 	<!-- Page Header Start -->
 	<div class="row page-header " style="height:600px;">
 		<div class="col-4 container-fluid py-6 wow fadeIn" data-wow-delay="0.1s">
@@ -25,7 +26,6 @@
 				</nav>
 			</div>
 		</div>
-
 		<div class="col-8">
 			<div class="row g-0 container-fluid py-6 wow fadeIn">
 				<div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
@@ -43,7 +43,7 @@
 							<div class="col-6">
 								<div class="form-floating">
 									<input th:field="*{fullName}" class="form-control" id="fullname"
-										placeholder="fullname" ng-model="randomName.full_name" min="12" max="200">
+										placeholder="fullname" ng-model="randomName.full_name" min="12" max="200" required>
 									<label for="fullname">Your Fullname</label>
 								</div>
 							</div>
@@ -56,16 +56,16 @@
 							</div>
 							<div class="col-6">
 								<div class="form-floating">
-									<input th:field="*{email}" type="email" class="form-control" id="email"
-										placeholder="email" required max="200">
-									<label for="email">Your Email</label>
+									<input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNumber"
+										placeholder="phoneNumber" required max="200">
+									<label for="phoneNumber">PhoneNumber</label>
 								</div>
 							</div>
-							
+
 							<div class="col-6">
 								<div class="form-floating dropdown" data-bs-toggle="dropdown" aria-expanded="false">
 									<input th:field="*{address}" class="form-control" placeholder="address" min="8"
-										max="200" ng-model="form.address" >
+										max="200" ng-model="formRegister.address" required>
 									<label>Your Address</label>
 								</div>
 
@@ -97,7 +97,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-6" ng-app="app" ng-controller="AddressController">
+							<div class="col-6">
 								<div class="form-floating">
 									<input th:field="*{addressDetail}" class="form-control" placeholder="addressdetail"
 										required min="8" max="200">
@@ -105,7 +105,12 @@
 								</div>
 							</div>
 
-
+							<div class="col-md-6">
+								<div class="form-floating">
+									<input type="date" th:field="*{birthDay}" class="form-control" placeholder="birthday" required th:value="${user.birthDay}">
+									<label for="">Birthday</label>
+								</div>
+							</div>
 							<div class="col-md-6">
 								<div class="form-floating">
 									<input th:field="*{password}" type="password" class="form-control"
@@ -113,13 +118,13 @@
 									<label for="password">Your Password</label>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<!-- <div class="col-md-6">
 								<div class="form-floating">
 									<input type="password" th:text="${repeatPassword}" class="form-control"
 										placeholder="repeatpassword" required min="8" max="200" disabled>
 									<label for="">Repeat Your Password</label>
 								</div>
-							</div>
+							</div> -->
 
 							<span class="mb-4 text-light">You have an account? <a href="/login">Login</a>.</span>
 							<div class="col-12 text-center">
@@ -136,11 +141,11 @@
 	</div>
 
 	<!-- Page Header End -->
-	<!-- <script>
+	<script>
 		window.addEventListener('load', function () {
 			document.getElementById('phoneNum').focus();
 		});
-	</script> -->
+	</script>
 	<div th:insert="~{layout :: footer}"></div>
 	<div th:insert="~{layout :: copyright}"></div>
 	<div th:insert="~{layout :: js-link}"></div>

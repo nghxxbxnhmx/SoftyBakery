@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
 <head>
-<meta charset="utf-8">
-<title>Softy Bakery</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
-<!-- Css link start -->
-<th:block th:fragment="css-link">
-	<!-- Favicon -->
-	<link href="/images/icon2.png" rel="icon">
+	<meta charset="utf-8">
+	<title>Softy Bakery</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="" name="keywords">
 	<meta content="" name="description">
+<<<<<<< HEAD
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,14 +22,39 @@
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Template Stylesheet -->
 	<link href="/css/style.css" rel="stylesheet">
+=======
+	<!-- Css link start -->
+	<th:block th:fragment="css-link">
+		<!-- Favicon -->
+		<link href="/images/icon2.png" rel="icon">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		<!-- Google Web Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap"
+			rel="stylesheet">
+		<!-- Icon Font Stylesheet -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+		<!-- Libraries Stylesheet -->
+		<link href="/lib/animate/animate.min.css" rel="stylesheet">
+		<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+		<!-- Customized Bootstrap Stylesheet -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Template Stylesheet -->
+		<link href="/css/style.css" rel="stylesheet">
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 
-	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-</th:block>
-<!-- Css link end -->
+		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	</th:block>
+	<!-- Css link end -->
 </head>
 
 <body>
-	
+
 	<!-- Spinner Start -->
 	<div id="spinner"
 		class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
@@ -45,181 +65,254 @@
 
 
 	<!-- Topbar Start -->
-	<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar" ng-app="app" ng-controller="TopBarController">
-    <div class="row gx-0 align-items-center d-none d-lg-flex">
-        <div class="col-lg-6 px-5 text-start">
-            <small>Follow us:</small>
-            <div class="h-100 d-inline-flex align-items-center">
-                <a class="btn-lg-square text-primary border-end rounded-0" href="">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a class="btn-lg-square text-primary border-end rounded-0" href="">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a class="btn-lg-square text-primary pe-0" href="">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-		<div class="col px-5 text-end">
-            <small><i class="fas fa-map-marker-alt"></i> HCM City, <span ng-bind="date | date: 'HH:mm:s MM/dd/yyyy'"></span></small>
-        </div>
-		
-    </div>
-</div>
+	<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar"
+		ng-app="app" ng-controller="TopBarController">
+		<div class="row gx-0 align-items-center d-none d-lg-flex">
+			<div class="col-lg-6 px-5 text-start">
+				<small>Follow us:</small>
+				<div class="h-100 d-inline-flex align-items-center">
+					<a class="btn-lg-square text-primary border-end rounded-0" href="">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a class="btn-lg-square text-primary border-end rounded-0" href="">
+						<i class="fab fa-twitter"></i>
+					</a>
+					<a class="btn-lg-square text-primary pe-0" href="">
+						<i class="fab fa-instagram"></i>
+					</a>
+				</div>
+			</div>
+			<div class="col px-5 text-end">
+				<small><i class="fas fa-map-marker-alt"></i> HCM City, <span
+						ng-bind="date | date: 'HH:mm:s MM/dd/yyyy'"></span></small>
+			</div>
+
+		</div>
+	</div>
 
 	<!-- Topbar End -->
 
 
 
 
-	<!-- Navbar Start -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s" th:fragment="navbar" style="background-color:black;">
-  <a href="/home" class="navbar-brand ms-4 ms-lg-0">
-    <h1 class="text-primary m-0">Softy</h1>
-  </a>
-  <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <div class="navbar-nav mx-auto p-4 p-lg-0">
-		<a href="/home" class="nav-item nav-link" th:text="#{header}">Home</a>
-		<a href="/about" class="nav-item nav-link" th:text="#{about}">About</a>
-		<a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
-		<a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
-		<a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
-		<a href="/test" class="nav-item nav-link">Test</a>
-		<span class="dropdown">
-			<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Language
-			</a>
-			<ul class="dropdown-menu text-center" style="background: none; background-color: hsla(0, 0%, 0%, 0.473);">
-			  <li><a href="?lang=vi"><img src="/images/flag/VietNam.jpg" style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a></li>
-			  <li><a href="?lang=en"><img src="/images/flag/us.png" style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a></li>
-			</ul>
-		  </span>
-		<div class="cart-icon" ng-app="app" ng-controller="ProductController" style="margin-top:20px; margin-left:10px;">
-			<a href="/cart"> <i class="fa fa-shopping-cart text-primary"></i>
-				<span class="cart-badge" ng-bind="cartLength">0</span>
-			</a>
-		</div>
-    </div>
-    <div class="navbar-nav p-4 p-lg-0">
-	    <div ng-app="app" ng-controller="UserController" class="avatar">
-	        <span ng-if="!userInfo" class="nav-item">
-	            <a href="/login">
-	                <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-	                <span aria-hidden="true">Login</span>
-	            </a>
-	            <span> / </span>
-	            <a href="/register">
-	            	<i class="fa fa-user-plus"></i> 
-	            	<span aria-hidden="true">Register</span>
-	            </a>
-	        </span>
-	        <span ng-if="userInfo">
-	            <a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
-	            	<div class="dropdown-toggle">
-						<span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
-						<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
+	<!-- Admin Navbar Start -->
+	<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s"
+		th:fragment="adminNavbar" ng-app="app" ng-controller="TopBarController">
+		<div class="row gx-0 align-items-center d-none d-lg-flex">
+			<div class="col-lg-6 px-5 text-start">
+				<small><i class="fas fa-map-marker-alt"></i> HCM City, <span
+						ng-bind="date | date: 'HH:mm:s MM/dd/yyyy'"></span></small>
+			</div>
+			<div class="col px-5 text-end">
+				<div ng-app="app" ng-controller="UserController" class="avatar ">
+					<span ng-if="!userInfo" class="nav-item">
+						<a href="/login">
+							<i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+							<span aria-hidden="true">Login</span>
+						</a>
+						<span> / </span>
+						<a href="/register">
+							<i class="fa fa-user-plus"></i>
+							<span aria-hidden="true">Register</span>
+						</a>
+					</span>
+					<span ng-if="userInfo">
+						<a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
+							<div class="dropdown-toggle">
+								<small ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></small>
+								<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
+									ng-style="{'border': userInfo.role === 'USER' ? '2px solid #3498db' : (userInfo.role === 'MANAGER' ? '2px solid #27ae60' : (userInfo.role === 'ADMIN' ? '2px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '2px solid #f39c12' : 'none')))}"
+									style="height: 40px; width: auto;">
 
-					</div>
-					
-	            </a>
-	            <div class="dropdown-menu dropdown-menu-end m-0">
-	                <a href="/profile" class="dropdown-item">
-	                    <i class="fa fa-user"></i> Profile
-	                </a>
-	                <a href="/register" class="dropdown-item">
-	                    <i class="fa fa-user-plus"></i> Register
-	                </a>
-					<a href="/order-history" class="dropdown-item">
-						<i class="fas fa-history"></i> Order History
-					</a>
-	                <a href="/logout" class="dropdown-item">
-	                    <i class="fa fa-sign-out-alt"></i> Logout
-	                </a>
-	            </div>
-	        </span>
-	    </div>
+
+							</div>
+
+						</a>
+						<div class="dropdown-menu dropdown-menu-end m-0">
+							<a href="/profile" class="dropdown-item">
+								<i class="fa fa-user"></i> Profile
+							</a>
+							<a href="/register" class="dropdown-item">
+								<i class="fa fa-user-plus"></i> Register
+							</a>
+							<a href="/order-history" class="dropdown-item">
+								<i class="fas fa-history"></i> Order History
+							</a>
+							<a href="/logout" class="dropdown-item">
+								<i class="fa fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</span>
+				</div>
+			</div>
+
+		</div>
 	</div>
-  </div>
-</nav>
-	<!-- Navbar End -->
-	<!-- Navbar product start -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s" th:fragment="navbarProduct" style="background-color:black;">
+	<!-- Admin Navbar End -->
+	<!-- Navbar Start -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s"
+		th:fragment="navbar" style="background-color:black;">
 		<a href="/home" class="navbar-brand ms-4 ms-lg-0">
-		  <h1 class="text-primary m-0">Softy</h1>
+			<h1 class="text-primary m-0">Softy</h1>
 		</a>
 		<button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-		  <span class="navbar-toggler-icon"></span>
+			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
-		  <div class="navbar-nav mx-auto p-4 p-lg-0">
-			  <a href="/home" class="nav-item nav-link" th:text="#{header}">Home</a>
-			  <a href="/about" class="nav-item nav-link" th:text="#{about}">About</a>
-			  <a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
-			  <a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
-			  <a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
-			  <a href="/test" class="nav-item nav-link"  th:text="#{test}">Test</a>
-			  <span class="dropdown">
-				<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Language
-				</a>
-				<ul class="dropdown-menu text-center" style="background: none; background-color: hsla(0, 0%, 0%, 0.473);">
-				  <li><a href="?lang=vi"><img src="/images/flag/VietNam.jpg" style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a></li>
-				  <li><a href="?lang=en"><img src="/images/flag/us.png" style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a></li>
-				</ul>
-			  </span>
-			  
-			  
-			  <div class="cart-icon" style="margin-top:20px; margin-left:10px;">
-				  <a href="/cart"> <i class="fa fa-shopping-cart text-primary"></i>
-					  <span class="cart-badge" ng-bind="cartLength">0</span>
-				  </a>
-			  </div>
-		  </div>
-		  <div class="navbar-nav p-4 p-lg-0">
-			  <div ng-app="app" ng-controller="UserController" class="avatar">
-				  <span ng-if="!userInfo" class="nav-item">
-					  <a href="/login">
-						  <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-						  <span aria-hidden="true">Login</span>
-					  </a>
-					  <span> / </span>
-					  <a href="/register">
-						  <i class="fa fa-user-plus"></i> 
-						  <span aria-hidden="true">Register</span>
-					  </a>
-				  </span>
-				  <span ng-if="userInfo">
-					  <a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
-						  <div class="dropdown-toggle">
-							  <span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
-							  <img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar" ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
-	  
-						  </div>
-						  
-					  </a>
-					  <div class="dropdown-menu dropdown-menu-end m-0">
-						  <a href="/profile" class="dropdown-item">
-							  <i class="fa fa-user"></i> Profile
-						  </a>
-						  <a href="/register" class="dropdown-item">
-							  <i class="fa fa-user-plus"></i> Register
-						  </a>
-						  <a href="/order-history" class="dropdown-item">
-							  <i class="fas fa-history"></i> Order History
-						  </a>
-						  <a href="/logout" class="dropdown-item">
-							  <i class="fa fa-sign-out-alt"></i> Logout
-						  </a>
-					  </div>
-				  </span>
-			  </div>
-		  </div>
+			<div class="navbar-nav mx-auto p-4 p-lg-0">
+				<a href="/home" class="nav-item nav-link" th:text="#{header}">Home</a>
+				<a href="/about" class="nav-item nav-link" th:text="#{about}">About</a>
+				<a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
+				<a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
+				<a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
+				<a href="/test" class="nav-item nav-link">Test</a>
+				<span class="dropdown">
+					<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Language
+					</a>
+					<ul class="dropdown-menu text-center"
+						style="background: none; background-color: hsla(0, 0%, 0%, 0.473);">
+						<li><a href="?lang=vi"><img src="/images/flag/VietNam.jpg"
+									style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a>
+						</li>
+						<li><a href="?lang=en"><img src="/images/flag/us.png"
+									style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a>
+						</li>
+					</ul>
+				</span>
+				<div class="cart-icon" ng-app="app" ng-controller="ProductController"
+					style="margin-top:20px; margin-left:10px;">
+					<a href="/cart"> <i class="fa fa-shopping-cart text-primary"></i>
+						<span class="cart-badge" ng-bind="cartLength">0</span>
+					</a>
+				</div>
+			</div>
+			<div class="navbar-nav p-4 p-lg-0">
+				<div ng-app="app" ng-controller="UserController" class="avatar">
+					<span ng-if="!userInfo" class="nav-item">
+						<a href="/login">
+							<i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+							<span aria-hidden="true">Login</span>
+						</a>
+						<span> / </span>
+						<a href="/register">
+							<i class="fa fa-user-plus"></i>
+							<span aria-hidden="true">Register</span>
+						</a>
+					</span>
+					<span ng-if="userInfo">
+						<a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
+							<div class="dropdown-toggle">
+								<span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
+								<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
+									ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
+
+							</div>
+
+						</a>
+						<div class="dropdown-menu dropdown-menu-end m-0">
+							<a href="/profile" class="dropdown-item">
+								<i class="fa fa-user"></i> Profile
+							</a>
+							<a href="/register" class="dropdown-item">
+								<i class="fa fa-user-plus"></i> Register
+							</a>
+							<a href="/order-history" class="dropdown-item">
+								<i class="fas fa-history"></i> Order History
+							</a>
+							<a href="/logout" class="dropdown-item">
+								<i class="fa fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</span>
+				</div>
+			</div>
 		</div>
-	  </nav>
+	</nav>
+	<!-- Admin Navbar End -->
+	<!-- Navbar product start -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s"
+		th:fragment="navbarProduct" style="background-color:black;">
+		<a href="/home" class="navbar-brand ms-4 ms-lg-0">
+			<h1 class="text-primary m-0">Softy</h1>
+		</a>
+		<button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<div class="navbar-nav mx-auto p-4 p-lg-0">
+				<a href="/home" class="nav-item nav-link" th:text="#{header}">Home</a>
+				<a href="/about" class="nav-item nav-link" th:text="#{about}">About</a>
+				<a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
+				<a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
+				<a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
+				<a href="/test" class="nav-item nav-link" th:text="#{test}">Test</a>
+				<span class="dropdown">
+					<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Language
+					</a>
+					<ul class="dropdown-menu text-center"
+						style="background: none; background-color: hsla(0, 0%, 0%, 0.473);">
+						<li><a href="?lang=vi"><img src="/images/flag/VietNam.jpg"
+									style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a>
+						</li>
+						<li><a href="?lang=en"><img src="/images/flag/us.png"
+									style="max-width: 60px; margin:5px; border:4px solid white; border-radius: 5px;"></a>
+						</li>
+					</ul>
+				</span>
+
+
+				<div class="cart-icon" style="margin-top:20px; margin-left:10px;">
+					<a href="/cart"> <i class="fa fa-shopping-cart text-primary"></i>
+						<span class="cart-badge" ng-bind="cartLength">0</span>
+					</a>
+				</div>
+			</div>
+			<div class="navbar-nav p-4 p-lg-0">
+				<div ng-app="app" ng-controller="UserController" class="avatar">
+					<span ng-if="!userInfo" class="nav-item">
+						<a href="/login">
+							<i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+							<span aria-hidden="true">Login</span>
+						</a>
+						<span> / </span>
+						<a href="/register">
+							<i class="fa fa-user-plus"></i>
+							<span aria-hidden="true">Register</span>
+						</a>
+					</span>
+					<span ng-if="userInfo">
+						<a href="#" class="dropdown nav-item nav-link" data-bs-toggle="dropdown">
+							<div class="dropdown-toggle">
+								<span ng-bind="userInfo.fullName" class="nav-item" style="margin-right: 10px;"></span>
+								<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
+									ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
+
+							</div>
+
+						</a>
+						<div class="dropdown-menu dropdown-menu-end m-0">
+							<a href="/profile" class="dropdown-item">
+								<i class="fa fa-user"></i> Profile
+							</a>
+							<a href="/register" class="dropdown-item">
+								<i class="fa fa-user-plus"></i> Register
+							</a>
+							<a href="/order-history" class="dropdown-item">
+								<i class="fas fa-history"></i> Order History
+							</a>
+							<a href="/logout" class="dropdown-item">
+								<i class="fa fa-sign-out-alt"></i> Logout
+							</a>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+	</nav>
 	<!-- Navbar product end -->
 	<!-- Carousel Start -->
 	<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s" th:fragment="carousel">
@@ -358,9 +451,7 @@
 	<!-- Product Start -->
 	<div class="container-xxl bg-light my-6 py-6 pt-0" fragment="category">
 		<div class="container">
-			<div
-				class="bg-primary text-light rounded-bottom p-5 my-6 mt-0 wow fadeInUp"
-				data-wow-delay="0.1s">
+			<div class="bg-primary text-light rounded-bottom p-5 my-6 mt-0 wow fadeInUp" data-wow-delay="0.1s">
 				<div class="row g-4 align-items-center">
 					<div class="col-lg-6">
 						<h1 class="display-4 text-light mb-0">The Best Bakery In Your
@@ -377,19 +468,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="text-center mx-auto mb-5 wow fadeInUp"
-				data-wow-delay="0.1s" style="max-width: 500px;">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 				<p class="text-primary text-uppercase mb-2">// Bakery Products</p>
 				<h1 class="display-6 mb-4">Explore The Categories Of Our Bakery
 					Products</h1>
 			</div>
 			<div class="row g-4">
 				<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-					<div
-						class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+					<div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
 						<div class="text-center p-4">
-							<div
-								class="d-inline-block border border-primary rounded-pill px-3 mb-3">$11
+							<div class="d-inline-block border border-primary rounded-pill px-3 mb-3">$11
 								- $99</div>
 							<h3 class="mb-3">Cake</h3>
 							<span>Tempor erat elitr rebum at clita dolor diam ipsum
@@ -398,18 +486,16 @@
 						<div class="position-relative mt-auto">
 							<img class="img-fluid" src="img/product-1.jpg" alt="">
 							<div class="product-overlay">
-								<a class="btn btn-lg-square btn-outline-light rounded-circle"
-									href=""><i class="fa fa-eye text-primary"></i></a>
+								<a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i
+										class="fa fa-eye text-primary"></i></a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-					<div
-						class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+					<div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
 						<div class="text-center p-4">
-							<div
-								class="d-inline-block border border-primary rounded-pill pt-1 px-3 mb-3">$11
+							<div class="d-inline-block border border-primary rounded-pill pt-1 px-3 mb-3">$11
 								- $99</div>
 							<h3 class="mb-3">Bread</h3>
 							<span>Tempor erat elitr rebum at clita dolor diam ipsum
@@ -418,18 +504,16 @@
 						<div class="position-relative mt-auto">
 							<img class="img-fluid" src="img/product-2.jpg" alt="">
 							<div class="product-overlay">
-								<a class="btn btn-lg-square btn-outline-light rounded-circle"
-									href=""><i class="fa fa-eye text-primary"></i></a>
+								<a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i
+										class="fa fa-eye text-primary"></i></a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-					<div
-						class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+					<div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
 						<div class="text-center p-4">
-							<div
-								class="d-inline-block border border-primary rounded-pill pt-1 px-3 mb-3">$11
+							<div class="d-inline-block border border-primary rounded-pill pt-1 px-3 mb-3">$11
 								- $99</div>
 							<h4 class="mb-3">Cookies</h4>
 							<span>Tempor erat elitr rebum at clita dolor diam ipsum
@@ -438,8 +522,8 @@
 						<div class="position-relative mt-auto">
 							<img class="img-fluid" src="img/product-3.jpg" alt="">
 							<div class="product-overlay">
-								<a class="btn btn-lg-square btn-outline-light rounded-circle"
-									href=""><i class="fa fa-eye text-primary"></i></a>
+								<a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i
+										class="fa fa-eye text-primary"></i></a>
 							</div>
 						</div>
 					</div>
@@ -464,8 +548,7 @@
 					<div class="row gy-5 gx-4">
 						<div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
 							<div class="d-flex align-items-center mb-3">
-								<div
-									class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+								<div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
 									<i class="fa fa-bread-slice text-white"></i>
 								</div>
 								<h5 class="mb-0">Quality Products</h5>
@@ -475,8 +558,7 @@
 						</div>
 						<div class="col-sm-6 wow fadeIn" data-wow-delay="0.2s">
 							<div class="d-flex align-items-center mb-3">
-								<div
-									class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+								<div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
 									<i class="fa fa-birthday-cake text-white"></i>
 								</div>
 								<h5 class="mb-0">Custom Products</h5>
@@ -486,8 +568,7 @@
 						</div>
 						<div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
 							<div class="d-flex align-items-center mb-3">
-								<div
-									class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+								<div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
 									<i class="fa fa-cart-plus text-white"></i>
 								</div>
 								<h5 class="mb-0">Online Order</h5>
@@ -497,8 +578,7 @@
 						</div>
 						<div class="col-sm-6 wow fadeIn" data-wow-delay="0.4s">
 							<div class="d-flex align-items-center mb-3">
-								<div
-									class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+								<div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
 									<i class="fa fa-truck text-white"></i>
 								</div>
 								<h5 class="mb-0">Home Delivery</h5>
@@ -527,8 +607,7 @@
 	<!-- Team Start -->
 	<div class="container-xxl py-6">
 		<div class="container">
-			<div class="text-center mx-auto mb-5 wow fadeInUp"
-				data-wow-delay="0.1s" style="max-width: 500px;">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 				<p class="text-primary text-uppercase mb-2">// Our Team</p>
 				<h1 class="display-6 mb-4">We're Super Professional At Our
 					Skills</h1>
@@ -544,11 +623,11 @@
 							</div>
 							<div class="team-social">
 								<a class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-facebook-f"></i></a> <a
+										class="fab fa-facebook-f"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-twitter"></i></a> <a
+										class="fab fa-twitter"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-instagram"></i></a>
+										class="fab fa-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -563,11 +642,11 @@
 							</div>
 							<div class="team-social">
 								<a class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-facebook-f"></i></a> <a
+										class="fab fa-facebook-f"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-twitter"></i></a> <a
+										class="fab fa-twitter"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-instagram"></i></a>
+										class="fab fa-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -582,11 +661,11 @@
 							</div>
 							<div class="team-social">
 								<a class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-facebook-f"></i></a> <a
+										class="fab fa-facebook-f"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-twitter"></i></a> <a
+										class="fab fa-twitter"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-instagram"></i></a>
+										class="fab fa-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -601,11 +680,11 @@
 							</div>
 							<div class="team-social">
 								<a class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-facebook-f"></i></a> <a
+										class="fab fa-facebook-f"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-twitter"></i></a> <a
+										class="fab fa-twitter"></i></a> <a
 									class="btn btn-square btn-light rounded-circle" href=""><i
-									class="fab fa-instagram"></i></a>
+										class="fab fa-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -619,18 +698,15 @@
 	<!-- Testimonial Start -->
 	<div class="container-xxl bg-light my-6 py-6 pb-0">
 		<div class="container">
-			<div class="text-center mx-auto mb-5 wow fadeInUp"
-				data-wow-delay="0.1s" style="max-width: 500px;">
+			<div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 				<p class="text-primary text-uppercase mb-2">// Client's Review</p>
 				<h1 class="display-6 mb-4">More Than 20000+ Customers Trusted
 					Us</h1>
 			</div>
-			<div class="owl-carousel testimonial-carousel wow fadeInUp"
-				data-wow-delay="0.1s">
+			<div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
 				<div class="testimonial-item bg-white rounded p-4">
 					<div class="d-flex align-items-center mb-4">
-						<img class="flex-shrink-0 rounded-circle border p-1"
-							src="img/testimonial-1.jpg" alt="">
+						<img class="flex-shrink-0 rounded-circle border p-1" src="img/testimonial-1.jpg" alt="">
 						<div class="ms-4">
 							<h5 class="mb-1">Client Name</h5>
 							<span>Profession</span>
@@ -642,8 +718,7 @@
 				</div>
 				<div class="testimonial-item bg-white rounded p-4">
 					<div class="d-flex align-items-center mb-4">
-						<img class="flex-shrink-0 rounded-circle border p-1"
-							src="img/testimonial-2.jpg" alt="">
+						<img class="flex-shrink-0 rounded-circle border p-1" src="img/testimonial-2.jpg" alt="">
 						<div class="ms-4">
 							<h5 class="mb-1">Client Name</h5>
 							<span>Profession</span>
@@ -655,8 +730,7 @@
 				</div>
 				<div class="testimonial-item bg-white rounded p-4">
 					<div class="d-flex align-items-center mb-4">
-						<img class="flex-shrink-0 rounded-circle border p-1"
-							src="img/testimonial-3.jpg" alt="">
+						<img class="flex-shrink-0 rounded-circle border p-1" src="img/testimonial-3.jpg" alt="">
 						<div class="ms-4">
 							<h5 class="mb-1">Client Name</h5>
 							<span>Profession</span>
@@ -668,8 +742,7 @@
 				</div>
 				<div class="testimonial-item bg-white rounded p-4">
 					<div class="d-flex align-items-center mb-4">
-						<img class="flex-shrink-0 rounded-circle border p-1"
-							src="img/testimonial-4.jpg" alt="">
+						<img class="flex-shrink-0 rounded-circle border p-1" src="img/testimonial-4.jpg" alt="">
 						<div class="ms-4">
 							<h5 class="mb-1">Client Name</h5>
 							<span>Profession</span>
@@ -680,9 +753,7 @@
 						sit.</p>
 				</div>
 			</div>
-			<div
-				class="bg-primary text-light rounded-top p-5 my-6 mb-0 wow fadeInUp"
-				data-wow-delay="0.1s">
+			<div class="bg-primary text-light rounded-top p-5 my-6 mb-0 wow fadeInUp" data-wow-delay="0.1s">
 				<div class="row align-items-center">
 					<div class="col-md-6">
 						<h1 class="display-4 text-light mb-0">Subscribe Our
@@ -690,9 +761,8 @@
 					</div>
 					<div class="col-md-6 text-md-end">
 						<div class="position-relative">
-							<input
-								class="form-control bg-transparent border-light w-100 py-3 ps-4 pe-5"
-								type="text" placeholder="Your email">
+							<input class="form-control bg-transparent border-light w-100 py-3 ps-4 pe-5" type="text"
+								placeholder="Your email">
 							<button type="button"
 								class="btn btn-dark py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
 						</div>
@@ -706,9 +776,8 @@
 
 	<!-- Footer Start -->
 
-	<div
-		class="container-fluid bg-dark text-light footer my-6 mb-0 py-5 wow fadeIn"
-		data-wow-delay="0.1s" th:fragment="footer">
+	<div class="container-fluid bg-dark text-light footer my-6 mb-0 py-5 wow fadeIn" data-wow-delay="0.1s"
+		th:fragment="footer">
 		<div class="container py-5">
 			<div class="row g-5">
 				<div class="col-lg-3 col-md-6">
@@ -724,61 +793,51 @@
 						<i class="fa fa-envelope me-3"></i>Softybakery.contact@gmail.com
 					</p>
 					<div class="d-flex pt-2">
-						<a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-twitter"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-facebook-f"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1"
-							href=""> <i class="fab fa-youtube"></i>
-						</a> <a class="btn btn-square btn-outline-light rounded-circle me-0"
-							href=""> <i class="fab fa-linkedin-in"></i>
+						<a class="btn btn-square btn-outline-light rounded-circle me-1" href=""> <i
+								class="fab fa-twitter"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""> <i
+								class="fab fa-facebook-f"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""> <i
+								class="fab fa-youtube"></i>
+						</a> <a class="btn btn-square btn-outline-light rounded-circle me-0" href=""> <i
+								class="fab fa-linkedin-in"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-light mb-4">Quick Links</h4>
-					<a class="btn btn-link" href="/">Home</a> <a
-						class="btn btn-link" href="/products/">Products</a> <a
-						class="btn btn-link" href="/cart">Cart</a> <a
-						class="btn btn-link" href="/order">Order</a> <a
+					<a class="btn btn-link" href="/">Home</a> <a class="btn btn-link" href="/products/">Products</a> <a
+						class="btn btn-link" href="/cart">Cart</a> <a class="btn btn-link" href="/order">Order</a> <a
 						class="btn btn-link" href="/test">Test</a>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-light mb-4">Quick Links</h4>
-					<a class="btn btn-link" href="">About Us</a> <a
-						class="btn btn-link" href="">Contact Us</a> <a
-						class="btn btn-link" href="">Our Services</a> <a
-						class="btn btn-link" href="">Terms & Condition</a> <a
-						class="btn btn-link" href="">Support</a><a
-						class="btn btn-link" href="/admin/product">Admin</a>
-						
+					<a class="btn btn-link" href="">About Us</a> <a class="btn btn-link" href="">Contact Us</a> <a
+						class="btn btn-link" href="">Our Services</a> <a class="btn btn-link" href="">Terms &
+						Condition</a> <a class="btn btn-link" href="">Support</a><a class="btn btn-link"
+						href="/admin/product">Admin</a>
+
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-light mb-4">Photo Gallery</h4>
 					<div class="row g-2">
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-1.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-1.jpg" alt="Image">
 						</div>
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-2.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-2.jpg" alt="Image">
 						</div>
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-3.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-3.jpg" alt="Image">
 						</div>
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-2.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-2.jpg" alt="Image">
 						</div>
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-3.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-3.jpg" alt="Image">
 						</div>
 						<div class="col-4">
-							<img class="img-fluid bg-light rounded p-1"
-								src="/img/product-1.jpg" alt="Image">
+							<img class="img-fluid bg-light rounded p-1" src="/img/product-1.jpg" alt="Image">
 						</div>
 					</div>
 				</div>
@@ -789,8 +848,7 @@
 
 
 	<!-- Copyright Start -->
-	<div class="container-fluid copyright text-light py-4 wow fadeIn"
-		data-wow-delay="0.1s" th:fragment="copyright">
+	<div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s" th:fragment="copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
@@ -803,9 +861,8 @@
 
 
 	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
-		th:fragment="backtotop"><i class="bi bi-arrow-up"></i></a>
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top" th:fragment="backtotop"><i
+			class="bi bi-arrow-up"></i></a>
 
 
 	<!-- JavaScript Libraries -->
@@ -817,8 +874,8 @@
 		<script src="/lib/waypoints/waypoints.min.js"></script>
 		<script src="/lib/counterup/counterup.min.js"></script>
 		<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>		
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
 		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 

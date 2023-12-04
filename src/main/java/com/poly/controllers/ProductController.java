@@ -28,7 +28,7 @@ public class ProductController {
 
 	@GetMapping("/product/detail/{id}")
 	public String product_detail(@PathVariable("id") int id, Model model) {
-		model.addAttribute("product", pDAO.findById(id).get());
+		model.addAttribute("product", pDAO.findById(id).orElse(null));
 		return "product-detail";
 	}
 

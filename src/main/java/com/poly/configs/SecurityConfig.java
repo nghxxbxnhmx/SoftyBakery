@@ -16,6 +16,10 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -26,23 +30,33 @@ public class SecurityConfig {
 
 				.authorizeHttpRequests((auth) -> auth
 						// .requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+<<<<<<< HEAD
 						// 	.authenticated()
 						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
 						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
 						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
 						.anyRequest().permitAll()
 						)
+=======
+						// .authenticated()
+						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						.anyRequest().permitAll())
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
 						.failureUrl("/login/?error=true")
-						// .successForwardUrl("/home")
-						)
+				// .successForwardUrl("/home")
+				)
+
 				.logout(logout -> logout
 						.logoutUrl("/logout")
 						.deleteCookies("JSESSIONID"))
 				.oauth2Login(oauth2 -> oauth2
 						.loginPage("/oauth/login/form")
+<<<<<<< HEAD
 						.defaultSuccessUrl("/oauth2/login/success",true)
 						.failureUrl("/oauth2/login/error")
 						.authorizationEndpoint()
@@ -50,6 +64,16 @@ public class SecurityConfig {
 								.authorizationRequestRepository(getRepository())
 						.and().tokenEndpoint()
 								.accessTokenResponseClient(getToken()));
+=======
+						.defaultSuccessUrl("/oauth2/login/success", true)
+						.failureUrl("/oauth2/login/error")
+						.authorizationEndpoint()
+						.baseUri("/oauth2/authorization")
+						.authorizationRequestRepository(getRepository())
+						.and().tokenEndpoint()
+						.accessTokenResponseClient(getToken()));
+
+>>>>>>> 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d
 		return http.build();
 	}
 	@Bean
@@ -68,6 +92,16 @@ public class SecurityConfig {
 			uDetail = (UserDetails) auth.getPrincipal();
 		}
 		return uDetail;
+	}
+
+	@Bean
+	public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getRepository() {
+		return new HttpSessionOAuth2AuthorizationRequestRepository();
+	}
+
+	@Bean
+	public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getToken() {
+		return new DefaultAuthorizationCodeTokenResponseClient();
 	}
 
 	@Bean
