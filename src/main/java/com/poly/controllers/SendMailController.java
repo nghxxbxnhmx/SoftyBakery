@@ -55,7 +55,7 @@ public class PasswordResetController {
         if (account != null) {
             
             String resetCode = ResetCodeGenerator.generateResetCode();
-            account.setResetCode(resetCode);
+            // account.setResetCode(resetCode);
             aDAO.save(account);
             MailInfo mail = new MailInfo();
             mail.setTo(account.getEmail());
@@ -91,34 +91,34 @@ public class PasswordResetController {
         }
     }
 }
-@Controller
-public class ResetPasswordController {
+// @Controller
+// public class ResetPasswordController {
 
-    @Autowired
-    private AccountDAO aDAO;
+//     @Autowired
+//     private AccountDAO aDAO;
 
-    @PostMapping("/resetPassword")
-    public ResponseEntity<Map<String, String>> resetPassword(
-            @RequestParam String username,
-            @RequestParam String resetCode,
-            @RequestParam String newPassword) {
-        Account account = aDAO.getByUsername(username);
-        Map<String, String> response = new HashMap<>();
-        if (account != null && resetCode.equals(account.getResetCode())) {
-            // Reset the password and clear the reset code
-            account.setPassword(PasswordUtil.encode(newPassword));
-            account.setResetCode(null); // Clear the reset code after using it
-            aDAO.save(account);
-            response.put("status", "success");
-            response.put("message", "Đổi mật khẩu thành công");
-            return ResponseEntity.ok(response);
-        } else {
-            response.put("status", "error");
-            response.put("message", "Thông tin đặt lại mật khẩu không hợp lệ.");
-            return ResponseEntity.ok(response);
-        }
-    }
-}
+//     @PostMapping("/resetPassword")
+//     public ResponseEntity<Map<String, String>> resetPassword(
+//             @RequestParam String username,
+//             @RequestParam String resetCode,
+//             @RequestParam String newPassword) {
+//         Account account = aDAO.getByUsername(username);
+//         Map<String, String> response = new HashMap<>();
+//         if (account != null && resetCode.equals(account.getResetCode())) {
+//             // Reset the password and clear the reset code
+//             account.setPassword(PasswordUtil.encode(newPassword));
+//             account.setResetCode(null); // Clear the reset code after using it
+//             aDAO.save(account);
+//             response.put("status", "success");
+//             response.put("message", "Đổi mật khẩu thành công");
+//             return ResponseEntity.ok(response);
+//         } else {
+//             response.put("status", "error");
+//             response.put("message", "Thông tin đặt lại mật khẩu không hợp lệ.");
+//             return ResponseEntity.ok(response);
+//         }
+//     }
+// }
 //OrderMail
 @PostMapping("/OrderMail")
 public String OderMaiil(Model model, @RequestParam String address,@RequestParam String email, @RequestParam String fullName,

@@ -64,27 +64,27 @@ public class AccountController {
 			}
 		return "login";
 	}
+	
 	@GetMapping("/oauth2/login/form")
 	public String form(){
 		return "oauth2/login";
 	}
 	@GetMapping("/oauth2/login/success")
-public String success(OAuth2AuthenticationToken oauth,Account a ){
+public String success(OAuth2AuthenticationToken oauth){
     String email = oauth.getPrincipal().getAttribute("email");
-    String name = oauth.getPrincipal().getAttribute("name");	
-// Username, emaill, fullname, bỉrday,phone, 
-// role
-// a.setUsername(name);
-// a.setFullName(name);
-// a.setEmail(email);
-// a.setAddress("");
-// a.setBirthDay(null);
-// a.setPhoneNumber("");
-// a.setRole(AccountRoleEnum.USER);
-
+    String name = oauth.getPrincipal().getAttribute("name");
     // Kiểm tra xem tài khoản có tồn tại trong hệ thống không
-	
-	
+    Account account = (Account) accountService.loadUserByUsername(email);
+    
+        // Nếu tài khoản không tồn tại, tạo mới tài khoản
+        account = new Account();
+        account.setEmail(email);
+		account.setFullName(name);
+		account.setRole(AccountRoleEnum.USER);
+        account.setUsername(email); // Sử dụng email làm username
+        // Có thể thêm các thông tin khác nếu cần
+        accountService.add(account) ;// Lưu tài khoản mới
+  
     // Sử dụng thông tin từ Google để cập nhật hoặc tạo tài khoản mới
     UserDetails user = User.withUsername(email)
                             .password("") // Bạn có thể sử dụng một giá trị mặc định hoặc tạo mật khẩu ngẫu nhiên
@@ -114,8 +114,6 @@ public String success(OAuth2AuthenticationToken oauth,Account a ){
 		model.addAttribute("user", a);
 		return "profile";
 	}
-	
-
 	@GetMapping("/profile/edit")
 	public String editProfile(Model model) {
 		return "profile-edit";
@@ -136,8 +134,6 @@ public String success(OAuth2AuthenticationToken oauth,Account a ){
 		model.addAttribute("user", a);
 		return "order-history";
 	}
-
-
 	public Account getAccountAuth() { 
 		return accountService.getAccountAuth();
 	}
