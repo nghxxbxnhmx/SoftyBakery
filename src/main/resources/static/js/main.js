@@ -426,7 +426,7 @@ app.controller('UserController', function ($scope, $http) {
 		})
 	}
 	$scope.putUser = function () {
-		$http.put(urlUser, $scope.form)
+		$http.put(urlUser+"/"+$scope.form.username, $scope.form)
 			.then(function (resp) {
 				$scope.form = resp.data;
 			});

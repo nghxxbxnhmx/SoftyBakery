@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -50,8 +51,8 @@ public class AccountRestController {
 	}
 
 	@PutMapping("/{username}")
-	public ResponseEntity<Account> put(@RequestBody Account account) {
-		return ResponseEntity.ok(accountService.update(account));
+	public Account put(@RequestBody Account account) {
+		return accountService.update(account);
 	}
 
 	@DeleteMapping("/{username}")

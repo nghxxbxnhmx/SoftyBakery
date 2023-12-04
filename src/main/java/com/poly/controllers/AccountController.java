@@ -1,6 +1,8 @@
 package com.poly.controllers;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -107,12 +109,23 @@ public class AccountController {
 		return "profile-edit";
 	}
 
-	private static final String CLIENT_ID = "0ab0fb9877708c6";
-	private static final String CLIENT_SECRET = "d55ae0d35f1f889cd6be96aca5684032c59ac50a";
-	private static final String IMGUR_UPLOAD_URL = "https://api.imgur.com/3/upload";
+	private final static String UPLOAD_DIR = "src\\main\\resources\\static\\images\\accountPhoto";
 
 	@PostMapping("/profile/edit")
 	public String editProfile(@RequestParam("file") MultipartFile file, Model model) {
+		try {
+			Account account = getAccountAuth();
+			if (!file.isEmpty()) {
+				Path uploadDir = Paths.get(UPLOAD_DIR);
+				Path filePath = uploadDir.resolve(file.getOriginalFilename());
+				Files.createDirectories(uploadDir);
+				Files.write(filePath, file.getBytes());
+				account.setPhoto(file.getOriginalFilename());
+			}
+			aDAO.save(account);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "redirect:/profile";
 	}
 
@@ -134,78 +147,76 @@ public class AccountController {
 	}
 
 	@GetMapping("/oauth2/login/success")
-public String success(OAuth2AuthenticationToken oauth, Model model) throws IOException {
-    String email = oauth.getPrincipal().getAttribute("email");
-    String username = "GOOGLE_" + email.substring(0, email.indexOf("@"));
-    String fullName = oauth.getPrincipal().getAttribute("name");
-    String address = oauth.getPrincipal().getAttribute("address");
-    String addressDetail = oauth.getPrincipal().getAttribute("address_detail");
-    String photoUrl = oauth.getPrincipal().getAttribute("picture");
+	public String success(OAuth2AuthenticationToken oauth, Model model) throws IOException {
+		String email = oauth.getPrincipal().getAttribute("email");
+		String username = "GOOGLE_" + email.substring(0, email.indexOf("@"));
+		String fullName = oauth.getPrincipal().getAttribute("name");
+		String address = oauth.getPrincipal().getAttribute("address");
+		String addressDetail = oauth.getPrincipal().getAttribute("address_detail");
+		String photoUrl = oauth.getPrincipal().getAttribute("picture");
 
-    String UPLOAD_DIR = "src\\main\\resources\\static\\images\\accountPhoto";
+		String UPLOAD_DIR = "src\\main\\resources\\static\\images\\accountPhoto";
 
-    Account account = aDAO.findById(username).orElse(null);
+		Account account = aDAO.findById(username).orElse(null);
 
-    if (account == null) {
-        account = new Account();
-        account.setUsername(username);
-        account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20)));
+		if (account == null) {
+			account = new Account();
+			account.setUsername(username);
+			account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20)));
 
-        account.setEmail(email);
-        
-		if(address!=null && !address.isEmpty() && !address.isBlank()) {
-			account.setAddress(address);
+			account.setEmail(email);
+
+			if (address != null && !address.isEmpty() && !address.isBlank()) {
+				account.setAddress(address);
+			} else {
+				account.setAddress("");
+			}
+
+			if (addressDetail != null && !addressDetail.isEmpty() && !addressDetail.isBlank()) {
+				account.setAddressDetail(addressDetail);
+			} else {
+				account.setAddressDetail("");
+			}
+			account.setFullName(fullName);
+			account.setRole(AccountRoleEnum.USER);
+
+			if (photoUrl == null) {
+				account.setPhoto("noImage.jpg");
+			} else {
+				String photoName = RandomStringUtil.generateRandomString(20) + ".png";
+
+				try {
+					URL url = new URL(photoUrl);
+					Path uploadDir = Paths.get(UPLOAD_DIR);
+					Path filePath = uploadDir.resolve(photoName);
+					Files.createDirectories(uploadDir);
+
+					try (InputStream in = url.openStream()) {
+						Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
+					}
+
+					account.setPhoto(photoName);
+				} catch (IOException e) {
+					e.printStackTrace();
+					// Xử lý lỗi tải hình ảnh
+					return "redirect:/error";
+				}
+			}
+
+			aDAO.save(account);
 		} else {
-			account.setAddress("");
+			System.out.println("Account already exists");
 		}
 
-		if(addressDetail!=null && !addressDetail.isEmpty() && !addressDetail.isBlank()) {
-			account.setAddressDetail(addressDetail);
-		} else {
-			account.setAddressDetail("");
-		}
-        account.setFullName(fullName);
-        account.setRole(AccountRoleEnum.USER);
+		UserDetails user = User.withUsername(username)
+				.password("")
+				.roles("USER")
+				.build();
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, true, user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
 
-        if (photoUrl == null) {
-            account.setPhoto("noImage.jpg");
-        } else {
-            String photoName = RandomStringUtil.generateRandomString(20) + ".png";
-
-            try {
-                URL url = new URL(photoUrl);
-                Path uploadDir = Paths.get(UPLOAD_DIR);
-                Path filePath = uploadDir.resolve(photoName);
-                Files.createDirectories(uploadDir);
-
-                try (InputStream in = url.openStream()) {
-                    Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
-                }
-
-                account.setPhoto(photoName);
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Xử lý lỗi tải hình ảnh
-                return "redirect:/error";
-            }
-        }
-
-        aDAO.save(account);
-    } else {
-        // Bạn có thể xử lý logic khi tài khoản đã tồn tại ở đây
-        System.out.println("Account already exists");
-    }
-
-    UserDetails user = User.withUsername(username)
-            .password("")
-            .roles("USER")
-            .build();
-    Authentication auth = new UsernamePasswordAuthenticationToken(user, true, user.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(auth);
-
-    return "redirect:/home";
-}
-
+		return "redirect:/home";
+	}
 
 	@GetMapping("/oauth2/login/error")
 	public String error() {
