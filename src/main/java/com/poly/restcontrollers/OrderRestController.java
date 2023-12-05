@@ -71,15 +71,24 @@ public class OrderRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order order) {
-        if (!oDAO.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+public ResponseEntity<Order> updateOrder(@PathVariable Integer id, @RequestBody Order updatedOrder) {
+    Optional<Order> optionalOrder = oDAO.findById(id);
 
-        order.setOrderId(id);
-        Order updatedOrder = oDAO.save(order);
-        return ResponseEntity.ok(updatedOrder);
+    if (optionalOrder.isPresent()) {
+        Order existingOrder = optionalOrder.get();
+
+        // Cập nhật trạng thái của đơn hàng
+        existingOrder.setStatus(updatedOrder.getStatus());
+        
+        // Các bước cập nhật khác tùy thuộc vào yêu cầu của bạn
+
+        oDAO.save(existingOrder); // Lưu lại đơn hàng đã cập nhật
+
+        return ResponseEntity.ok(existingOrder);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Integer id) {
@@ -112,7 +121,6 @@ public class OrderRestController {
         }
         return ResponseEntity.ok(oiList);
     }
-
     public Account getAccountAuth() {
         return accountService.getAccountAuth();
     }

@@ -630,10 +630,10 @@ app.controller('AdminProductController', function ($scope, $http) {
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-app.controller('AdminOrderController', function ($scope, $http) {
+app.controller('AdminOrderController', function ($scope, $http, $window) {
 	$scope.orders = [];
 	$scope.orderitems = [];
-
+	$scope.filterOptions = 'All';
 	const url = `${host}/order`;
 
 	$scope.loadAll = function () {
@@ -648,19 +648,6 @@ app.controller('AdminOrderController', function ($scope, $http) {
 			$scope.orderStatusOptions = resp.data;
 		});
 	}
-	// $scope.getStatusClass = function (status) {
-	// 	switch (status) {
-	// 		case 'Đang chờ':
-	// 			return 'btn btn-primary';
-	// 		case 'Đã giao':
-	// 			return 'btn btn-success';
-	// 		case 'Đã hủy':
-	// 			return 'btn btn-secondary';
-	// 		default:
-	// 			return 'btn';
-	// 	}
-	// };
-
 	$scope.getOrderItems = function (order) {
 		$scope.orderitems = [];
 		$scope.orderitems = order.orderItems;
@@ -672,14 +659,54 @@ app.controller('AdminOrderController', function ($scope, $http) {
 			return total + product.product.price * product.quantity;
 		}, 0);
 	}
+	$scope.message = '';
+	$scope.showDeleteButton = false;
+	$scope.setOrderToDelete = function(order) {
+		$scope.orderToDelete = order;
+		$scope.message = 'Bạn có chắc muốn xóa đơn hàng này?';
+		$scope.showDeleteButton = true;
+	  };
+	  $scope.confirmDelete = function() {
+		if ($scope.orderToDelete) {
+		  var urlDelete = url + '/' + $scope.orderToDelete.orderId;
+		  $http.delete(urlDelete).then(function(resp) {
+			$scope.loadAll();
+			$scope.message = 'Đơn hàng đã được xóa thành công.';
+			$scope.showDeleteButton = false; // Ẩn nút xóa khi xóa thành công
+		  });
+		  // Xóa biến orderToDelete
+		  $scope.orderToDelete = null;
+		}
+	  }
+	  
+	  $scope.updateStatus = function(orderId, newStatus) {
+		var url = `${host}/order/${orderId}`;
+		$scope.form = { orderId: orderId, status: newStatus };
 	
-	$scope.delete = function (orderId) {
-		var urlDelete = url + '/' + orderId;
-		$http.delete(urlDelete).then(resp => $scope.loadAll());
-	}
-	$scope.applyFilter = function (statusOption) {
-		$scope.filterOptions = statusOption;
+		$http.put(url, $scope.form).then(
+			function(response) {
+				// Xử lý phản hồi từ server nếu cần
+				console.log(response.data);
+	
+				// Cập nhật message và hiển thị modal sau khi cập nhật thành công
+				$scope.message = 'Hóa đơn "' + orderId + '" được cập nhật sang trạng thái "' + newStatus + '"';
+				$('#deleteConfirmationModal').modal('show');
+				
+				// Nếu cần, bạn có thể gọi $scope.loadAll() ở đây hoặc ở bất cứ nơi nào phù hợp
+			},
+			function(error) {
+				// Xử lý lỗi nếu cần
+				console.error('Error updating order status:', error);
+			}
+		);
 	};
+	
+
+
+	$scope.applyFilter = function (statusOption) {
+        $scope.filterByStatus = (statusOption !== 'All');
+        $scope.filterOptions = statusOption;
+    };
 	$scope.loadOrderStatus();
 	$scope.loadAll();
 });
