@@ -16,7 +16,6 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -26,13 +25,11 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-
-						.requestMatchers(
-								"/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit", "/order-history")
-						.authenticated()
-						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
-						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						// .requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+						// .authenticated()
+						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
 						.anyRequest().permitAll())
 				.formLogin(form -> form
 						.loginPage("/login")
@@ -46,11 +43,12 @@ public class SecurityConfig {
 						.loginPage("/oauth/login/form")
 						.defaultSuccessUrl("/oauth2/login/success", true)
 						.failureUrl("/oauth2/login/error")
-						.authorizationEndpoint(author -> author
-								.baseUri("/oauth2/authorization")
-								.authorizationRequestRepository(getRepository()))
-						.tokenEndpoint(token -> token
-								.accessTokenResponseClient(getToken())));
+						.authorizationEndpoint()
+						.baseUri("/oauth2/authorization")
+						.authorizationRequestRepository(getRepository())
+						.and().tokenEndpoint()
+						.accessTokenResponseClient(getToken()));
+
 		return http.build();
 	}
 

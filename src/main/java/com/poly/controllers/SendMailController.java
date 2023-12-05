@@ -129,19 +129,17 @@ public class SendMailController {
     // response.put("message", "Thông tin đặt lại mật khẩu không hợp lệ.");
     // return ResponseEntity.ok(response);
     // }
-    // }
-    // }
-    // OrderMail
-    @PostMapping("/OrderMail")
-    public String OderMaiil(Model model, @RequestParam String address, @RequestParam String email,
-            @RequestParam String fullName,
-            @RequestParam List<String> productNameList,
-            @RequestParam List<String> quantityList,
-            @RequestParam List<String> priceList) {
-        // Gửi mail và xử lý nội dung email
-        MailInfo mail = new MailInfo();
-        mail.setTo(email);
-        mail.setSubject("Đơn hàng của bạn đã đặt thành công");
+
+//OrderMail
+@PostMapping("/OrderMail")
+public String OderMaiil(Model model, @RequestParam String address,@RequestParam String email, @RequestParam String fullName,
+@RequestParam List<String> productNameList,
+                        @RequestParam List<String> quantityList,
+                        @RequestParam List<String> priceList) {
+    // Gửi mail và xử lý nội dung email
+    MailInfo mail = new MailInfo();
+    mail.setTo(email);
+    mail.setSubject("Đơn hàng của bạn đã đặt thành công");
 
         // Tạo nội dung email
         StringBuilder bodyBuilder = new StringBuilder();

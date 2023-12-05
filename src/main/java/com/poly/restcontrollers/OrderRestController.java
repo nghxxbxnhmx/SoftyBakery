@@ -2,6 +2,7 @@ package com.poly.restcontrollers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.*;
 import com.poly.dto.*;
+import com.poly.dto.enums.OrderStatusEnum;
 import com.poly.models.Account;
 import com.poly.models.Order;
 import com.poly.models.OrderItem;
@@ -44,13 +46,21 @@ public class OrderRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
-            return ResponseEntity.ok(oDAO.findById(id).get());
+        return ResponseEntity.ok(oDAO.findById(id).get());
     }
 
     @GetMapping("/user/{username}")
     public ResponseEntity<List<Order>> getByUsername(@PathVariable("username") String username) {
         return ResponseEntity.ok(oDAO.findOrderByUsername(username));
     }
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    @GetMapping("/OrderStatus")
+    public String orderStatus() throws IOException {
+        return objectMapper.writeValueAsString(Arrays.asList(OrderStatusEnum.values()));
+    }
+
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         if (order.getOrderId() == 0) {
@@ -76,13 +86,13 @@ public class OrderRestController {
         if (!oDAO.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        for(OrderItem orderItem : oiDAO.getByOrderId(id)) {
+        for (OrderItem orderItem : oiDAO.getByOrderId(id)) {
             oiDAO.delete(orderItem);
         }
         oDAO.deleteById(id);
         return ResponseEntity.ok().build();
     }
-    
+
     @GetMapping("/delete/{orderId}")
     public ResponseEntity<List<OrderItem>> removeOrderById(@PathVariable("orderId") int orderId) {
         List<OrderItem> oiList = new ArrayList<>();
@@ -103,13 +113,8 @@ public class OrderRestController {
         return ResponseEntity.ok(oiList);
     }
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    @GetMapping("/idontknow")
-    public String idontknow() throws IOException {
-        return objectMapper.writeValueAsString(oDAO.findByProductIdAndUsername(1,getAccountAuth().getUsername()));
-    }
-
     public Account getAccountAuth() {
         return accountService.getAccountAuth();
     }
+
 }
