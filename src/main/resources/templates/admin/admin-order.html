@@ -25,8 +25,8 @@ layout:decorate="~{admin/layoutAdmin.html}"
 	<!-- Admin Product Start -->
 	<div class="bg-light" layout:fragment="content" style="width: 100%;">
 		<div class="my-3">
-			<span class="tab" style="width: 100px;" ng-click="applyFilter('All')">FIND ALL</span>
-			<span class="tab" ng-repeat="statusOption in orderStatusOptions" style="width: 150px;" ng-click="applyFilter(statusOption)">{{statusOption}}</span>
+			<span class="tab" style="width: 100px;" ng-click="applyFilter('All')" ng-class="{ 'active': filterOptions === 'All' }">FIND ALL</span>
+			<span class="tab" ng-repeat="statusOption in orderStatusOptions" style="width: 150px;" ng-click="applyFilter(statusOption)" ng-class="{ 'active': filterOptions === statusOption }">{{statusOption}}</span>
 		</div>
             <table class="table table-hover">
                 <thead>
@@ -38,10 +38,12 @@ layout:decorate="~{admin/layoutAdmin.html}"
                         <th>Address</th>
                         <th>Detail</th>
                         <th>Status</th>
+						<th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="o in orders | filter: { status: filterOptions }">
+                    <tr ng-repeat="o in orders | filter: (filterByStatus ? { status: filterOptions } : {} )">
+
                         <td>{{o.orderId}}</td>
                         <td>{{o.account.fullName + ' - ' + o.account.email}}</td>
                         <td>{{o.orderDate | dateFilter}}</td>
@@ -52,63 +54,87 @@ layout:decorate="~{admin/layoutAdmin.html}"
 							data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click="getOrderItems(o)">
 								<i class="fa fa-eye text-primary"></i>
 							</button>
-							
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <h1 class="modal-title fs-5" id="exampleModalLabel">Order Detail</h1>
-							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							      </div>
-							      <div class="modal-body">
-							      	<span>
-							      		<p>Địa chỉ nhận hàng:</p>
-							      		<p>
-							      	</span>
-							        <table class="table table-hover bg-light">
-								        <tr class="bg-primary text-white text-center">
-					                        <th>Product Name</th>
-					                        <th>Image</th>
-					                        <th>Price</th>
-					                        <th>Quantity</th>
-											<th>Edit</th>
-					                    </tr>
-							        	<tr ng-repeat="oi in orderitems">
-							        		<td>{{oi.product.productName}}</td>
-							        		<td><img  style="height:60px; border: 4px solid white; border-radius: 5px;" ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
-							        		<td>{{oi.product.price | vndCurrency}}</td>
-							        		<td class="text-center">{{oi.quantity}}</td>
-											<td class="h3 pe-3">
-												<a  href=""><i class="bi bi-dash"></i></a>
-												<a href=""><i class="bi bi-plus"></i></a>
-											</td>
-							        	</tr>
-							        
-							        </table>
-							      </div>
-							      <div class="modal-footer me-3">
-									<button type="button" class="btn btn-success" data-bs-dismiss="modal">Update</button>
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
-							      </div>
-							    </div>
-							  </div>
-							</div>
                         </td>
-                        <td class="d-flex">
+                        <td >
                         	<!-- <button ng-class="getStatusClass(o.status)" ng-click="updateStatus(o.orderId)" style="width: 120px;">{{o.status}}</button>							 -->
 							<!-- <button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button>-->
-							<div class="me-1" style="width: 150px;">
-								<select class="form-select" id="filterOptions" ng-model="filterOptions" ng-init="filterOptions = o.status">
+							<div style="width: 150px;">
+								<select class="form-select" ng-model="o.status" ng-change="updateStatus(o.orderId, o.status)">
 									<option ng-repeat="statusOption in orderStatusOptions" value="{{statusOption}}">{{statusOption}}</option>
-								</select>
+								</select>								
 							</div>
-							<button class="btn btn-danger" ng-click="delete(o.orderId)">Xóa</button>
                        	</td>
+						   <td>
+							<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" ng-click="setOrderToDelete(o)">Xóa</button>
+						  </td>
                     </tr>
                 </tbody>
             </table>
-
-    </div>	
+			<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="deleteConfirmationModalLabel">Thông báo</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <span>{{message}}</span>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-show="showDeleteButton">Xóa</button>
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
+  
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h1 class="modal-title fs-5" id="exampleModalLabel">Order Detail</h1>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<span>
+							<p>Địa chỉ nhận hàng:</p>
+							<p>
+						</span>
+					  <table class="table table-hover bg-light">
+						  <tr class="bg-primary text-white text-center">
+							  <th>Product Name</th>
+							  <th>Image</th>
+							  <th>Price</th>
+							  <th>Quantity</th>
+							  <th>Edit</th>
+						  </tr>
+						  <tr ng-repeat="oi in orderitems">
+							  <td>{{oi.product.productName}}</td>
+							  <td><img  style="height:60px; border: 4px solid white; border-radius: 5px;" ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
+							  <td>{{oi.product.price | vndCurrency}}</td>
+							  <td class="text-center">{{oi.quantity}}</td>
+							  <td class="h3 pe-3">
+								<span class="d-flex">
+									<a  href=""><i class="bi bi-dash"></i></a>
+									<a href=""><i class="bi bi-plus"></i></a>
+								</span> 
+							  </td>
+						  </tr>
+					  
+					  </table>
+					  
+					</div>
+					<div class="modal-footer me-3">
+						
+					  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Update</button>
+					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+    </div>
 </body>
 </html>
