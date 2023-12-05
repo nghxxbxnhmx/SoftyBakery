@@ -63,6 +63,7 @@ public class OrderController {
 		order.setAccount(aDAO.findById(order.getAccount().getUsername())
 				.orElseThrow(() -> new IllegalArgumentException("Account not found")));
 		order.setOrderDate(Timestamp.valueOf(timeNow));
+		order.setStatus(OrderStatusEnum.PENDING);
 		if(order.getCoupon().getCouponCode() != null) {
 			order.setCoupon(cpDAO.findByCouponCode(order.getCoupon().getCouponCode()));
 		}

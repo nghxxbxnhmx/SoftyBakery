@@ -501,6 +501,7 @@ object-fit: cover;
 object-position: center center;
 margin:5px;
 } 
+
 .square-image {
 	max-height:100%;
 	max-width: 100%; 

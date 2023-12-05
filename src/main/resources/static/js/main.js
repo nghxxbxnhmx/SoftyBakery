@@ -426,7 +426,7 @@ app.controller('UserController', function ($scope, $http) {
 		})
 	}
 	$scope.putUser = function () {
-		$http.put(urlUser+"/"+$scope.form.username, $scope.form)
+		$http.put(urlUser + "/" + $scope.form.username, $scope.form)
 			.then(function (resp) {
 				$scope.form = resp.data;
 			});
@@ -653,7 +653,7 @@ app.controller('AdminOrderController', function ($scope, $http, $window) {
 		$scope.orderitems = order.orderItems;
 	}
 
-	
+
 	$scope.getAmount = function (orderItems) {
 		return orderItems.reduce(function (total, product) {
 			return total + product.product.price * product.quantity;
@@ -661,52 +661,52 @@ app.controller('AdminOrderController', function ($scope, $http, $window) {
 	}
 	$scope.message = '';
 	$scope.showDeleteButton = false;
-	$scope.setOrderToDelete = function(order) {
+	$scope.setOrderToDelete = function (order) {
 		$scope.orderToDelete = order;
 		$scope.message = 'Bạn có chắc muốn xóa đơn hàng này?';
 		$scope.showDeleteButton = true;
-	  };
-	  $scope.confirmDelete = function() {
+	};
+	$scope.confirmDelete = function () {
 		if ($scope.orderToDelete) {
-		  var urlDelete = url + '/' + $scope.orderToDelete.orderId;
-		  $http.delete(urlDelete).then(function(resp) {
-			$scope.loadAll();
-			$scope.message = 'Đơn hàng đã được xóa thành công.';
-			$scope.showDeleteButton = false; // Ẩn nút xóa khi xóa thành công
-		  });
-		  // Xóa biến orderToDelete
-		  $scope.orderToDelete = null;
+			var urlDelete = url + '/' + $scope.orderToDelete.orderId;
+			$http.delete(urlDelete).then(function (resp) {
+				$scope.loadAll();
+				$scope.message = 'Đơn hàng đã được xóa thành công.';
+				$scope.showDeleteButton = false; // Ẩn nút xóa khi xóa thành công
+			});
+			// Xóa biến orderToDelete
+			$scope.orderToDelete = null;
 		}
-	  }
-	  
-	  $scope.updateStatus = function(orderId, newStatus) {
+	}
+
+	$scope.updateStatus = function (orderId, newStatus) {
 		var url = `${host}/order/${orderId}`;
 		$scope.form = { orderId: orderId, status: newStatus };
-	
+
 		$http.put(url, $scope.form).then(
-			function(response) {
+			function (response) {
 				// Xử lý phản hồi từ server nếu cần
 				console.log(response.data);
-	
+
 				// Cập nhật message và hiển thị modal sau khi cập nhật thành công
 				$scope.message = 'Hóa đơn "' + orderId + '" được cập nhật sang trạng thái "' + newStatus + '"';
 				$('#deleteConfirmationModal').modal('show');
-				
+
 				// Nếu cần, bạn có thể gọi $scope.loadAll() ở đây hoặc ở bất cứ nơi nào phù hợp
 			},
-			function(error) {
+			function (error) {
 				// Xử lý lỗi nếu cần
 				console.error('Error updating order status:', error);
 			}
 		);
 	};
-	
+
 
 
 	$scope.applyFilter = function (statusOption) {
-        $scope.filterByStatus = (statusOption !== 'All');
-        $scope.filterOptions = statusOption;
-    };
+		$scope.filterByStatus = (statusOption !== 'All');
+		$scope.filterOptions = statusOption;
+	};
 	$scope.loadOrderStatus();
 	$scope.loadAll();
 });
@@ -761,121 +761,122 @@ app.controller('AdminAccountController', function ($scope, $http) {
 	$scope.form = {};
 	$scope.temporarySearchText = '';
 	$scope.modalMessage = '';
-	
+
 	$scope.loadAll = function () {
-	  const url = `${host}/account`;
-	  $http.get(url).then(resp => {
-		$scope.accounts = resp.data;
-	  });
+		const url = `${host}/account`;
+		$http.get(url).then(resp => {
+			$scope.accounts = resp.data;
+		});
 	}
-	$scope.getRoleStyle = function(role) {
-		switch(role) {
+	$scope.getRoleStyle = function (role) {
+		switch (role) {
 			case 'USER':
-				return {'color': 'black'};
+				return { 'color': 'black' };
 			case 'MANAGER':
-				return {'color': 'blue'};
+				return { 'color': 'blue' };
 			case 'ADMIN':
-				return {'color': 'red'};
+				return { 'color': 'red' };
 			case 'SUPERADMIN':
-				return {'color': 'green'};
+				return { 'color': 'green' };
 			default:
 				return {};
-		}},
-	$scope.search = function () {
-	  $scope.searchText = $scope.temporarySearchText;
-	};
-	$scope.showReasonBlockerModal = function(reason) {
+		}
+	},
+		$scope.search = function () {
+			$scope.searchText = $scope.temporarySearchText;
+		};
+	$scope.showReasonBlockerModal = function (reason) {
 		$scope.modalMessage = reason;
 		$('#messageModal').modal('show');
 	};
 
 	$scope.filterOptions = 'all';
 	$scope.filterCondition = function (account) {
-	  if ($scope.filterOptions === 'activity') {
-		return !account.account.banned;
-	  } else if ($scope.filterOptions === 'blocker') {
-		return account.account.banned;
-	  } else {
-		return true;
-	  }
+		if ($scope.filterOptions === 'activity') {
+			return !account.account.banned;
+		} else if ($scope.filterOptions === 'blocker') {
+			return account.account.banned;
+		} else {
+			return true;
+		}
 	};
-	$scope.filterByRole = function() {
+	$scope.filterByRole = function () {
 		if ($scope.form.role === 'RoleAll') {
 			$scope.roleFilter = $scope.filterAllRoles;
 		} else {
-			var roleFilter = function(account) {
+			var roleFilter = function (account) {
 				return account.account.role === $scope.form.role;
 			};
 			$scope.roleFilter = roleFilter;
 		}
 	};
-  
+
 	$scope.editAccount = function (account) {
-	  $scope.form = angular.copy(account);
-	  $scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
-	//   console.log($scope.form);
+		$scope.form = angular.copy(account);
+		$scope.form.condition = $scope.form.banned ? 'blocker' : 'activity';
+		//   console.log($scope.form);
 	};
-  
+
 	$scope.reset = function () {
-	  $scope.form = {
-		username: '',
-		email: '',
-		address: '',
-		phoneNumber: '',
-		condition: 'activity',
-		reasonBlocker: '',
-		role: 'USER'
-	  };
+		$scope.form = {
+			username: '',
+			email: '',
+			address: '',
+			phoneNumber: '',
+			condition: 'activity',
+			reasonBlocker: '',
+			role: 'USER'
+		};
 	};
-  
+
 	$scope.update = function () {
-	  var formAccount = $scope.form;
-	  formAccount.banned = formAccount.condition === 'activity' ? false : true;
-	  const url = `${host}/account/${formAccount.username}`;
-	  if (formAccount != null) {
-		$http.put(url, formAccount).then(() => {
-		  $scope.loadAll();
-		  $scope.showModal('Lưu tài khoản thành công!');
-		}).catch(function (error) {
-		  $scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
-		});
-	  }
+		var formAccount = $scope.form;
+		formAccount.banned = formAccount.condition === 'activity' ? false : true;
+		const url = `${host}/account/${formAccount.username}`;
+		if (formAccount != null) {
+			$http.put(url, formAccount).then(() => {
+				$scope.loadAll();
+				$scope.showModal('Lưu tài khoản thành công!');
+			}).catch(function (error) {
+				$scope.showModal('Lỗi khi lưu tài khoản: ' + error.message);
+			});
+		}
 	}
-  
+
 	$scope.delete = function (username) {
-	  const url = `${host}/account/${username}`;
-	  $http.delete(url).then(function () {
-		$scope.loadAll();
-		$scope.reset();
-		$scope.showModal('Xóa tài khoản thành công!');
-	  }).catch(function (error) {
-		$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
-	  });
+		const url = `${host}/account/${username}`;
+		$http.delete(url).then(function () {
+			$scope.loadAll();
+			$scope.reset();
+			$scope.showModal('Xóa tài khoản thành công!');
+		}).catch(function (error) {
+			$scope.showModal('Lỗi khi xóa tài khoản: ' + error.message);
+		});
 	}
-  
+
 	$scope.handleFileSelect = function (element) {
-	  var fileName = element.files[0].name;
-	  console.log('Selected file name:', fileName);
-	  $scope.form.photo = fileName;
+		var fileName = element.files[0].name;
+		console.log('Selected file name:', fileName);
+		$scope.form.photo = fileName;
 	};
-  
+
 	$scope.getRelativeImagePath = function (imageName) {
-	  return "/images/accountPhoto/" + imageName;
+		return "/images/accountPhoto/" + imageName;
 	};
-  
+
 	$scope.showModal = function (message) {
-	  $scope.modalMessage = message;
-	  $('#messageModal').modal('show');
+		$scope.modalMessage = message;
+		$('#messageModal').modal('show');
 	};
-  
+
 	$scope.hideModal = function () {
-	  $('#messageModal').modal('hide');
+		$('#messageModal').modal('hide');
 	};
-	
-	
+
+
 	$scope.reset();
 	$scope.loadAll();
-  });
+});
 
 app.controller('RegisterController', function ($http, $scope) {
 	var url = `${host}/account/randomname`;
@@ -893,8 +894,8 @@ app.controller('RegisterController', function ($http, $scope) {
 
 
 	const urlAddress = `${host}/address/`;
-	const urlName= `${host}/account/randomname`;
-	
+	const urlName = `${host}/account/randomname`;
+
 
 	$scope.get = function () {
 		$http.get(urlName).then(resp => {
@@ -1050,29 +1051,65 @@ app.controller('CommentController', function ($scope, $http) {
 });
 
 app.controller('UserPurchaseController', function ($scope, $http) {
-	var orderUrl = `${host}/order`;
-
 	$scope.orders = [];
-	$scope.userAuth = {};
+	$scope.orderitems = [];
+	$scope.filterOptions = 'All';
+	const url = `${host}/order`;
 
-
-	function getAuthUser() {
-		$http.get(`${host}/account/getAuth`).then(resp => {
-			$scope.userAuth = resp.data;
-		});
-	}
-
-	$scope.loadAll = function (username) {
-		$http.get(orderUrl + "/user/" + username).then(resp => {
+	$scope.loadAll = function () {
+		const url = `${host}/order`;
+		$http.get(url).then(resp => {
 			$scope.orders = resp.data;
 		});
 	}
+	$scope.loadOrderStatus = function () {
+		const url = `${host}/order/OrderStatus`;
+		$http.get(url).then(resp => {
+			$scope.orderStatusOptions = resp.data;
+		});
+	}
+	$scope.getOrderItems = function (order) {
+		$scope.orderitems = [];
+		$scope.orderitems = order.orderItems;
+	}
 
 
-	// Khởi tạo dữ liệu ban đầu
-	getAuthUser().then(() => {
-		$scope.loadAll($scope.userAuth.username)
-	});
+	$scope.getAmount = function (orderItems) {
+		return orderItems.reduce(function (total, product) {
+			return total + product.product.price * product.quantity;
+		}, 0);
+	}
+	$scope.message = '';
+	$scope.showDeleteButton = false;
+
+	$scope.updateStatus = function (orderId, newStatus) {
+		var url = `${host}/order/${orderId}`;
+		$scope.form = { orderId: orderId, status: newStatus };
+
+		$http.put(url, $scope.form).then(
+			function (response) {
+				// Xử lý phản hồi từ server nếu cần
+				console.log(response.data);
+
+				// Cập nhật message và hiển thị modal sau khi cập nhật thành công
+				$scope.message = 'Hóa đơn "' + orderId + '" được cập nhật sang trạng thái "' + newStatus + '"';
+				$('#deleteConfirmationModal').modal('show');
+
+				// Nếu cần, bạn có thể gọi $scope.loadAll() ở đây hoặc ở bất cứ nơi nào phù hợp
+			},
+			function (error) {
+				// Xử lý lỗi nếu cần
+				console.error('Error updating order status:', error);
+			}
+		);
+	};
+
+	$scope.applyFilter = function (statusOption) {
+		$scope.filterByStatus = (statusOption !== 'All');
+		$scope.filterOptions = statusOption;
+	};
+	$scope.loadOrderStatus();
+	$scope.loadAll();
 });
 
 app.controller('TestController', function ($scope, $http) {
@@ -1086,3 +1123,4 @@ app.controller('TestController', function ($scope, $http) {
 
 	$scope.loadAll();
 });
+

@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.AccountDAO;
+import com.poly.dto.AccountToUserDetail;
 import com.poly.dto.enums.AccountRoleEnum;
 import com.poly.models.Account;
 import com.poly.models.Product;
@@ -103,6 +104,7 @@ public class AccountController {
 		model.addAttribute("user", a);
 		return "profile";
 	}
+
 	@GetMapping("/profile/edit")
 	public String editProfile(Model model) {
 		return "profile-edit";
@@ -162,7 +164,6 @@ public class AccountController {
 			account = new Account();
 			account.setUsername(username);
 			account.setPassword(PasswordUtil.encode(RandomStringUtil.generateRandomString(20)));
-
 			account.setEmail(email);
 
 			if (address != null && !address.isEmpty() && !address.isBlank()) {
@@ -207,14 +208,21 @@ public class AccountController {
 			System.out.println("Account already exists");
 		}
 
-		UserDetails user = User.withUsername(username)
-				.password("")
-				.roles("USER")
-				.build();
+		AccountToUserDetail user = new AccountToUserDetail(account);
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, true, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		return "redirect:/home";
+		switch (getAccountAuth().getRole().name()) {
+			case "USER":
+			case "MANAGER": {
+				return "/home";
+			}
+			case "ADMIN":
+			case "SUPER_ADMIN": {
+				return "redirect:/admin";
+			}
+			default:
+				return "/home";
+		}
 	}
 
 	@GetMapping("/oauth2/login/error")

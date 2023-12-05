@@ -1,5 +1,8 @@
 package com.poly.configs;
 
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,21 +19,34 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.poly.models.Account;
+import com.poly.services.AccountService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	@Autowired
+	AccountService accountService;
+
 	@Bean
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-						// .requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
-						// .authenticated()
-						// .requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
-						// .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-						// .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
+						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+						.authenticated()
+						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+						.requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")
 						.anyRequest().permitAll())
+						
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
@@ -39,15 +55,16 @@ public class SecurityConfig {
 				.logout(logout -> logout
 						.logoutUrl("/logout")
 						.deleteCookies("JSESSIONID"))
+
 				.oauth2Login(oauth2 -> oauth2
 						.loginPage("/oauth/login/form")
 						.defaultSuccessUrl("/oauth2/login/success", true)
 						.failureUrl("/oauth2/login/error")
-						.authorizationEndpoint()
-						.baseUri("/oauth2/authorization")
-						.authorizationRequestRepository(getRepository())
-						.and().tokenEndpoint()
-						.accessTokenResponseClient(getToken()));
+						.authorizationEndpoint(auth -> auth
+								.baseUri("/oauth2/authorization")
+								.authorizationRequestRepository(getRepository()))
+						.tokenEndpoint(token -> token
+								.accessTokenResponseClient(getToken())));
 
 		return http.build();
 	}
@@ -76,5 +93,4 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

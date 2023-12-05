@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{admin/layoutAdmin.html}"
+layout:decorate="~{admin/layout-admin.html}"
 	xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
 <meta charset="utf-8">
 <title>Products - Softy Bakery</title>
 <th:block th:insert="~{layout :: css-link}"></th:block>
 </head>
-<body ng-app="app" ng-controller="AdminProductController" layout:fragment="content">
+<body ng-app="app" ng-controller="" layout:fragment="content">
 	<!-- Admin Product Start -->
 	<div class="container" style="margin-top:50px;">
             <form method="post" th:action="'/admin/pi/'+${product.productId}" enctype="multipart/form-data">

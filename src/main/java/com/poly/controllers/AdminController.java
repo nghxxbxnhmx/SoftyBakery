@@ -29,7 +29,7 @@ public class AdminController {
 	@Autowired ProductImageDAO piDAO;
 		@GetMapping("/admin")
 	public String pageadmin() {
-		return "fragments/layoutAdmin";
+		return "admin/main";
 	}
 	@GetMapping("/admin/product")
 	public String admin_product(Model model) {
@@ -92,5 +92,12 @@ public class AdminController {
 	@GetMapping("/manage/coupon")
 	public String manage_coupon() {
 		return "manage/manage-coupon";
+	}
+
+	@GetMapping("/admin/productimage")
+	public String productImage(Model model) {
+
+		model.addAttribute("products", pDAO.findAll());
+		return "admin/admin-main-product-image";
 	}
 }

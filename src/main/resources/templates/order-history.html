@@ -13,7 +13,7 @@
     </style>
 </head>
 
-<body ng-app="app" ng-controller="UserPurchaseController">
+<body ng-app="app" ng-controller="UserPurchaseController" class="bg-light">
     <div th:insert="~{layout :: topbar}"></div>
     <div th:insert="~{layout :: navbar}"></div>
     <!-- Page Header Start -->
@@ -29,18 +29,16 @@
     <div class="container my-5">
         <div class="row">
             <!-- profile -->
-            <div class="col-lg-3 p-4" style="background-color: antiquewhite; ">
-                <div class="card p-4">
-                    <img th:src="${'/images/accountPhoto/'+user.photo}" class="card-img-top ">
-                    <div class="card-body">
-                        <p class="card-text"><a href="/profile"><strong th:text="${user.fullName}"
-                                    class="card-text"></strong></a></p>
-                        <a href="/profile/edit">Edit Profile</a>
-                        <hr>
-                        <p class="card-text"><Strong>Phone: </Strong><span th:text=" ${user.phoneNumber} "></span></p>
-                        <p class="card-text"><strong>Addrest: </strong><span th:text=" ${user.address} "> </span></p>
-                    </div>
+            <div class="col-lg-3 p-4" style="border-radius: 10px; background-color: white;">
+                <img th:src="${'/images/accountPhoto/'+user.photo}" class="card-img-top" style="border-radius: 8px;">
+                <div class="card-body">
+                    <p class="card-text"><a href="/profile"><strong th:text="${user.fullName}"
+                                class="card-text"></strong></a></p>
+                    <hr>
+                    <p class="card-text"><Strong>Phone: </Strong><span th:text=" ${user.phoneNumber} "></span></p>
+                    <p class="card-text"><strong>Address: </strong><span th:text=" ${user.address} "> </span></p>
                 </div>
+                <a href="/profile/edit">Edit Profile</a>
             </div>
 
 
@@ -49,88 +47,36 @@
 
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="pill" href="#all">all</a>
+                        <button class="tab nav-link" style="width: 100px;" ng-click="applyFilter('All')"
+                            ng-class="{ 'active': filterOptions === 'All' }">FIND ALL</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#topay">topay</a>
+                    <li class="nav-item" ng-repeat="statusOption in orderStatusOptions">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter(statusOption)"
+                            ng-class="{ 'active': filterOptions === statusOption }">{{statusOption}}</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#toship">toship</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#toreceive">toreceive </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#complete">complete</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#cancelled">cancelled </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#refund">refund </a>
-                    </li>
-
                 </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    
-                    <!-- tất cả -->
-                    <div class="tab-pane container active" id="all" th:each="order : ${orderList}">
-                        <div class="card">
-                            <h5 class="card-header">${order.account.username}</h5>
-                            <a href="product-detail">
-                                <div class="card-body">
-                                    <p>image here</p>
-                                    <div class="m-2">
-                                        <p class="card-texr">Phân loại: </p>
-                                        <p class="card-text">Số lượng: </p>
-                                        <p class="card-text float-end">giá tiền:</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="m-2">
-                            <div class="card-text">
-                                <button type="button" class="btn btn-outline-primary float-end m-2">Mua lại</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- chờ thanh toán -->
-                    <div class="tab-pane container fade" id="topay">
-                        
-
-                    </div>
-
-                    <!-- chờ vận chuyển -->
-                    <div class="tab-pane container fade" id="toship">
-
-
-                    </div>
-
-                    <!-- đang giao -->
-                    <div class="tab-pane container fade" id="toreceive">
-
-
-                    </div>
-
-                    <!-- hoàn thành -->
-                    <div class="tab-pane container fade" id="complete">
-
-
-                    </div>
-
-                    <!-- đã hủy -->
-                    <div class="tab-pane container fade" id="cancelled">
-                        
-
-                    </div>
-
-                    <!-- hoàn tiền/ trả hàng -->
-                    <div class="tab-pane container fade" id="refund">
-                        
-
-                    </div>
-                </div>
+                <table class="table table-hover bg-light tab-content">
+                    <tr class="bg-primary text-white text-center">
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Edit</th>
+                    </tr>
+                    <tr ng-repeat="oi in orderitems">
+                        <td>{{oi.product.productName}}</td>
+                        <td><img style="height:60px; border: 4px solid white; border-radius: 5px;"
+                                ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
+                        <td>{{oi.product.price | vndCurrency}}</td>
+                        <td class="text-center">{{oi.quantity}}</td>
+                        <td class="h3 pe-3">
+                            <span class="d-flex">
+                                <a href=""><i class="bi bi-dash"></i></a>
+                                <a href=""><i class="bi bi-plus"></i></a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
 

@@ -19,6 +19,9 @@ import com.poly.models.Account;
 import com.poly.models.Order;
 import com.poly.models.OrderItem;
 import com.poly.services.AccountService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -53,6 +56,12 @@ public class OrderRestController {
     public ResponseEntity<List<Order>> getByUsername(@PathVariable("username") String username) {
         return ResponseEntity.ok(oDAO.findOrderByUsername(username));
     }
+
+    @GetMapping("/purchase")
+    public List<Order> userPurchase() {
+        return oDAO.findOrderByUsername(getAccountAuth().getUsername());
+    }
+    
 
     ObjectMapper objectMapper = new ObjectMapper();
 

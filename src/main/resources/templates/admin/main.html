@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout-admin.html}"
+  xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Admin - Softy Bakery</title>
+  <th:block th:insert="~{layout :: css-link}"></th:block>
+  <style>
+  </style>
+</head>
+
+<body ng-app="app" class="bg-light">
+  <div layout:fragment="content" class="container-fluid">
+    <div class="product-container">
+      <div th:each="product : ${products}" class="product-card">
+        <a th:href="@{'/admin/pi/' + ${product.productId}}" class="product-link" style="background-color: white;">
+          <div class="image-grid">
+            <div th:each="image, iter : ${product.productImages}" class="grid-item">
+              <img th:src="@{'/images/' + ${image.imageUrl}}" alt="Product Image" class="grid-image square-image">
+            </div>
+          </div>
+          <p class="product-name text-center" th:text="${product.productName}"></p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

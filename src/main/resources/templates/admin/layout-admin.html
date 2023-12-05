@@ -10,11 +10,10 @@
 		.nav-list {
 			list-style: none;
 			padding: 0;
-			margin-left: 40px;
+			/* margin-left: 10px; */
 		}
 
 		#administerList>li {
-			text-align: left;
 			width: 100%;
 		}
 
@@ -22,11 +21,8 @@
 			width: 100%;
 			border: none;
 			font-size: 20px;
+			text-align: left;
 		}
-
-		/* .nav-item:hover {
-            color: #EAA636;
-        } */
 
 		.administer-icon {
 			transition: transform 0.3s ease;
@@ -58,7 +54,7 @@
 </head>
 
 <body class="bg-light" ng-app="app">
-	<div th:insert="~{layout :: spinner}"></div>
+	<!-- <div th:insert="~{layout :: spinner}"></div> -->
 	<div th:insert="~{layout :: adminNavbar}"></div>
 
 	</div>
@@ -68,40 +64,42 @@
 			<!-- img account -->
 			<div ng-app="app" ng-controller="UserController" class="avatar-container">
 				<span ng-if="userInfo">
-					<a href="#" class=" nav-item nav-link" data-bs-toggle="dropdown">
-						<div class="">
-							<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
-								ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}">
-							
-							<span ng-bind="userInfo.fullName" class="nav-item"></span>
-						</div>
-					</a>
+					<img ng-src="/images/accountPhoto/{{userInfo.photo}}" class="circle-avatar"
+						ng-style="{'border': userInfo.role === 'USER' ? '4px solid #3498db' : (userInfo.role === 'MANAGER' ? '4px solid #27ae60' : (userInfo.role === 'ADMIN' ? '4px solid #e74c3c' : (userInfo.role === 'SUPER_ADMIN' ? '4px solid #f39c12' : 'none')))}"
+						style="width: 60px; height: 60px;">
+					<strong ng-bind="userInfo.fullName"></strong>
 				</span>
 			</div>
 			<hr>
 			<!--  -->
-			<p><a href="#" class="nav-item"><i class="bi bi-bar-chart-line-fill"></i> Chart</a></p>
+			<p><a href="#"><i class="bi bi-bar-chart-line-fill"></i> Chart</a></p>
 			<span class="btn administer-icon nav-item" data-bs-toggle="collapse" data-bs-target="#administerList"
-				aria-expanded="false" style="font-size: 20px; padding-left: 30px;">
+				aria-expanded="false" style="font-size: 20px;">
 				<i class="fas fa-chevron-down"></i> Administer
 			</span>
 			<ul class="collapse nav-list" id="administerList">
 				<li><a href="/admin/product" class="nav-item btn btn-outline-secondary"><i class="fas fa-cogs"></i>
 						Product</a></li>
-				<li><a href="/admin/order" class="nav-item btn btn-outline-secondary"><i class="bi bi-basket2"></i>
+				<li><a href="/admin/order" class="nav-item btn btn-outline-secondary"><i
+							class="fas fa-shopping-basket"></i>
 						Order</a></li>
-				<li><a href="/admin/account" class="nav-item btn btn-outline-secondary"><i class="bi bi-person"></i>
+				<li><a href="/admin/account" class="nav-item btn btn-outline-secondary"><i class="fas fa-user-alt"></i>
 						Account</a></li>
-				<li><a href="/admin/category" class="nav-item btn btn-outline-secondary"><i class="bi bi-list-ul"></i>
+				<li><a href="/admin/category" class="nav-item btn btn-outline-secondary"><i class="fas fa-th-large"></i>
 						Category</a></li>
-				<li><a href="/manager/coupon" class="nav-item btn btn-outline-secondary">Coupon</a></li>
-				<li><a href="/admin/discount" class="nav-item btn btn-outline-secondary">Discount</a></li>
-				<li><a href="/admin/orderitem" class="nav-item btn btn-outline-secondary">Order Item</a></li>
-				<li><a href="/admin/productimage" class="nav-item btn btn-outline-secondary"><i
-							class="bi bi-file-image"></i> Product Image</a>
+				<li><a href="/manage/coupon" class="nav-item btn btn-outline-secondary"><i class="fas fa-tag"></i>
+						Coupon</a></li>
+				<li><a href="/manage/discount" class="nav-item btn btn-outline-secondary"><i
+							class="fas fa-ticket-alt"></i> Discount</a></li>
+				<li><a href="/admin/orderitem" class="nav-item btn btn-outline-secondary"><i class="fa fa-list-ul"></i>
+						Order Item</a></li>
+				<li><a href="/admin/productimage" class="nav-item btn btn-outline-secondary"><i class="bi bi-image"></i>
+						Product Image</a>
 				</li>
-				<li><a href="/admin/review" class="nav-item btn btn-outline-secondary">Review</a></li>
-				<li><a href="/admin/specialoption" class="nav-item btn btn-outline-secondary">Special Option</a></li>
+				<li><a href="/admin/review" class="nav-item btn btn-outline-secondary"><i class="fas fa-star"></i>
+						Review</a></li>
+				<li><a href="/admin/specialoption" class="nav-item btn btn-outline-secondary"><i
+							class="fas fa-stream"></i> Special Option</a></li>
 			</ul>
 		</div>
 		<!-- navbar End -->
@@ -114,4 +112,5 @@
 	<div th:insert="~{layout :: backtotop}"></div>
 	<div th:insert="~{layout :: js-link}"></div>
 </body>
+
 </html>
