@@ -826,6 +826,14 @@ app.controller('AdminProductController', function ($scope, $http) {
 			$scope.reset();
 		});
 	}
+	$scope.s=[];
+	$scope.s = function (productId) {
+		const url = `${host}/product/s/${productId}`;
+		$http.s(url).then( () => {
+			$scope.loadAll();
+			$scope.reset();
+		});
+	}
 
 	$scope.loadForm = function (product) {
 		if (!product) {

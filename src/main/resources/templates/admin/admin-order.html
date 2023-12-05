@@ -113,7 +113,7 @@
 
 <form th:action="@{/edit/{id}(id=${id})}" method="post" th:object="${product}">
     <!-- Các trường dữ liệu khác trong form -->
-    <input type="text" th:field="*{propertyName}" />
+    <!-- <input type="text" th:field="*{propertyName}" /> -->
     <!-- ... -->
     <a th:href="@{/product/delete/{id} (id=${id})}">Xóa</a>
 </form>

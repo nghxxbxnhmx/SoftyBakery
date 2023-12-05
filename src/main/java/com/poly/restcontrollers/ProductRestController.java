@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,11 @@ public class ProductRestController {
    public ResponseEntity<List<SpecialOption>> findAll() {
         return ResponseEntity.ok(sDao.findAll());
     }
-
+  @GetMapping("s/{productId}")
+    public ResponseEntity<List<String>> findOptionsByProductId(@PathVariable("productId") Integer productId) {
+        List<String> options = sDao.findOptionsByProductId(productId);
+        return new ResponseEntity<>(options, HttpStatus.OK);
+    }
 	@GetMapping
 	public ResponseEntity<List<ProductDTO>> page() {
 		List<ProductDTO> pDTOs = pDAO.findAll().stream()

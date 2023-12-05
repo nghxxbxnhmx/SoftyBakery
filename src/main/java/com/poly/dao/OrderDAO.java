@@ -22,7 +22,7 @@ public interface OrderDAO extends JpaRepository<Order, Integer> {
 	@Query("SELECT o FROM Order o WHERE o.status = 'SHIPPING'")
     List<Order> findShippingOrders();
 
-	@Query("SELECT o FROM Order o WHERE o.status = 'DELIVERING'")
+	@Query("SELECT o FROM Order o WHERE o.status = 'OUT_FOR_DELIVERY'")
     List<Order> findDelyveringOrders();
 
 	@Query("SELECT o FROM Order o WHERE o.status = 'CONFIRMED'")

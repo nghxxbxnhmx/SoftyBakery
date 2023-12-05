@@ -106,6 +106,7 @@
           </div>
         </div>
       </div>
+      
       <div class="col-md-4 ms-5">
         <h4 class="fw-bold fs-3 text-success" th:text="${product.productName} + ' - ' + ${product.productId}"></h4>
         <span class="fw-light">Mã Sản Phẩm: <span class="fs-5 ms-3 fw-bold"
@@ -121,10 +122,16 @@
         <span class="fw-light">Mô tả:
           <span th:text="${product.subDescription}"></span>
         </span>
-        <span class="fw-light">Chọn:
+        <ul>
+          <li th:each="op:${spe}" th:text="${op}" >
+         
+          
+          
+         
+        </li>
+        
+      </ul>
       
-          <span th:text="${spe.option}"></span>
-        </span>
         <br>
         <div class="product-hotline mt-2">
           <p class="text-uppercase fs-6 text-success fw-bold">Gọi để mua hàng nhanh hơn</p>
