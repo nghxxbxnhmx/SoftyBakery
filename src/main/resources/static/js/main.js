@@ -1051,65 +1051,42 @@ app.controller('CommentController', function ($scope, $http) {
 });
 
 app.controller('UserPurchaseController', function ($scope, $http) {
-	$scope.orders = [];
-	$scope.orderitems = [];
-	$scope.filterOptions = 'All';
-	const url = `${host}/order`;
+    $scope.orders = [];
+    $scope.filteredOrders = [];
 
-	$scope.loadAll = function () {
-		const url = `${host}/order`;
-		$http.get(url).then(resp => {
-			$scope.orders = resp.data;
-		});
-	}
-	$scope.loadOrderStatus = function () {
-		const url = `${host}/order/OrderStatus`;
-		$http.get(url).then(resp => {
-			$scope.orderStatusOptions = resp.data;
-		});
-	}
-	$scope.getOrderItems = function (order) {
-		$scope.orderitems = [];
-		$scope.orderitems = order.orderItems;
-	}
+    $scope.filterOptions = 'All';
+    const url = `${host}/order`;
 
+    $scope.loadAll = function () {
+        $http.get(url + '/purchase').then(resp => {
+            $scope.orders = resp.data;
+            $scope.filterByOrderIdAndStatus();
+        });
+    }
 
-	$scope.getAmount = function (orderItems) {
-		return orderItems.reduce(function (total, product) {
-			return total + product.product.price * product.quantity;
-		}, 0);
-	}
-	$scope.message = '';
-	$scope.showDeleteButton = false;
+    $scope.getAmount = function (orderItems) {
+        return orderItems.reduce(function (total, product) {
+            return total + product.product.price * product.quantity;
+        }, 0);
+    }
 
-	$scope.updateStatus = function (orderId, newStatus) {
-		var url = `${host}/order/${orderId}`;
-		$scope.form = { orderId: orderId, status: newStatus };
+    $scope.applyFilter = function (statusOption) {
+        $scope.filterOptions = statusOption;
+        $scope.filterByOrderIdAndStatus();
+    };
 
-		$http.put(url, $scope.form).then(
-			function (response) {
-				// Xử lý phản hồi từ server nếu cần
-				console.log(response.data);
+    $scope.filterByOrderIdAndStatus = function () {
+        if ($scope.filterOptions === 'All') {
+            $scope.filteredOrders = $scope.orders;
+        } else {
+            $scope.filteredOrders = $scope.orders.filter(function (order) {
+                return order.orderId.toString().includes($scope.filterOptions) || order.status === $scope.filterOptions;
+            });
+        }
+    };
 
-				// Cập nhật message và hiển thị modal sau khi cập nhật thành công
-				$scope.message = 'Hóa đơn "' + orderId + '" được cập nhật sang trạng thái "' + newStatus + '"';
-				$('#deleteConfirmationModal').modal('show');
+    $scope.loadAll();
 
-				// Nếu cần, bạn có thể gọi $scope.loadAll() ở đây hoặc ở bất cứ nơi nào phù hợp
-			},
-			function (error) {
-				// Xử lý lỗi nếu cần
-				console.error('Error updating order status:', error);
-			}
-		);
-	};
-
-	$scope.applyFilter = function (statusOption) {
-		$scope.filterByStatus = (statusOption !== 'All');
-		$scope.filterOptions = statusOption;
-	};
-	$scope.loadOrderStatus();
-	$scope.loadAll();
 });
 
 app.controller('TestController', function ($scope, $http) {

@@ -24,7 +24,7 @@
 	</style>
 </head>
 
-<body ng-app="app" ng-controller="UserOrderController">
+<body ng-app="app" ng-controller="AdminOrderController">
 	<!-- Admin Product Start -->
 	<div class="bg-light" layout:fragment="content" style="width: 100%;">
 		<div class="my-3">
@@ -63,7 +63,7 @@
 					</td>
 					<td>
 						<!-- <button ng-class="getStatusClass(o.status)" ng-click="updateStatus(o.orderId)" style="width: 120px;">{{o.status}}</button>							 -->
-						<!-- <button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button>-->
+						<!-- <button class="btn btn-outline-warning" style="width: 120px;">{{o.status}}</button> -->
 						<div style="width: 150px;">
 							<select class="form-select" ng-model="o.status"
 								ng-change="updateStatus(o.orderId, o.status)">

@@ -91,10 +91,9 @@ public class AccountController {
 
 	@GetMapping("/profile")
 	public String profile(Model model) {
-		Account a = getAccountAuth();
-
-		model.addAttribute("user", a);
-		return "profile";
+		// Account a = getAccountAuth();
+		// model.addAttribute("user", a);
+		return "redirect:/order-history";
 	}
 
 	@GetMapping("/profile/{username}")
@@ -214,14 +213,14 @@ public class AccountController {
 		switch (getAccountAuth().getRole().name()) {
 			case "USER":
 			case "MANAGER": {
-				return "/home";
+				return "redirect:/home";
 			}
 			case "ADMIN":
 			case "SUPER_ADMIN": {
 				return "redirect:/admin";
 			}
 			default:
-				return "/home";
+				return "redirect:/home";
 		}
 	}
 

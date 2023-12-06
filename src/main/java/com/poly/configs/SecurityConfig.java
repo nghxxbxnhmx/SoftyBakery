@@ -40,7 +40,7 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 
 				.authorizeHttpRequests((auth) -> auth
-						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit")
+						.requestMatchers("/cart", "/order", "/rest/cart/add/**", "/profile", "/profile/edit", "order-history")
 						.authenticated()
 						.requestMatchers("/manage/**").hasAnyRole("MANAGER", "ADMIN", "SUPER_ADMIN")
 						.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")

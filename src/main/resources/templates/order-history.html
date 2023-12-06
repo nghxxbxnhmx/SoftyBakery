@@ -6,11 +6,6 @@
     <title>Condition - Softy Bakery</title>
     <title>condition - Softy Bakery</title>
     <th:block th:insert="~{layout :: css-link}"></th:block>
-    <style>
-
-
-
-    </style>
 </head>
 
 <body ng-app="app" ng-controller="UserPurchaseController" class="bg-light">
@@ -30,7 +25,9 @@
         <div class="row">
             <!-- profile -->
             <div class="col-lg-3 p-4" style="border-radius: 10px; background-color: white;">
-                <img th:src="${'/images/accountPhoto/'+user.photo}" class="card-img-top" style="border-radius: 8px;">
+                <a th:href="${'/images/accountPhoto/'+user.photo}" >
+                    <img th:src="${'/images/accountPhoto/'+user.photo}" class="card-img-top" style="border-radius: 8px;">
+                </a>
                 <div class="card-body">
                     <p class="card-text"><a href="/profile"><strong th:text="${user.fullName}"
                                 class="card-text"></strong></a></p>
@@ -38,45 +35,95 @@
                     <p class="card-text"><Strong>Phone: </Strong><span th:text=" ${user.phoneNumber} "></span></p>
                     <p class="card-text"><strong>Address: </strong><span th:text=" ${user.address} "> </span></p>
                 </div>
-                <a href="/profile/edit">Edit Profile</a>
+                <div class="text-end">
+                    <small><a href="/profile/edit" class="text-black-50" style="text-decoration: underline;">Edit
+                            Profile</a></small>
+                </div>
             </div>
-
 
             <!-- tablist -->
             <div class="col-lg-9 p-4">
-
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <button class="tab nav-link" style="width: 100px;" ng-click="applyFilter('All')"
-                            ng-class="{ 'active': filterOptions === 'All' }">FIND ALL</button>
+                            ng-class="{ 'active': filterOptions === 'All' }">Tất cả</button>
                     </li>
-                    <li class="nav-item" ng-repeat="statusOption in orderStatusOptions">
-                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter(statusOption)"
-                            ng-class="{ 'active': filterOptions === statusOption }">{{statusOption}}</button>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('PENDING')"
+                            ng-class="{ 'active': filterOptions === 'PENDING' }">Chờ xác nhận</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('DELIVERING')"
+                            ng-class="{ 'active': filterOptions === 'DELIVERING' }">Đang vận chuyển</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('DELIVERED')"
+                            ng-class="{ 'active': filterOptions === 'DELIVERED' }">Hoàn thành</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('CANCELED')"
+                            ng-class="{ 'active': filterOptions === 'CANCELED' }">Đã hủy</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('ERROR')"
+                            ng-class="{ 'active': filterOptions === 'ERROR' }">Lỗi</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('REFUNDED')"
+                            ng-class="{ 'active': filterOptions === 'REFUNDED' }">Đã hoàn tiền</button>
                     </li>
                 </ul>
-                <table class="table table-hover bg-light tab-content">
-                    <tr class="bg-primary text-white text-center">
-                        <th>Product Name</th>
-                        <th>Image</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Edit</th>
-                    </tr>
-                    <tr ng-repeat="oi in orderitems">
-                        <td>{{oi.product.productName}}</td>
-                        <td><img style="height:60px; border: 4px solid white; border-radius: 5px;"
-                                ng-src="/images/{{oi.product.productImages[0].imageUrl}}"></td>
-                        <td>{{oi.product.price | vndCurrency}}</td>
-                        <td class="text-center">{{oi.quantity}}</td>
-                        <td class="h3 pe-3">
-                            <span class="d-flex">
-                                <a href=""><i class="bi bi-dash"></i></a>
-                                <a href=""><i class="bi bi-plus"></i></a>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+                
+                <div ng-repeat="order in filteredOrders" style="margin: 20px;">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-4 pt-2 pb-3">
+                                <small class="card-text m-2">OrderID:
+                                    {{order.orderId}}</small>
+                            </div>
+                            <div class="col-md-8 pt-2 pb-3">
+                                <p class="card-text float-end me-2"><span>Trạng thái:</span>
+                                    <strong>{{order.status}}</strong>
+                                </p>
+                            </div>
+                            <hr />
+                            <div class="col-md-12 d-flex flex-row" ng-repeat="item in order.orderItems">
+                                <div class="card mb-3 m-3">
+                                    <div class="card-item">
+                                        <a href="/product/detail/{{item.product.productId}}">
+                                            <img ng-src="/images/{{ item.product.productImages[0].imageUrl}}"
+                                            style="height: 120px; width: auto;">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="font-family: Arial, sans-serif;">
+                                    <strong class="card-title">{{item.product.productName}}</strong>
+                                    <div class="card-text">
+                                        <small class="text-body-secondary">Phân loại hàng:</small>
+                                        <strong>{{item.product.category.categoryName}}</strong>
+                                        <div class="row">
+                                            <div class="col">
+                                                <small class="text-body-secondary">SL:</small>
+                                                <strong>{{item.quantity}}</strong>
+                                                x
+                                                <small class="text-body-secondary">Đơn giá:</small>
+                                                <strong>{{ item.product.price |
+                                                    vndCurrency}}</strong>
+                                            </div>
+                                            <div class="col text-end">
+                                                <strong style="font-size: large;">{{item.price * item.quantity | vndCurrency}}</strong>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <span class="text-end" style="padding: 10px; padding-right: 30px;">Thành tiền: <strong>{{getAmount(order.orderItems) | vndCurrency}}</strong></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 

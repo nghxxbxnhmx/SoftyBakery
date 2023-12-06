@@ -21,7 +21,7 @@ public class Order {
     @Column(name = "orderid")
     private int orderId;
 
-    @JsonIgnore
+    // @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;
