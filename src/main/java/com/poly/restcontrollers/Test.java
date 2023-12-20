@@ -55,6 +55,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.poly.dao.*;
 import com.poly.dto.DiscountType;
+import com.poly.dto.ProductWithCount;
 import com.poly.dto.enums.OrderStatusEnum;
 import com.poly.models.*;
 import com.poly.services.*;
@@ -91,7 +92,7 @@ public class Test {
 	ObjectMapper objectMapper = new ObjectMapper();
 	@GetMapping("/rest/test")
     public String  test(Model model) throws IOException {
-		return objectMapper.writeValueAsString(Arrays.asList(OrderStatusEnum.values()));
+		return objectMapper.writeValueAsString(oDAO.getOrderStatsByMonth());
 	}
 
 

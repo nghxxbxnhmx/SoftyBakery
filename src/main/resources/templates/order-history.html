@@ -4,8 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>Condition - Softy Bakery</title>
-    <title>condition - Softy Bakery</title>
     <th:block th:insert="~{layout :: css-link}"></th:block>
+    <style>
+        .nav-item {
+            margin: 5px;
+        }
+        .btn {
+            
+            width: 180px;
+        }
+    </style>
 </head>
 
 <body ng-app="app" ng-controller="UserPurchaseController" class="bg-light">
@@ -53,12 +61,28 @@
                             ng-class="{ 'active': filterOptions === 'PENDING' }">Chờ xác nhận</button>
                     </li>
                     <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('CONFIRMED')"
+                            ng-class="{ 'active': filterOptions === 'CONFIRMED' }">Đã xác nhận</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('OUT_FOR_DELIVERY')"
+                            ng-class="{ 'active': filterOptions === 'OUT_FOR_DELIVERY' }">Đang chuẩn bị</button>
+                    </li>
+                    <li class="nav-item">
                         <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('DELIVERING')"
                             ng-class="{ 'active': filterOptions === 'DELIVERING' }">Đang vận chuyển</button>
                     </li>
                     <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('SHIPPING')"
+                            ng-class="{ 'active': filterOptions === 'SHIPPING' }">Đang giao</button>
+                    </li>
+                    <li class="nav-item">
                         <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('DELIVERED')"
                             ng-class="{ 'active': filterOptions === 'DELIVERED' }">Hoàn thành</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('PROCCESSING')"
+                            ng-class="{ 'active': filterOptions === 'PROCCESSING' }">Đang xử lí</button>
                     </li>
                     <li class="nav-item">
                         <button class="tab nav-link" style="width: 150px;" ng-click="applyFilter('CANCELED')"
@@ -73,7 +97,7 @@
                             ng-class="{ 'active': filterOptions === 'REFUNDED' }">Đã hoàn tiền</button>
                     </li>
                 </ul>
-                
+
                 <div ng-repeat="order in filteredOrders" style="margin: 20px;">
                     <div class="card">
                         <div class="row g-0">

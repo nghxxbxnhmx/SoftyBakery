@@ -52,7 +52,7 @@ layout:decorate="~{admin/layout-admin.html}"
                 <tr class="bg-primary text-white">
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Img</th>
+                    <th>Image</th>
                     <th>Description</th>
                     <th>#</th>
                 </tr>
@@ -62,7 +62,7 @@ layout:decorate="~{admin/layout-admin.html}"
                     <td>{{c.categoryId}}</td>
                     <td>{{c.categoryName}}</td>
                     <td>
-                        <img ng-src="/images/{{c.imageUrl}}" style="height:60px;">
+                        <img ng-if="c.imageUrl" ng-src="/images/{{c.imageUrl}}" style="height:60px;">
                     </td>
                     <td>{{c.description}}</td>
 

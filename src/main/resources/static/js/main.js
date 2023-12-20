@@ -992,6 +992,8 @@ app.controller('CommentController', function ($scope, $http) {
 	$scope.commentDTOs = [];
 	$scope.commentForm = {};
 
+	$scope.commentContent = "";
+
 	$scope.productId = angular.element(document.getElementById('productContainer')).attr('data-product-id');
 
 	const url = `${host}/comment`;
@@ -1090,14 +1092,15 @@ app.controller('UserPurchaseController', function ($scope, $http) {
 });
 
 app.controller('TestController', function ($scope, $http) {
-	var cities = [];
+	$scope.countProducts = 0;
 
-	$scope.loadAll = function () {
-		$http.get("\\data\\vietnam_location\\cities.json").then(resp => {
-			console.log(resp.data);
-		});
+	var url = `${host}/product`
+	loadCountProducts = function() {
+		$http.get(url).then(resp => {
+			console.log(resp.data)
+			console.log("COUNT PRODUCTS: "+resp.data.length)
+		})
 	}
-
-	$scope.loadAll();
+	loadCountProducts();
 });
 

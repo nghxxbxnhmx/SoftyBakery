@@ -14,6 +14,131 @@
   <!-- Carousel Start -->
   <div th:insert="~{layout :: carousel}"></div>
   <!-- Carousel End -->
+ 
+  <!-- product --> 
+  <div class="container" ng-controller="ProductController">
+    <div class="row justify-content-center">
+      <div
+        class="col-lg-3 wow fadeInUp"
+        data-wow-delay="0.3s"
+        ng-repeat="p in filteredAndPagingProduct"
+      >
+        <div class="product-item d-flex flex-column bg-white rounded wow">
+          
+          
+          <div class="text-center p-4 wow fadeInUp" data-wow-delay="0.3s">
+            <h4 class="mb-3 text-truncate">{{p.product.productName}}</h4>
+            <p class="mb-3 text-truncate">{{p.product.subDescription}}</p>
+            <div
+              class="d-inline-block border border-primary rounded-pill pt-1 px-3 mb-3"
+            >
+              {{p.product.price | vndCurrency}}
+            </div>
+          </div>
+          <div class="position-relative mt-auto">
+            <img
+              ng-src="/images/{{p.product.productImages[0].imageUrl}}"
+              class="square-image align-items-start" style="width: 100%; height:320px"
+            />
+            <div class="product-overlay">
+              <a
+                class="btn btn-lg-square btn-outline-light rounded-circle"
+                href="/product/detail/{{p.product.productId}}"
+                ng-click="setSelectedProductId()"
+                style="margin-right: 5px"
+              >
+                <i class="fa fa-eye text-primary"></i>
+              </a>
+              <button
+                class="btn btn-lg-square btn-outline-light rounded-circle"
+                style="margin-left: 5px"
+                ng-click="modifyCart(p.product.productId, 'add')"
+              >
+                <i class="fa fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.3s" ng-if="!filteredAndPagingProduct">
+        <p class="text-danger text-center">
+          Không tìm thấy sản phẩm nào!
+        </p>
+        <p class="text-danger text-center">
+          <i
+            class="fa fa-info-circle"
+            style="font-size: 2em; vertical-align: middle; line-height: 1"
+          ></i>
+        </p>
+      </div>
+    </div>
+    <div
+      class="row justify-content-center wow fadeInUp"
+      data-wow-delay="1s"
+    >
+      <div class="col-12 text-center">
+        <div class="mt-5 pt-5">
+          <button
+            class="btn btn-primary rounded-pill py-3 px-5 text-center"
+            style="width: 150px"
+            ng-click="loadPage(currentPage - 1)"
+            ng-disabled="disablePrev()"
+          >
+            Previous
+          </button>
+          <span class="py-3 px-5 text-center"
+            >{{currentPage+' / '+totalPage}}</span
+          >
+          <button
+            class="btn btn-primary rounded-pill py-3 px-5 text-center"
+            style="width: 150px"
+            ng-click="loadPage(currentPage + 1)"
+            ng-disabled="disableNext()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- product -->
+
+
+  <!-- top 10 product -->
+  <div class="container-xxl bg-light my-6 py-6 pt-0">
+    <div class="container">
+      <h3 class="text-center">TOP 10 SẢN PHẨM BÁN CHẠY</h3>
+      <div class="owl-carousel testimonial-carousel wow fadeInUp">
+        <div class="owl-carousel-item" th:each="c : ${top10}">
+          <div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+            <div class="align-items-center mb-4">
+              <div class="text-center p-4">
+                <div class="d-inline-block border border-primary rounded-pill px-3 mb-3">
+                  <h4 th:text="${#numbers.formatInteger(c.price,3,'POINT')}"></h4>
+                </div>
+                <h3 class="mb-3" th:text="${c.categoryName}"></h3>
+                <span class="mb-0" th:text="${c.productName}"></span>
+                <br>
+                <span>Lượt bán: </span> <span class="text-center" th:text="${c.count}"></span>
+              </div>
+              <div class="position-relative mt-auto">
+                <img class="img-fluid" th:src="@{'images/'+${c.imageUrl}}" alt="" style="margin-bottom: -24px" />
+                <div class="product-overlay">
+                  <a class="btn btn-lg-square btn-outline-light rounded-circle"
+                    th:href="${'/product/detail/'+c.productID}">
+                    <i class="fa fa-eye text-primary"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+
   <div class="container-xxl py-6" data-wow-delay="0.1s">
     <p class="text-primary text-uppercase mb-2">// Video Intro</p>
     <h2 class="display-6 mb-4" th:text="#{home}">
@@ -154,9 +279,7 @@
           <p class="text-primary text-uppercase mb-2">// Our Services</p>
           <h1 class="display-6 mb-4">What Do We Offer For You?</h1>
           <p class="mb-5">
-            Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-            diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-            lorem sit clita duo justo magna dolore erat amet
+            Hạnh phúc là một chiếc bánh ngọt và một tách cà phê.
           </p>
           <div class="row gy-5 gx-4">
             <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
@@ -217,7 +340,7 @@
   <!-- Service End -->
 
   <!-- Team Start -->
-  <div class="container-xxl py-6">
+  <!-- <div class="container-xxl py-6">
     <div class="container">
       <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px">
         <p class="text-primary text-uppercase mb-2">// Our Team</p>
@@ -290,11 +413,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- Team End -->
 
   <!-- Testimonial Start -->
-  <div class="container-xxl bg-light my-6 py-6 pb-0">
+  <!-- <div class="container-xxl bg-light my-6 py-6 pb-0">
     <div class="container">
       <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px">
         <p class="text-primary text-uppercase mb-2">// Client's Review</p>
@@ -373,7 +496,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- Testimonial End -->
 
   <div th:insert="~{layout :: footer}"></div>

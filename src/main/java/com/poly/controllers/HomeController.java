@@ -46,9 +46,12 @@ public class HomeController {
     	model.addAttribute("c", categories);
     	model.addAttribute("count", pDAO.count());
     	model.addAttribute("p", pDAO.findAll());
+		//top 10 product
+		// model.addAttribute("top10", pDAO.getTop10Product());
+		
     	printUserInfo();
         return "home";
-    } 
+    }  
     public void printUserInfo() {
         System.out.println(accountService.getAccountAuth()!=null?"Login successfully!":"No authentication!");
     }

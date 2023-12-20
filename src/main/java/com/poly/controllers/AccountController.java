@@ -65,12 +65,16 @@ public class AccountController {
 	}
 
 	@PostMapping("/register")
-	public String register1(Model model, @ModelAttribute("user") Account a) {
-		a.setRole(AccountRoleEnum.USER);
-		a.setPassword(PasswordUtil.encode(a.getPassword()));
-		a.setPhoto("noImage.jpg");
-		aDAO.save(a);
-		return "login";
+	public String register1(Model model, @ModelAttribute("user") Account account) {
+		if (account.getUsername().split(" ").length >= 2) {
+			return "redirect:/register";
+		} else {
+			account.setRole(AccountRoleEnum.USER);
+			account.setPassword(PasswordUtil.encode(account.getPassword()));
+			account.setPhoto("noImage.jpg");
+			aDAO.save(account);
+			return "redirect:/login";
+		}
 	}
 
 	@GetMapping("/login")
