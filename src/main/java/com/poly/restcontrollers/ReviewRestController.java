@@ -1,5 +1,6 @@
 package com.poly.restcontrollers;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -32,13 +33,10 @@ public class ReviewRestController {
 	@PostMapping("/{id}")
 	public ResponseEntity<Review> post(@PathVariable int id,@RequestBody Review review) {
 		
-		LocalDateTime localDateTime = LocalDateTime.now();
-		ZoneId zoneId = ZoneId.of("Asia/Ho_Chi_Minh");
-		ZonedDateTime date = localDateTime.atZone(zoneId);
 
 	    Product p = pDAO.getById(id);
 		review.setAccount(getAccountAuth());
-		// review.setReviewDate(date.toLocalDateTime());
+		review.setReviewDate(review.getReviewDate());
 		review.setProduct(p);
 		rDAO.save(review);
 

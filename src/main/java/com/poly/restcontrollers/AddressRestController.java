@@ -3,8 +3,10 @@ package com.poly.restcontrollers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +29,11 @@ public class AddressRestController {
 
     @GetMapping("/cities")
     public List<City> cityIndex() {
-        List<City> cityList = (ArrayList<City>) jsonReader.read(cityFilePath, City.class);
+        ArrayList<City> cityList = (ArrayList<City>) jsonReader.read(cityFilePath, City.class);
         if (cityList != null) {
+            Collections.sort(cityList, Comparator.comparing(City::getName));
             return cityList;
         }
-        String [] citiesName = {};
         return null;
     }
 
@@ -45,13 +47,14 @@ public class AddressRestController {
                     filteredDistricts.add(district);
                 }
             }
+            Collections.sort(filteredDistricts, Comparator.comparing(District::getName));
             return filteredDistricts;
         }
         return null;
     }
 
     @GetMapping("/{districtCode}/wards")
-    public ResponseEntity<List<Ward>> wardIndex(@PathVariable("districtCode") String districtCode) {
+    public List<Ward> wardIndex(@PathVariable("districtCode") String districtCode) {
         List<Ward> wardList = jsonReader.read(wardFilePath, Ward.class);
         if (wardList != null) {
             List<Ward> filteredWards = new ArrayList<>();
@@ -60,7 +63,8 @@ public class AddressRestController {
                     filteredWards.add(ward);
                 }
             }
-            return ResponseEntity.ok(filteredWards);
+            Collections.sort(filteredWards, Comparator.comparing(Ward::getName));
+            return filteredWards;
         } else {
             return null;
         }

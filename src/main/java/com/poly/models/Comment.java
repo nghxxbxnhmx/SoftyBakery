@@ -29,7 +29,7 @@ public class Comment {
     private String commentContent;
 
     @Temporal(TemporalType.TIMESTAMP)
-    // @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
+    @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
     @Column(name = "commentdate")
     private Timestamp commentDate;
 

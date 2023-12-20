@@ -286,12 +286,25 @@ app.controller('ProductController', function ($scope, $http, $filter, $location,
 	}
 	$scope.postReview = function () {
 		$scope.formReview.rating = $scope.rating;
+		var parsedDate = new Date();
+
+		var formattedDate = ('0' + parsedDate.getUTCHours()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCMinutes()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCSeconds()).slice(-2) + ' ' +
+			('0' + parsedDate.getUTCDate()).slice(-2) + '-' +
+			('0' + (parsedDate.getUTCMonth() + 1)).slice(-2) + '-' +
+			parsedDate.getUTCFullYear();
+
+		$scope.formReview.reviewDate = formattedDate;
+
 		const url = `${host}/review/${$scope.selectedProductId}`;
 		$http.post(url, $scope.formReview).then(function (response) {
 			$scope.reviewList += response.data;
 			$scope.loadReviews();
 		});
 
+		$scope.formReview = {};
+		$scope.rating = 1;
 	}
 
 	$scope.setHovered = function (index, hovered) {
@@ -1013,7 +1026,16 @@ app.controller('CommentController', function ($scope, $http) {
 		product.productId = $scope.productId;
 		$scope.commentForm.product = product;
 		$scope.commentForm.parentCommentId = 0;
-		$scope.commentForm.commentDate = new Date();
+
+		var parsedDate = new Date();
+		var formattedDate = ('0' + parsedDate.getUTCHours()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCMinutes()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCSeconds()).slice(-2) + ' ' +
+			('0' + parsedDate.getUTCDate()).slice(-2) + '-' +
+			('0' + (parsedDate.getUTCMonth() + 1)).slice(-2) + '-' +
+			parsedDate.getUTCFullYear();
+
+		$scope.commentForm.commentDate = formattedDate;
 
 		$http.post(url, $scope.commentForm).then(() => {
 			$scope.findByProductId($scope.productId);
@@ -1026,7 +1048,14 @@ app.controller('CommentController', function ($scope, $http) {
 		product.productId = $scope.productId;
 		$scope.commentForm.product = product;
 		$scope.commentForm.parentCommentId = parentCommentId;
-		$scope.commentForm.commentDate = new Date();
+		var parsedDate = new Date();
+		var formattedDate = ('0' + parsedDate.getUTCHours()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCMinutes()).slice(-2) + ':' +
+			('0' + parsedDate.getUTCSeconds()).slice(-2) + ' ' +
+			('0' + parsedDate.getUTCDate()).slice(-2) + '-' +
+			('0' + (parsedDate.getUTCMonth() + 1)).slice(-2) + '-' +
+			parsedDate.getUTCFullYear();
+		$scope.commentForm.commentDate = formattedDate;
 
 		$http.post(url, $scope.commentForm).then(() => {
 			$scope.findByProductId($scope.productId)
@@ -1053,41 +1082,41 @@ app.controller('CommentController', function ($scope, $http) {
 });
 
 app.controller('UserPurchaseController', function ($scope, $http) {
-    $scope.orders = [];
-    $scope.filteredOrders = [];
+	$scope.orders = [];
+	$scope.filteredOrders = [];
 
-    $scope.filterOptions = 'All';
-    const url = `${host}/order`;
+	$scope.filterOptions = 'All';
+	const url = `${host}/order`;
 
-    $scope.loadAll = function () {
-        $http.get(url + '/purchase').then(resp => {
-            $scope.orders = resp.data;
-            $scope.filterByOrderIdAndStatus();
-        });
-    }
+	$scope.loadAll = function () {
+		$http.get(url + '/purchase').then(resp => {
+			$scope.orders = resp.data;
+			$scope.filterByOrderIdAndStatus();
+		});
+	}
 
-    $scope.getAmount = function (orderItems) {
-        return orderItems.reduce(function (total, product) {
-            return total + product.product.price * product.quantity;
-        }, 0);
-    }
+	$scope.getAmount = function (orderItems) {
+		return orderItems.reduce(function (total, product) {
+			return total + product.product.price * product.quantity;
+		}, 0);
+	}
 
-    $scope.applyFilter = function (statusOption) {
-        $scope.filterOptions = statusOption;
-        $scope.filterByOrderIdAndStatus();
-    };
+	$scope.applyFilter = function (statusOption) {
+		$scope.filterOptions = statusOption;
+		$scope.filterByOrderIdAndStatus();
+	};
 
-    $scope.filterByOrderIdAndStatus = function () {
-        if ($scope.filterOptions === 'All') {
-            $scope.filteredOrders = $scope.orders;
-        } else {
-            $scope.filteredOrders = $scope.orders.filter(function (order) {
-                return order.orderId.toString().includes($scope.filterOptions) || order.status === $scope.filterOptions;
-            });
-        }
-    };
+	$scope.filterByOrderIdAndStatus = function () {
+		if ($scope.filterOptions === 'All') {
+			$scope.filteredOrders = $scope.orders;
+		} else {
+			$scope.filteredOrders = $scope.orders.filter(function (order) {
+				return order.orderId.toString().includes($scope.filterOptions) || order.status === $scope.filterOptions;
+			});
+		}
+	};
 
-    $scope.loadAll();
+	$scope.loadAll();
 
 });
 
@@ -1095,12 +1124,62 @@ app.controller('TestController', function ($scope, $http) {
 	$scope.countProducts = 0;
 
 	var url = `${host}/product`
-	loadCountProducts = function() {
+	loadCountProducts = function () {
 		$http.get(url).then(resp => {
 			console.log(resp.data)
-			console.log("COUNT PRODUCTS: "+resp.data.length)
+			console.log("COUNT PRODUCTS: " + resp.data.length)
 		})
 	}
 	loadCountProducts();
 });
 
+app.controller('ChartController', function ($scope, $http) {
+    $scope.products = [];
+	$scope.accounts=[];
+	$scope.orders=[];
+    $scope.category = [];
+    //Product
+    $scope.LoadTotalProducts = function () {
+        const url = `${host}/product`;
+        $http.get(url).then(resp => {
+            $scope.products = resp.data;
+			$scope.totalProducts = $scope.products.length;
+        });
+    };
+	$scope.LoadTotalAccounts = function () {
+        const url = `${host}/account`;
+        $http.get(url).then(resp => {
+			$scope.accounts = resp.data.filter(account => account.role === 'USER');
+			$scope.totalAccounts = $scope.accounts.length;
+        });
+    };
+	$scope.LoadTotalOrders = function () {
+		const url = `${host}/order`;
+		$http.get(url).then(resp => {
+			$scope.orders = resp.data;
+			$scope.filteredOrders = $scope.orders.filter(order => {
+				const orderYear = new Date(order.orderDate).getFullYear();
+				return orderYear === 2023;
+			});
+        $scope.totalTurnovers = 0;
+        $scope.filteredOrders.forEach(order => {
+            order.orderItems.forEach(item => {
+                $scope.totalTurnovers += item.price;
+            });
+        });
+
+        // Định dạng lại số với chấm phân cách sau mỗi ba chữ số
+        // $scope.formattedTotalTurnovers = $scope.totalTurnovers.toLocaleString();
+		$scope.formattedTotalTurnovers = $scope.totalTurnovers;
+			$scope.totalOrders = $scope.filteredOrders.length;
+		});
+	};
+
+	
+	$scope.LoadTotalOrders();
+    $scope.LoadTotalProducts();
+	$scope.LoadTotalAccounts();
+	$scope.LoadTotalOrders();
+	
+	
+});

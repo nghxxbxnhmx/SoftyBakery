@@ -1,0 +1,281 @@
+[33mcommit 41aaed13bddbbc491a9dd373f0aa8f78357d3fb4[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Wed Dec 20 00:23:49 2023 +0700
+
+    Chart v1
+
+[33mcommit 30678cd838eb3706c18bd3e0204064e3f1abc1fe[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Sat Dec 9 21:32:30 2023 +0700
+
+    SendMail Contact
+
+[33mcommit 4da9794d31058d0f3e08be9680eee974bb99b283[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Tue Dec 5 11:49:31 2023 +0700
+
+    form admin order
+
+[33mcommit b58ab650ac3ba1573370891e17899ba96add25b4[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Dec 4 22:13:41 2023 +0700
+
+    update code
+
+[33mcommit f6d2beebbe4d8172dc221ac31900f04d9aa01ad9[m
+Merge: cd3cfd9 9a88b06
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Dec 4 19:53:50 2023 +0700
+
+    update code
+
+[33mcommit cd3cfd98f394512c922694b1168ab41294abb229[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Dec 4 19:52:20 2023 +0700
+
+    aaa
+
+[33mcommit 9a88b06d4dd19f0003f44d2dde4c6838aa1a443d[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 19:47:20 2023 +0700
+
+    update code
+
+[33mcommit 17f5ccf5243bf5d04d8bba0ac179e040c92bb813[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 19:14:53 2023 +0700
+
+    just update
+
+[33mcommit e187745e4b1240a9825ef45e81b7a7b8d4dc80ed[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 18:39:50 2023 +0700
+
+    just commit
+
+[33mcommit aa0d96aed4f1a4450c349ff9326a658aecd783b8[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 17:44:42 2023 +0700
+
+    update code
+
+[33mcommit 9a9fad306a4a610eb4ea786df6eb824eb8b9ef00[m
+Merge: 5389959 4538b11
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 03:29:07 2023 +0700
+
+    Merge branch 'main' into 9c9f816
+
+[33mcommit 4538b11ccb6a0594bc8cd448158e4815ec66d1d0[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 03:24:01 2023 +0700
+
+    update code
+
+[33mcommit 5389959e3961f14a5502afb792b1abd0020ece45[m[33m ([m[1;31morigin/9c9f816[m[33m)[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 03:23:00 2023 +0700
+
+    update code
+
+[33mcommit 540f6c1e95e22f90ec9cb2c0fa9930a9b35da486[m
+Merge: d565d0c 9079245
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 03:04:11 2023 +0700
+
+    Merge branch 'main' of https://github.com/nghxxbxnhmx/SoftyBakery
+
+[33mcommit d565d0c4a8f7a0645246f2403f21d46f206539a7[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Dec 4 03:00:39 2023 +0700
+
+    update code 4/12
+
+[33mcommit 34ce88f2f15db2c567b0cbc31e0315c5727b0d12[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Sun Dec 3 21:21:11 2023 +0700
+
+    loginGoogle
+
+[33mcommit ca2de9eecd1325edb088401c8604e8f3210fabb2[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Tue Nov 28 17:19:55 2023 +0700
+
+    Update Layout admin, link icon bootrap mới
+
+[33mcommit 907924531f382377bb64a9d54e3ef9d3e4a40545[m
+Merge: cfda660 3ed567c
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Tue Nov 28 11:39:49 2023 +0700
+
+    layout Admin
+
+[33mcommit cfda6603778ec371b8d374ed21bba1a96bd3748b[m
+Merge: 0cc9567 9c9f816
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Nov 27 22:46:34 2023 +0700
+
+    Merge branch 'main' of https://github.com/nghxxbxnhmx/SoftyBakery
+
+[33mcommit 3ed567c23939bb22f8c1d6a88f7fbac3284ab65d[m[33m ([m[1;31morigin/NTP[m[33m, [m[1;32mNTP[m[33m)[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Nov 27 22:40:12 2023 +0700
+
+    aaa
+
+[33mcommit afdc5ee2dbcee7e1cef2304a6f04d3d74341036e[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Nov 27 22:33:04 2023 +0700
+
+    test
+
+[33mcommit 9c9f816402c2861419ef859271a05bb7fc2ab0a7[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Nov 27 22:28:56 2023 +0700
+
+    update code
+
+[33mcommit 0cc9567a257f8c7d7a801b1e520a4012c2dd3d90[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Tue Nov 21 15:19:55 2023 +0700
+
+    Update Admin Account:
+    _Thêm oppton Role
+    _chỉnh màu user name theo role và bỏ cột Role
+    _Hiển thị Lý do baned khi click vào cái tài khoản baned
+
+[33mcommit 884fdc7b67d36d22b0162af42d091f708be1f483[m[33m ([m[1;31morigin/Nghia[m[33m)[m
+Merge: 9c527ae 31e68ad
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Tue Nov 21 14:47:17 2023 +0700
+
+    Merge branch 'main' of https://github.com/nghxxbxnhmx/SoftyBakery
+
+[33mcommit 9c527ae695c4fc9102e39dba90d6260517c06c48[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Tue Nov 21 14:46:04 2023 +0700
+
+    commit to merge
+
+[33mcommit 31e68adf10b3cac5e7ad037f02cff5ebcd5998e7[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Mon Nov 20 23:56:11 2023 +0700
+
+    Send Mail
+
+[33mcommit 30844e3f8dbe5aa3a59d217128bbb9d13fb013a8[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Nov 17 21:35:01 2023 +0700
+
+    update linh tinh, lần cuối á, hứa
+
+[33mcommit c4dabf7b7525954e22860f60c4f219ee98d5b9f8[m
+Merge: 4f5102c 6ad5e92
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Nov 17 21:26:46 2023 +0700
+
+    Merge branch 'main' of https://github.com/nghxxbxnhmx/SoftyBakery
+
+[33mcommit 4f5102c993b754abc2a3e1bf85939bd3e69bd5b9[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Nov 17 21:21:33 2023 +0700
+
+    Update hình ảnh, comment - review sản phẩmphẩm
+
+[33mcommit 6ad5e9230c216f5b6b12ed0a44e37564d0db972a[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Fri Nov 17 10:45:19 2023 +0700
+
+    icon độc quyền của Phú
+
+[33mcommit 89d5ed9902f81691cbad5dbe9a272c398a6ae6be[m
+Author: NTP\NTP <trongphu149@gmail.com>
+Date:   Fri Nov 17 09:33:49 2023 +0700
+
+    account admin
+
+[33mcommit 57fc63ab02aacdc4187f7d2ccc9f6e031fb48dda[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Wed Nov 15 20:40:50 2023 +0700
+
+    Fix bug đối tượng, dang dở ở order
+
+[33mcommit cef2114eedabc2f9cc25d2d6105226940484cf1a[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Nov 10 21:02:00 2023 +0700
+
+    ewww
+
+[33mcommit 249fe8829edd329f38ba0a4c77238012c8289a9b[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Nov 10 17:08:53 2023 +0700
+
+    Đã hoàn thành: Login, product, dang dở ở cart
+
+[33mcommit a51d2012d2ac19de624b1df0db7ed5b6079f4fca[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Thu Nov 9 19:04:48 2023 +0700
+
+    fix mapping và khóc ròng 1 dòng sông
+
+[33mcommit 41539bbb3babaf4cb595bdc0b367bcf570616708[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Mon Nov 6 18:41:05 2023 +0700
+
+    upgrading database
+
+[33mcommit 36c309a74a60c668ac972cba4ca84cc94fd8652b[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Sun Nov 5 15:11:24 2023 +0700
+
+    commit before upgrade database 2
+
+[33mcommit 7f11cd7ca240f6683d04239739318f6cf6cf7cca[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Sat Oct 28 11:36:55 2023 +0700
+
+    commit before upgrade database
+
+[33mcommit f432802b5e0258b776b397b7f44ca165a513f38c[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Sat Oct 28 11:48:09 2023 +0700
+
+    sync code order-history
+
+[33mcommit f0c95e9d9cb548799eb7a22d00834b9b3c95f7e4[m
+Merge: 24fb018 163bd46
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Sat Oct 28 11:47:49 2023 +0700
+
+    merge change
+
+[33mcommit 24fb018779a5968ddffe858e271a9fe1bb8483fa[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Sat Oct 28 11:36:55 2023 +0700
+
+    commit okay
+
+[33mcommit 163bd46711a8534881bb7712413515f1dbc10cea[m
+Author: trung2613 <tranquoctrung2003vta@gmail.com>
+Date:   Sat Oct 28 01:07:58 2023 +0700
+
+    done
+
+[33mcommit 2ba68a54498bcff61e06389a637202ce830b1b45[m
+Merge: b5245d2 27a41e1
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Oct 27 14:29:21 2023 +0700
+
+    Committing changes before pull
+
+[33mcommit b5245d2dfa7fc38a818e8cbfb44b183ff7a83dbe[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Oct 27 08:32:03 2023 +0700
+
+    update product detail 2
+
+[33mcommit 4b886b60740dbb27d1a5520f4671da091094b55d[m
+Author: nghiabanhmi <tthanhnghia1411@gmail.com>
+Date:   Fri Oct 27 08:31:31 2023 +0700
+
+    

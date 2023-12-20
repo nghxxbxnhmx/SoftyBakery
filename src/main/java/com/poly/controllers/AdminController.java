@@ -100,4 +100,8 @@ public class AdminController {
 		model.addAttribute("products", pDAO.findAll());
 		return "admin/admin-main-product-image";
 	}
+	@GetMapping("/admin/chart")
+	public String chart() {
+		return "admin/admin-chart";
+	}
 }

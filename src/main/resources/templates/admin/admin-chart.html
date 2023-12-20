@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout-admin.html}"
+  xmlns:th="http://www.thymeleaf.org" lang="vi">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title>Products - Softy Bakery</title>
+  <th:block th:insert="~{layout :: css-link}"></th:block>
+</head>
+
+<body ng-app="app" ng-controller="ChartController">
+  <!-- Admin Product Start -->
+  <div class=" bg-light p-3" layout:fragment="content" style="width: 100%;">
+    <div class="d-flex">
+      <div id="containerPieChart" data-total-products="${totalProducts}" class="col-lg-5"
+        style="width: 45%; border-radius: 10px;border: 1px solid #595959 ;">
+      </div>
+      <div class="col-lg-5" style="width: 55%; margin-left: 50px; display: flex; flex-wrap: wrap;">
+        <div class="col-lg-6" style="margin-bottom: 40px;">
+          <div class="card"
+            style="width: 300px; height: 130px; display: flex; padding: 10px; background-color: #FDEEED;">
+            <div style="display: flex; align-items: center;">
+              <div
+                style="width: 60px; height: 60px; border-radius: 10px; background-color: #FF3B21; display: flex; justify-content: center; align-items: center;">
+                <i class="bi bi-shop-window" style="font-size: 32px; color: white; line-height: 60px;"></i>
+              </div>
+              <span
+                style="font-weight: bold; font-size: 28px; margin-left: 40px; border-radius: 10px;">{{totalProducts}}</span>
+            </div>
+            <div style="color: #595959; font-size: 18px; margin-top: 10px;">
+              Tổng số sản phẩm
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6" style="margin-bottom: 40px;">
+          <div class="card"
+            style="width: 300px; height: 130px; display: flex; padding: 10px; background-color: #EAF4FF;">
+            <div style="display: flex; align-items: center;">
+              <div
+                style="width: 60px; height: 60px; background-color: #2C8BFB;display: flex; border-radius: 10px;justify-content: center; align-items: center;">
+                <i class="bi bi-person" style="font-size: 32px; color: white; line-height: 60px;"></i>
+              </div>
+              <span
+                style="font-weight: bold; font-size: 28px; margin-left: 40px; border-radius: 10px;">{{totalAccounts}}</span>
+            </div>
+            <div style="color: #595959; font-size: 18px; margin-top: 10px;">
+              Tổng số khách hàng
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card"
+            style="width: 300px; height: 130px; display: flex; padding: 10px; background-color: #FFE0C4;">
+            <div style="display: flex; align-items: center;">
+              <div
+                style="width: 60px; height: 60px; background-color: #FFB16E; border-radius: 10px;display: flex;justify-content: center; align-items: center;">
+                <i class="bi bi-cash-coin" style="font-size: 32px; color: white; line-height: 60px;"></i>
+              </div>
+              <span
+                style="font-weight: bold; font-size: 22px; margin-left: 40px; border-radius: 10px;">{{formattedTotalTurnovers
+                | vndCurrency}}</span>
+            </div>
+            <div style="color: #595959; font-size: 18px; margin-top: 10px;">
+              Tổng số doanh thu năm 2023
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card"
+            style="width: 300px; height: 130px; display: flex; padding: 10px; background-color: #F4F1FF;">
+            <div style="display: flex; align-items: center;">
+              <div
+                style="width: 60px; height: 60px; background-color: #A98EFE;display: flex; border-radius: 10px;justify-content: center; align-items: center;">
+                <i class="bi bi-receipt" style="font-size: 32px; color: white; line-height: 60px;"></i>
+              </div>
+              <span
+                style="font-weight: bold; font-size: 28px; margin-left: 40px; border-radius: 10px;">{{totalOrders}}</span>
+
+            </div>
+            <div class="d-flex" style="color: #595959; font-size: 18px; margin-top: 10px;">Tổng hóa đơn năm 2023</div>
+
+          </div>
+        </div>
+        <!-- <div class="col-lg-6">
+                <div class="card" style="width: 300px; height: 130px; display: flex; padding: 10px; background-color: #F4F1FF;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 60px; height: 60px; background-color: #A98EFE;display: flex; border-radius: 10px;justify-content: center; align-items: center;">
+                            <i class="bi bi-receipt" style="font-size: 32px; color: white; line-height: 60px;"></i>
+                        </div>
+                        <span style="font-weight: bold; font-size: 28px; margin-left: 40px; border-radius: 10px;">{{totalOrders}}</span>
+                        <span style="color: #595959; font-size: 18px; margin-left: 10px;"> Hóa đơn </span>
+                    </div>
+                    <div class="d-flex" style="color: #595959; font-size: 18px; margin-top: 10px;">
+                     Tháng 
+                     <select class="form-select ms-1" style="width: 100px; background-color: rgba(255, 255, 255, 0.3);" ng-model="selectedMonth" ng-change="updateSelectedYearMonth()">
+                      <option ng-repeat="month in availableMonths" value="{{month}}">{{month}}</option>
+                  </select>
+                      Năm
+                      <select class="form-select ms-3" style="width: 100px; background-color: rgba(255, 255, 255, 0.3);" ng-model="selectedYear" ng-change="updateSelectedYearMonth()">
+                        <option ng-repeat="year in availableYears" value="{{year}}" >{{year}}</option>
+                    </select>
+                      
+                  </div>
+                  
+                </div>
+            </div> -->
+
+
+      </div>
+
+    </div>
+    <div style="border-radius: 10px;border: 1px solid #595959 ;margin-top: 30px;">
+      <div>
+        <h4 class="m-3">Biểu đồ tăng trưởng doanh thu và khách hàng</h4>
+        <select class="form-select ms-3" style="width: 200px; background-color: rgba(255, 255, 255, 0.3);">
+          <option value="1">Năm 2020</option>
+          <option value="2">Năm 2021</option>
+          <option value="3">Năm 2022</option>
+          <option value="4">Năm 2023</option>
+        </select>
+      </div>
+      <div id="containerChartTrunover" style="height: 500px;"></div>
+    </div>
+
+
+    <script>
+      var dom = document.getElementById('containerChartTrunover');
+      var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+      });
+
+      var option;
+
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          }
+        },
+        toolbox: {
+          feature: {
+            dataView: { show: true, },
+            magicType: { show: true, type: ['line', 'bar'] },
+            restore: { show: true },
+            //   saveAsImage: { show: true }
+          }
+        },
+        // title:{
+        //   show:true,
+        //   text:'Biểu đồ tăng trưởng doanh thu và khách hàng',
+        // },
+        legend: {
+          top: 'bottom',
+          icon: 'roundRect',
+          data: ['Doanh thu', 'Số đơn']
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            axisPointer: {
+              type: 'shadow'
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: '(VND)',
+            min: 0,
+          },
+          {
+            type: 'value',
+            name: '(Đơn)',
+            min: 0,
+            splitLine: {
+              show: false
+            },
+          }
+        ],
+        series: [
+          {
+            name: 'Doanh thu',
+            type: 'bar',
+            data: [15000000, 30000000, 60000000, 6000000, 7500000, 9000000, 10500000, 12000000, 13500000, 15000000, 16500000, 18000000],
+
+          },
+          {
+            name: 'Số đơn',
+            type: 'line',
+            yAxisIndex: 1,
+            data: [14, 23, 15, 38, 55, 23, 26, 24, 13, 45, 27, 34],
+            lineStyle: {
+              width: 3,
+            }
+
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+      window.addEventListener('resize', myChart.resize);
+      var load = function($http) {
+        $http.get("localhost:8080/address/cities").then(resp => {
+          console.log(resp.data)
+        })
+      }
+    </script>
+    <script type="text/javascript">
+      var dom = document.getElementById('containerPieChart');
+      var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false,
+      });
+      var totalProductsValue = "";
+      var option;
+
+      option = {
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          show: true,
+          top: 'top',
+          icon: 'circle',
+          width: '400px',
+          textStyle: {
+            fontSize: 16,
+          },
+        },
+        title: {
+          show: true,
+          text: totalProductsValue,
+          subtext: "Tổng số sản phẩm",
+          left: 'center',
+          top: '53%',
+
+          textStyle: {
+            fontSize: 26,
+            color: "black",
+          },
+          subtextStyle: {
+            fontSize: 14,
+            left: '100%',
+
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            center: ['50%', '60%'],
+            radius: ['60%', '70%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 3
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 1048, name: 'Bánh mặm' },
+              { value: 735, name: 'Nước' },
+              { value: 580, name: 'Bánh ngọt' },
+              { value: 484, name: 'Ăn vặt' },
+              { value: 300, name: 'Bánh kem' }
+            ]
+          }
+        ]
+      };
+
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+
+      window.addEventListener('resize', function () {
+        myChart.resize();
+      });
+    </script>
+  </div>
+</body>
+
+</html>

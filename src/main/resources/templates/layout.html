@@ -10,6 +10,7 @@
 	<!-- Css link start -->
 	<th:block th:fragment="css-link">
 		<!-- Favicon -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 		<link href="/images/icon2.png" rel="icon">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		<meta content="" name="keywords">
@@ -113,16 +114,16 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-end m-0">
 							<a href="/profile" class="dropdown-item">
-								<i class="fa fa-user"></i> Profile
+								<i class="fa fa-user"></i> <span th:text="#{profile}"></span>
 							</a>
 							<a href="/register" class="dropdown-item">
-								<i class="fa fa-user-plus"></i> Register
+								<i class="fa fa-user-plus"></i> <span th:text="#{register}"></span>
 							</a>
 							<a href="/order-history" class="dropdown-item">
-								<i class="fas fa-history"></i> Order History
+								<i class="fas fa-history"></i> <span th:text="#{orderHistory}"></span>
 							</a>
 							<a href="/logout" class="dropdown-item">
-								<i class="fa fa-sign-out-alt"></i> Logout
+								<i class="fa fa-sign-out-alt"></i> <span th:text="#{logout}"></span>
 							</a>
 						</div>
 					</span>
@@ -151,7 +152,7 @@
 				<!-- <a href="/test" class="nav-item nav-link">Test</a> -->
 				<span class="dropdown">
 					<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false">
+						aria-expanded="false" th:text="#{language}">
 						Ngôn ngữ
 					</a>
 					<ul class="dropdown-menu text-center"
@@ -196,16 +197,16 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-end m-0">
 							<a href="/profile" class="dropdown-item">
-								<i class="fa fa-user"></i> Profile
+								<i class="fa fa-user"></i> <span th:text="#{profile}"></span>
 							</a>
 							<a href="/register" class="dropdown-item">
-								<i class="fa fa-user-plus"></i> Register
+								<i class="fa fa-user-plus"></i> <span th:text="#{register}"></span>
 							</a>
 							<a href="/order-history" class="dropdown-item">
-								<i class="fas fa-history"></i> Order History
+								<i class="fas fa-history"></i> <span th:text="#{orderHistory}"></span>
 							</a>
 							<a href="/logout" class="dropdown-item">
-								<i class="fa fa-sign-out-alt"></i> Logout
+								<i class="fa fa-sign-out-alt"></i> <span th:text="#{logout}"></span>
 							</a>
 						</div>
 					</span>
@@ -225,17 +226,15 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav mx-auto p-4 p-lg-0">
-				<a href="/home" class="nav-item nav-link" th:text="#{header}">Home</a>
-				<a href="/about" class="nav-item nav-link" th:text="#{about}">About</a>
-				<a href="/service" class="nav-item nav-link" th:text="#{services}">Services</a>
-				<a href="/products/" class="nav-item nav-link" th:text="#{product}">Products</a>
-				<a href="/contact" class="nav-item nav-link" th:text="#{contact}">Contact</a>
+				<a href="/home" class="nav-item nav-link" th:text="#{header}"></a>
+				<a href="/about" class="nav-item nav-link" th:text="#{about}"></a>
+				<a href="/service" class="nav-item nav-link" th:text="#{services}"></a>
+				<a href="/products/" class="nav-item nav-link" th:text="#{product}"></a>
+				<a href="/contact" class="nav-item nav-link" th:text="#{contact}"></a>
 				<!-- <a href="/test" class="nav-item nav-link" th:text="#{test}">Test</a> -->
 				<span class="dropdown">
 					<a class="dropdown-toggle nav-item nav-link" href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false">
-						Language
-					</a>
+						aria-expanded="false" th:text="#{language}"></a>
 					<ul class="dropdown-menu text-center"
 						style="background: none; background-color: hsla(0, 0%, 0%, 0.473);">
 						<li><a href="?lang=vi"><img src="/images/flag/VietNam.jpg"
@@ -279,16 +278,16 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-end m-0">
 							<a href="/profile" class="dropdown-item">
-								<i class="fa fa-user"></i> Profile
+								<i class="fa fa-user"></i> <span th:text="#{profile}"></span>
 							</a>
 							<a href="/register" class="dropdown-item">
-								<i class="fa fa-user-plus"></i> Register
+								<i class="fa fa-user-plus"></i> <span th:text="#{register}"></span>
 							</a>
 							<a href="/order-history" class="dropdown-item">
-								<i class="fas fa-history"></i> Order History
+								<i class="fas fa-history"></i> <span th:text="#{orderHistory}"></span>
 							</a>
 							<a href="/logout" class="dropdown-item">
-								<i class="fa fa-sign-out-alt"></i> Logout
+								<i class="fa fa-sign-out-alt"></i> <span th:text="#{logout}"></span>
 							</a>
 						</div>
 					</span>
@@ -306,12 +305,12 @@
 					<div class="container">
 						<div class="row justify-content-start">
 							<div class="col-lg-8">
-								<p class="text-primary text-uppercase fw-bold mb-2">// Tiệm bánh ngon nhất bạn có thể tìm ra</p>
-								<h1 class="display-1 text-light mb-4 animated slideInDown">
-									Hạnh phúc là một chiếc bánh ngọt và một tách cà phê.
+								<p class="text-primary text-uppercase fw-bold mb-2" th:text="#{bestBakery}"></p>
+								<h1 class="display-1 text-light mb-4 animated slideInDown" th:text="#{happiness}">
+									
 								</h1>
-								<p class="text-light fs-5 mb-4 pb-3">Bánh ngọt là niềm vui, cà phê là cảm hứng, và chúng ta là người đồng hành của bạn. Hãy cùng nhau tận hưởng những khoảnh khắc ngọt ngào trong cuộc sống.</p>
-								<a href="" class="btn btn-primary rounded-pill py-3 px-5">Đọc thêm</a>
+								<p class="text-light fs-5 mb-4 pb-3" th:text="#{cakeAreJoy}"></p>
+								<a href="" class="btn btn-primary rounded-pill py-3 px-5" th:text="#{readMore}"></a>
 							</div>
 						</div>
 					</div>
@@ -323,10 +322,10 @@
 					<div class="container">
 						<div class="row justify-content-start">
 							<div class="col-lg-8">
-								<p class="text-primary text-uppercase fw-bold mb-2">// Tiệm bánh ngon nhất bạn có thể tìm ra</p>
-								<h1 class="display-1 text-light mb-4 animated slideInDown">Bánh ngọt là niềm vui, cà phê là cảm hứng.</h1>
-								<p class="text-light fs-5 mb-4 pb-3">Bánh ngọt là niềm vui, cà phê là cảm hứng, và chúng ta là người đồng hành của bạn. Hãy cùng nhau tận hưởng những khoảnh khắc ngọt ngào trong cuộc sống.</p>
-								<a href="" class="btn btn-primary rounded-pill py-3 px-5">Đọc thêm</a>
+								<p class="text-primary text-uppercase fw-bold mb-2" th:text="#{bestBakery}"></p>
+								<h1 class="display-1 text-light mb-4 animated slideInDown" th:text="#{happiness2}"></h1>
+								<p class="text-light fs-5 mb-4 pb-3" th:text="#{cakeAreJoy}"></p>
+								<a href="" class="btn btn-primary rounded-pill py-3 px-5"  th:text="#{readMore}"></a>
 							</div>
 						</div>
 					</div>
@@ -858,6 +857,8 @@
 		<script src='/js/angular.min.js'></script>
 		<script src='/js/angular.route.js'></script>
 		<script src="/js/main.js"></script>
+
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 	</th:block>
 </body>
 
